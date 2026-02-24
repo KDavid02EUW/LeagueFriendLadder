@@ -1,12 +1,118 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|c:\\users\\kassa\\source\\repos\\leaguefriendladder\\leaguefriendladder\\services\\riotservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|solutionrelative:services\\riotservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|c:\\users\\kassa\\source\\repos\\leaguefriendladder\\leaguefriendladder\\pages\\listplayers.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|solutionrelative:pages\\listplayers.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|c:\\users\\kassa\\source\\repos\\leaguefriendladder\\leaguefriendladder\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|solutionrelative:pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|c:\\users\\kassa\\source\\repos\\leaguefriendladder\\leaguefriendladder\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|c:\\users\\kassa\\source\\repos\\leaguefriendladder\\leaguefriendladder\\models\\leagueentrydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|solutionrelative:models\\leagueentrydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|c:\\users\\kassa\\source\\repos\\leaguefriendladder\\leaguefriendladder\\models\\leaguelistdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|solutionrelative:models\\leaguelistdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "LeagueEntryDTO.cs",
+              "DocumentMoniker": "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder\\Models\\LeagueEntryDTO.cs",
+              "RelativeDocumentMoniker": "Models\\LeagueEntryDTO.cs",
+              "ToolTip": "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder\\Models\\LeagueEntryDTO.cs",
+              "RelativeToolTip": "Models\\LeagueEntryDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-04T17:14:01.446Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-04T17:07:20.108Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "RiotService.cs",
+              "DocumentMoniker": "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder\\Services\\RiotService.cs",
+              "RelativeDocumentMoniker": "Services\\RiotService.cs",
+              "ToolTip": "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder\\Services\\RiotService.cs",
+              "RelativeToolTip": "Services\\RiotService.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABgAAACAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-04T17:05:36.158Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Home.razor",
+              "DocumentMoniker": "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder\\Pages\\Home.razor",
+              "RelativeDocumentMoniker": "Pages\\Home.razor",
+              "ToolTip": "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder\\Pages\\Home.razor",
+              "RelativeToolTip": "Pages\\Home.razor",
+              "ViewState": "AgIAAG4AAAAAAAAAAAAAABgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-02T11:53:40.165Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ListPlayers.razor",
+              "DocumentMoniker": "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder\\Pages\\ListPlayers.razor",
+              "RelativeDocumentMoniker": "Pages\\ListPlayers.razor",
+              "ToolTip": "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder\\Pages\\ListPlayers.razor",
+              "RelativeToolTip": "Pages\\ListPlayers.razor",
+              "ViewState": "AgIAAFoAAAAAAAAAAAAAAFsAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-04T13:34:59.143Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "LeagueListDTO.cs",
+              "DocumentMoniker": "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder\\Models\\LeagueListDTO.cs",
+              "RelativeDocumentMoniker": "Models\\LeagueListDTO.cs",
+              "ToolTip": "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder\\Models\\LeagueListDTO.cs",
+              "RelativeToolTip": "Models\\LeagueListDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-04T15:03:24.198Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

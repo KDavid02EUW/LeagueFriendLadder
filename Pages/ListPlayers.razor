@@ -1,0 +1,149 @@
+﻿@page "/ListPlayers"
+@using System.ComponentModel.DataAnnotations
+@using LeagueFriendLadder.Models
+@inject HttpClient Http
+@inject RiotService RiotService
+
+
+<PageTitle>List Players</PageTitle>
+
+<EditForm Model="LeagueList" OnValidSubmit="findPlayers">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <label>Minimum LP:</label>
+    <InputNumber @bind-Value="LeagueList.LeaguePoints" />
+    <br />
+    <label>Minimum Winrate (%):</label>
+    <InputNumber @bind-Value="LeagueList.Winrate"/>
+    <br />
+    <label>Rank:</label>
+    <InputSelect @bind-Value="LeagueList.Rank">
+        <option value="" hidden="hidden"></option>
+        <option value="Challenger">CHALLENGER</option>
+        <option value="Grandmaster">GRANDMASTER</option>
+        <option value="Master">MASTER</option>
+        <option value="Diamond">DIAMOND</option>
+        <option value="Emerald">EMERALD</option>
+        <option value="Platinum">PLATINUM</option>
+        <option value="Gold">GOLD</option>
+        <option value="Silver">SILVER</option>
+        <option value="Bronze">BRONZE</option>
+        <option value="Iron">IRON</option>
+    </InputSelect>
+    <br />
+    <label>Region:</label>
+    <InputSelect @bind-Value="LeagueList.Region">
+        <option value="">Select your region</option>
+        <option value="BR1">BR</option>
+        <option value="EUN1">EUNE</option>
+        <option value="EUW1">EUW</option>
+        <option value="JP1">JP</option>
+        <option value="KR">KR</option>
+        <option value="LA1">LAN</option>
+        <option value="LA2">LAS</option>
+        <option value="ME1">ME</option>
+        <option value="NA1">NA</option>
+        <option value="OC1">OCE</option>
+        <option value="RU">RU</option>
+        <option value="SG2">SG</option>
+        <option value="TR1">TR</option>
+        <option value="TW2">TW</option>
+        <option value="VN2">VN</option>
+    </InputSelect>
+    <br />
+    <button type="submit">List Players</button>
+</EditForm>
+
+@if (filteredPlayers != null)
+{
+    <h3>Találatok: [@requestCount]</h3>
+    <ul>
+        @foreach (var player in filteredPlayers)
+        {
+            <li>Name: @player.SummonerName</li>
+            <li>Tag: @player.Tag</li>
+            <li>Rank: @player.Rank</li>
+            <li>Tier: @player.Tier</li>
+            <li>LP: @player.LeaguePoints</li>
+            <li>Wins: @player.Wins</li>
+            <li>Losses: @player.Losses</li>
+            <li>Winrate: @player.Winrate%</li>
+            <li>Region: @LeagueList.Region</li>
+            <p>--------------------------------------------------------------</p>
+        }
+    </ul>
+    
+}
+else if (!string.IsNullOrEmpty(errorMessage))
+{
+    <p style="color:red">@errorMessage</p>
+}
+
+@code {
+
+    private LeagueListDTO LeagueList = new()
+    {
+        Winrate = 0,
+        LeaguePoints = 0
+    };
+    private List<LeagueEntryDTO>? filteredPlayers;
+    private string? errorMessage;
+    private int requestCount;
+    private const string apiKey = "RGAPI-15de7229-e9c5-49f8-a1d0-69a63a7bb4ab";
+
+    private async Task findPlayers()
+    {
+        errorMessage = null;
+        filteredPlayers = null;
+        requestCount = 0;
+
+        try
+        {
+            var url = $"https://{LeagueList.Region.ToLower()}.api.riotgames.com/lol/league-exp/v4/entries/RANKED_SOLO_5x5/{LeagueList.Rank.ToUpper()}/I?page=1&api_key={apiKey}";
+            var response = await Http.GetFromJsonAsync<List<LeagueEntryDTO>>(url);
+
+            if (response != null)
+            {
+                filteredPlayers = response
+                    .Where(p => p.LeaguePoints >= LeagueList.LeaguePoints &&
+                                Math.Round(GetWinrate(p.Wins, p.Losses), 1) >= LeagueList.Winrate)
+                    .ToList();
+
+                foreach(var player in filteredPlayers)
+                {
+                    requestCount++;
+                    var name = await RiotService.GetRiotIDByPuuid(player.Puuid);
+                    if(requestCount % 20 == 0)
+                    {
+                        await Task.Delay(1000);
+                    }
+                    if(requestCount == 100)
+                    {
+                        break;
+                    }
+
+                    if(name != null)
+                    {
+                        player.SummonerName = name.GameName;
+                        player.Tag = name.TagLine;
+                        player.Tier = "I";
+                        player.Rank = LeagueList.Rank;
+                        player.Winrate = Math.Round(GetWinrate(player.Wins, player.Losses),1);
+                    }
+
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Hiba: {ex.Message}";
+        }
+    }
+
+    private double GetWinrate(int wins, int losses)
+    {
+        if (wins + losses == 0) return 0;
+        return Math.Round((double)wins / (wins + losses) * 100, 2);
+    }
+}

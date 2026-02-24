@@ -1,7 +1,200 @@
 ﻿@page "/"
+@using System.ComponentModel.DataAnnotations
+@using LeagueFriendLadder.Models
+@inject HttpClient Http
 
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
+<h1>TODO: Login </h1>
 
-Welcome to your new app.
+<form>
+    <label>Username</label><label style="padding-left:9%">Password</label><br />
+    <input type="text" />
+    <input type="password" placeholder="" />
+    <button type="submit">Submit</button>
+</form>
+
+<br />
+<br />
+
+<br />
+
+
+
+<h3>Ha login akkor</h3>
+
+<EditForm Model="RiotID" OnValidSubmit="getRiotID">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <InputText @bind-Value="RiotID.SummonerName"></InputText>
+    <br />
+    <InputSelect @bind-Value="RiotID.Region">
+        <option value="">Select your region</option>
+        <option value="BR1">BR</option>
+        <option value="EUN1">EUNE</option>
+        <option value="EUW1">EUW</option>
+        <option value="JP1">JP</option>
+        <option value="KR">KR</option>
+        <option value="LA1">LAN</option>
+        <option value="LA2">LAS</option>
+        <option value="ME1">ME</option>
+        <option value="NA1">NA</option>
+        <option value="OC1">OCE</option>
+        <option value="RU">RU</option>
+        <option value="SG2">SG</option>
+        <option value="TR1">TR</option>
+        <option value="TW2">TW</option>
+        <option value="VN2">VN</option>
+    </InputSelect>
+    <br /><br />
+    <button type="submit">Search</button>
+</EditForm>
+
+@if (!string.IsNullOrEmpty(errorMessage) && !isLoading && hasSearched)
+{
+    <br />
+    <strong>Summoner Not Found</strong>
+    <br />
+    <strong>Name:</strong> @RiotID.SummonerName
+    <br />
+    <strong>Region:</strong> @RiotID.Region
+    <br />
+    <p style="color:red">
+        @errorMessage
+    </p>
+}
+else if (result != null && result2 != null)
+{
+    <div>
+        <br />
+        <p><strong>Summoner Name:</strong> @result.GameName</p>
+        <p><strong>Tag:</strong> @result.TagLine</p>
+        <p><strong>Queue Type:</strong> @result2.QueueType</p>
+        <p><strong>Tier:</strong> @result2.Tier</p>
+        <p><strong>Rank:</strong> @result2.Rank</p>
+        <p><strong>LP:</strong> @result2.LeaguePoints</p>
+        <p><strong>Wins:</strong> @result2.Wins</p>
+        <p><strong>Losses:</strong> @result2.Losses</p>
+        <p><strong>Winrate:</strong> @result2.Winrate%</p>
+        <p><strong>Hotstreak:</strong> @result2.HotStreak</p>
+    </div>
+}
+else if (result != null && result2 == null)
+{
+    <br />
+    <p><strong>Summoner Name:</strong> @result.GameName</p>
+    <p><strong>Tag:</strong> @result.TagLine</p>
+    <p><strong>Tier:</strong> Unranked</p>
+}
+else if (!isLoading && result == null && result2 == null && hasSearched)
+{
+    <br />
+    <strong>Summoner Not Found</strong>
+    <br />
+    <strong>Name:</strong> @RiotID.SummonerName
+    <br />
+    <strong>Region:</strong> @RiotID.Region
+    <br />
+    <p style="color:red">
+        @errorMessage
+    </p>
+}
+@if (isLoading)
+{
+    <br />
+	<p><strong>Loading...</strong></p>
+}
+
+
+
+@code {
+    private bool hasSearched = false;
+    private bool isLoading = false;
+    private RiotID RiotID = new();
+    private RiotAccount? result;
+    private LeagueEntryDTO? result2;
+    private string? errorMessage;
+    string apiKey = "RGAPI-15de7229-e9c5-49f8-a1d0-69a63a7bb4ab";
+
+    public async Task getRiotID()
+    {
+        hasSearched = true;
+        isLoading = true;
+        result = null;
+        result2 = null;
+        errorMessage = null;
+        try
+        {
+            var parts = RiotID.SummonerName.Split("#");
+            if (parts.Length < 2)
+            {
+                errorMessage = "Invalid Summoner Name format. Use [Name#Tag].";
+                return;
+            }
+
+            var summonerName = parts[0];
+            var tag = parts[1];
+
+            var url = $"https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/{summonerName}/{tag}?api_key={apiKey}";
+
+            result = await Http.GetFromJsonAsync<RiotAccount>(url);
+
+            if (result != null)
+            {
+                var puuid = result.Puuid;
+                await getSummonerDetailsByPuuID(puuid);
+            }
+
+            errorMessage = null;
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Hiba: {ex.Message}";
+            result = null;
+        }
+        finally
+        {
+            isLoading = false;
+            hasSearched = true;
+        }
+    }
+
+    private async Task getSummonerDetailsByPuuID(string puuid)
+    {
+        
+        try
+        {
+            var url = $"https://{RiotID.Region.ToLower()}.api.riotgames.com/lol/league/v4/entries/by-puuid/{puuid}?api_key={apiKey}";
+
+            var response = await Http.GetFromJsonAsync<List<LeagueEntryDTO>>(url);
+
+        if (response != null &&  response.Count != 0)
+            {
+                foreach (var resp in response)
+                {
+                    if (resp.QueueType == "RANKED_SOLO_5x5")
+                    {
+                        result2 = resp;
+                        double games = result2.Wins + result2.Losses;
+                        double wins = result2.Wins;
+                        double losses = result2.Losses;
+                        result2.Winrate = (Math.Round((wins / games) * 100));
+                        errorMessage = null;
+                    }
+                }
+            } else
+            {
+                errorMessage = $"Hiba: Summoner not found for the selected region: [{RiotID.Region}]";
+                result = null;
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Hiba: {ex.Message}";
+            result2 = null;
+        }
+    }
+    //1000lp+ 60%wr
+
+}

@@ -1,4 +1,6 @@
 ﻿@inherits LayoutComponentBase
+@inject IJSRuntime JSRuntime
+
 <div class="page">
     <div class="sidebar">
         <NavMenu />
@@ -6,7 +8,17 @@
 
     <main>
         <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
+            <div class="dropdown">
+                <button @onclick="ToggleDropdown" class="dropbtn">Profile</button>
+                <div id="myDropdown" class="dropdown-content">
+                    <a href="profile">Statistics</a>
+                    <a href="">Friends</a>
+                    <a href="settings">Settings</a>
+                    <a href="">Log out</a>
+                </div>
+            </div>
+            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank" style="color:black;">About</a>
+            <a>TODO: Login</a>
         </div>
 
         <article class="content px-4">
@@ -14,3 +26,18 @@
         </article>
     </main>
 </div>
+
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("dropdownHelper.registerOutsideClick");
+        }
+    }
+
+    private async Task ToggleDropdown()
+    {
+        await JSRuntime.InvokeVoidAsync("dropdownHelper.toggleDropdown");
+    }
+}
