@@ -1,5 +1,6 @@
 ﻿using LeagueFriendLadder.Models;
 using System.Net.Http.Json;
+using System.Numerics;
 
 public class RiotService
 {
@@ -48,7 +49,8 @@ public class RiotService
     }
     public async Task<RiotAccount?> GetRiotIDByPuuid(string puuid)
     {
-        var url = $"https://europe.api.riotgames.com/riot/account/v1/accounts/by-puuid/{puuid}?api_key={apiKey}";
+        var url = $"https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-puuid/{puuid}?api_key={apiKey}";
+        await Task.Delay(150);
         return await _http.GetFromJsonAsync<RiotAccount>(url);
     }
 }

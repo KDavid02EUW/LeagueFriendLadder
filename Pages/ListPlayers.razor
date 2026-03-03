@@ -3,19 +3,15 @@
 @using LeagueFriendLadder.Models
 @inject HttpClient Http
 @inject RiotService RiotService
-
-
 <PageTitle>List Players</PageTitle>
-
 <EditForm Model="LeagueList" OnValidSubmit="findPlayers">
     <DataAnnotationsValidator />
     <ValidationSummary />
-
     <label>Minimum LP:</label>
     <InputNumber @bind-Value="LeagueList.LeaguePoints" />
     <br />
     <label>Minimum Winrate (%):</label>
-    <InputNumber @bind-Value="LeagueList.Winrate"/>
+    <InputNumber @bind-Value="LeagueList.Winrate" />
     <br />
     <label>Rank:</label>
     <InputSelect @bind-Value="LeagueList.Rank">
@@ -55,6 +51,11 @@
     <button type="submit">List Players</button>
 </EditForm>
 
+@if (isLoading)
+{
+    <br />
+    <p><strong>Loading...</strong></p>
+}
 @if (filteredPlayers != null)
 {
     <h3>Találatok: [@requestCount]</h3>
@@ -73,7 +74,6 @@
             <p>--------------------------------------------------------------</p>
         }
     </ul>
-    
 }
 else if (!string.IsNullOrEmpty(errorMessage))
 {
@@ -81,15 +81,15 @@ else if (!string.IsNullOrEmpty(errorMessage))
 }
 
 @code {
-
     private LeagueListDTO LeagueList = new()
-    {
-        Winrate = 0,
-        LeaguePoints = 0
-    };
+        {
+            Winrate = 0,
+            LeaguePoints = 0
+        };
     private List<LeagueEntryDTO>? filteredPlayers;
     private string? errorMessage;
     private int requestCount;
+    private bool isLoading = false;
     private const string apiKey = "RGAPI-15de7229-e9c5-49f8-a1d0-69a63a7bb4ab";
 
     private async Task findPlayers()
@@ -97,47 +97,40 @@ else if (!string.IsNullOrEmpty(errorMessage))
         errorMessage = null;
         filteredPlayers = null;
         requestCount = 0;
+        isLoading = true;
 
         try
         {
             var url = $"https://{LeagueList.Region.ToLower()}.api.riotgames.com/lol/league-exp/v4/entries/RANKED_SOLO_5x5/{LeagueList.Rank.ToUpper()}/I?page=1&api_key={apiKey}";
             var response = await Http.GetFromJsonAsync<List<LeagueEntryDTO>>(url);
-
             if (response != null)
             {
                 filteredPlayers = response
                     .Where(p => p.LeaguePoints >= LeagueList.LeaguePoints &&
                                 Math.Round(GetWinrate(p.Wins, p.Losses), 1) >= LeagueList.Winrate)
                     .ToList();
-
-                foreach(var player in filteredPlayers)
+                foreach (var player in filteredPlayers)
                 {
-                    requestCount++;
                     var name = await RiotService.GetRiotIDByPuuid(player.Puuid);
-                    if(requestCount % 20 == 0)
-                    {
-                        await Task.Delay(1000);
-                    }
-                    if(requestCount == 100)
-                    {
-                        break;
-                    }
-
-                    if(name != null)
+                    requestCount++;
+                    if (name != null)
                     {
                         player.SummonerName = name.GameName;
                         player.Tag = name.TagLine;
                         player.Tier = "I";
                         player.Rank = LeagueList.Rank;
-                        player.Winrate = Math.Round(GetWinrate(player.Wins, player.Losses),1);
+                        player.Winrate = Math.Round(GetWinrate(player.Wins, player.Losses), 1);
                     }
-
                 }
             }
         }
         catch (Exception ex)
         {
             errorMessage = $"Hiba: {ex.Message}";
+        }
+        finally
+        {
+            isLoading = false;
         }
     }
 
