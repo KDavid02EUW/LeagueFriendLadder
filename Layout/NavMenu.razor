@@ -1,30 +1,40 @@
 ﻿<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">LeagueFriendLadder</a>
+    <div class="container-fluid" style="background-color:#1e293b;font-size:20px;padding-top:25px">
+        <a class="navbar-brand" href="" style="font-size:20px;padding-top:20px;text-decoration:none;">LeagueFriendLadder</a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
     </div>
 </div>
 
-<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="leaderboard">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Leaderboard
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="listplayers">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> List Players
-            </NavLink>
-        </div>
-    </nav>
+<div class="@NavMenuCssClass" @onclick="ToggleNavMenu" style="text-align:center">
+    <aside>
+        <nav class="flex-column" style="text-align:center">
+            <ul>
+                <li>
+                    <div class="nav-item px-3" style="text-align:center">
+                        <NavLink class="nav-link" href="" Match="NavLinkMatch.All" style="text-align:center">
+                    <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
+                </NavLink>
+				    </div>
+			    </li>
+                <li>
+                    <div class="nav-item px-3" style="text-align:center">
+                <NavLink class="nav-link" href="leaderboard">
+                    <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Leaderboard
+                </NavLink>
+				    </div>
+			    </li>
+                <li>
+                    <div class="nav-item px-3" style="text-align:center">
+                <NavLink class="nav-link" href="listplayers">
+                    <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> List Players
+                </NavLink>
+				    </div>
+			    </li>
+		    </ul>
+		</nav>
+	</aside>
 </div>
 
 @code {
