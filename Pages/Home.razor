@@ -90,6 +90,22 @@ else if (result != null && result2 == null)
     <p><strong>Tag:</strong> @result.TagLine</p>
     <p><strong>Tier:</strong> Unranked</p>
 }
+else if(!isLoading && result != null && unranked)
+{
+    <br /><strong>Name:</strong>
+ 
+    @RiotID.SummonerName
+    <br />
+    <strong>Region:</strong>
+ 
+    @RiotID.Region
+    <br />
+    <p><strong>Tag:</strong> @result.TagLine</p>
+    <p><strong>Rank:</strong> Unranked</p>
+    <p style="color:red">
+        @errorMessage
+    </p>
+}
 else if (!isLoading && result == null && result2 == null && hasSearched)
 {
     <br />
@@ -114,6 +130,7 @@ else if (!isLoading && result == null && result2 == null && hasSearched)
 @code {
     private bool hasSearched = false;
     private bool isLoading = false;
+    private bool unranked = false;
     private RiotID RiotID = new();
     private RiotAccount? result;
     private LeagueEntryDTO? result2;
@@ -165,24 +182,31 @@ else if (!isLoading && result == null && result2 == null && hasSearched)
 
     private async Task getSummonerDetailsByPuuID(string puuid)
     {
-        
+
         try
         {
             var url = $"https://{RiotID.Region.ToLower()}.api.riotgames.com/lol/league/v4/entries/by-puuid/{puuid}?api_key={apiKey}";
 
             var response = await Http.GetFromJsonAsync<List<LeagueEntryDTO>>(url);
 
-        if (response != null &&  response.Count != 0)
+            if (response != null)
             {
                 foreach (var resp in response)
                 {
-                    if (resp.QueueType == "RANKED_SOLO_5x5")
+
+                    if (resp.Puuid != null)
                     {
                         result2 = resp;
                         double games = result2.Wins + result2.Losses;
                         double wins = result2.Wins;
                         double losses = result2.Losses;
                         result2.Winrate = (Math.Round((wins / games) * 100));
+                        errorMessage = null;
+                    }
+                    else if (puuid != null && resp == null)
+                    {
+                        result2 = resp;
+                        unranked = true;
                         errorMessage = null;
                     }
                 }

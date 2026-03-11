@@ -1,65 +1,65 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder\\",
+  "WorkspaceRootPath": "C:\\Users\\KDavid02\\source\\repos\\LeagueFriendLadder\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|c:\\users\\kassa\\source\\repos\\leaguefriendladder\\leaguefriendladder\\pages\\settings.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|solutionrelative:pages\\settings.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|c:\\users\\kdavid02\\source\\repos\\leaguefriendladder\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|solutionrelative:pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|c:\\users\\kassa\\source\\repos\\leaguefriendladder\\leaguefriendladder\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|solutionrelative:layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|c:\\users\\kdavid02\\source\\repos\\leaguefriendladder\\services\\riotservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|solutionrelative:services\\riotservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|c:\\users\\kdavid02\\source\\repos\\leaguefriendladder\\pages\\settings.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|solutionrelative:pages\\settings.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\kassa\\AppData\\Local\\Temp\\.vsdbgsrc\\1ca169b5f8096b3fd01bc738c77225099d363dea7bb508bd774b256157500bca\\Monitor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|c:\\users\\kassa\\source\\repos\\leaguefriendladder\\leaguefriendladder\\pages\\leaderboard.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|c:\\users\\kdavid02\\source\\repos\\leaguefriendladder\\pages\\leaderboard.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|solutionrelative:pages\\leaderboard.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|c:\\users\\kassa\\source\\repos\\leaguefriendladder\\leaguefriendladder\\layout\\navmenu.razor.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|solutionrelative:layout\\navmenu.razor.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|c:\\users\\kassa\\source\\repos\\leaguefriendladder\\leaguefriendladder\\layout\\mainlayout.razor.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|solutionrelative:layout\\mainlayout.razor.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|c:\\users\\kassa\\source\\repos\\leaguefriendladder\\leaguefriendladder\\wwwroot\\css\\app.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|solutionrelative:wwwroot\\css\\app.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|c:\\users\\kassa\\source\\repos\\leaguefriendladder\\leaguefriendladder\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|solutionrelative:layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|c:\\users\\kassa\\source\\repos\\leaguefriendladder\\leaguefriendladder\\wwwroot\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|solutionrelative:wwwroot\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|c:\\users\\kassa\\source\\repos\\leaguefriendladder\\leaguefriendladder\\pages\\weather.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|c:\\users\\kdavid02\\source\\repos\\leaguefriendladder\\pages\\weather.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|solutionrelative:pages\\weather.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|c:\\users\\kassa\\source\\repos\\leaguefriendladder\\leaguefriendladder\\pages\\listplayers.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|solutionrelative:pages\\listplayers.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|c:\\users\\kdavid02\\source\\repos\\leaguefriendladder\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|solutionrelative:layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|c:\\users\\kassa\\source\\repos\\leaguefriendladder\\leaguefriendladder\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|solutionrelative:pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|c:\\users\\kdavid02\\source\\repos\\leaguefriendladder\\layout\\navmenu.razor.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|solutionrelative:layout\\navmenu.razor.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|c:\\users\\kassa\\source\\repos\\leaguefriendladder\\leaguefriendladder\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|c:\\users\\kdavid02\\source\\repos\\leaguefriendladder\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|solutionrelative:layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|c:\\users\\kdavid02\\source\\repos\\leaguefriendladder\\layout\\mainlayout.razor.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|solutionrelative:layout\\mainlayout.razor.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|c:\\users\\kdavid02\\source\\repos\\leaguefriendladder\\wwwroot\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|solutionrelative:wwwroot\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|c:\\users\\kdavid02\\source\\repos\\leaguefriendladder\\wwwroot\\css\\app.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|solutionrelative:wwwroot\\css\\app.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|c:\\users\\kdavid02\\source\\repos\\leaguefriendladder\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|c:\\users\\kassa\\source\\repos\\leaguefriendladder\\leaguefriendladder\\models\\leaguelistdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|solutionrelative:models\\leaguelistdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|c:\\users\\kdavid02\\source\\repos\\leaguefriendladder\\pages\\listplayers.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|solutionrelative:pages\\listplayers.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|c:\\users\\kassa\\source\\repos\\leaguefriendladder\\leaguefriendladder\\services\\riotservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|solutionrelative:services\\riotservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|c:\\users\\kdavid02\\source\\repos\\leaguefriendladder\\models\\leaguelistdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{34A7A36B-2734-4009-9D8B-F19897409DDD}|LeagueFriendLadder.csproj|solutionrelative:models\\leaguelistdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -69,16 +69,133 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 6,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "Settings.razor",
+              "DocumentMoniker": "C:\\Users\\KDavid02\\source\\repos\\LeagueFriendLadder\\Pages\\Settings.razor",
+              "RelativeDocumentMoniker": "Pages\\Settings.razor",
+              "ToolTip": "C:\\Users\\KDavid02\\source\\repos\\LeagueFriendLadder\\Pages\\Settings.razor",
+              "RelativeToolTip": "Pages\\Settings.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-03-04T02:03:47.25Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "NavMenu.razor",
+              "DocumentMoniker": "C:\\Users\\KDavid02\\source\\repos\\LeagueFriendLadder\\Layout\\NavMenu.razor",
+              "RelativeDocumentMoniker": "Layout\\NavMenu.razor",
+              "ToolTip": "C:\\Users\\KDavid02\\source\\repos\\LeagueFriendLadder\\Layout\\NavMenu.razor",
+              "RelativeToolTip": "Layout\\NavMenu.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAABdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-03-04T01:51:01.431Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "NavMenu.razor.css",
+              "DocumentMoniker": "C:\\Users\\KDavid02\\source\\repos\\LeagueFriendLadder\\Layout\\NavMenu.razor.css",
+              "RelativeDocumentMoniker": "Layout\\NavMenu.razor.css",
+              "ToolTip": "C:\\Users\\KDavid02\\source\\repos\\LeagueFriendLadder\\Layout\\NavMenu.razor.css",
+              "RelativeToolTip": "Layout\\NavMenu.razor.css",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAACAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-03-04T01:34:39.11Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "MainLayout.razor",
+              "DocumentMoniker": "C:\\Users\\KDavid02\\source\\repos\\LeagueFriendLadder\\Layout\\MainLayout.razor",
+              "RelativeDocumentMoniker": "Layout\\MainLayout.razor",
+              "ToolTip": "C:\\Users\\KDavid02\\source\\repos\\LeagueFriendLadder\\Layout\\MainLayout.razor",
+              "RelativeToolTip": "Layout\\MainLayout.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-03-04T01:15:32.911Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "MainLayout.razor.css",
+              "DocumentMoniker": "C:\\Users\\KDavid02\\source\\repos\\LeagueFriendLadder\\Layout\\MainLayout.razor.css",
+              "RelativeDocumentMoniker": "Layout\\MainLayout.razor.css",
+              "ToolTip": "C:\\Users\\KDavid02\\source\\repos\\LeagueFriendLadder\\Layout\\MainLayout.razor.css",
+              "RelativeToolTip": "Layout\\MainLayout.razor.css",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABUAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-03-04T01:13:55.809Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Home.razor",
+              "DocumentMoniker": "C:\\Users\\KDavid02\\source\\repos\\LeagueFriendLadder\\Pages\\Home.razor",
+              "RelativeDocumentMoniker": "Pages\\Home.razor",
+              "ToolTip": "C:\\Users\\KDavid02\\source\\repos\\LeagueFriendLadder\\Pages\\Home.razor",
+              "RelativeToolTip": "Pages\\Home.razor",
+              "ViewState": "AgIAALEAAAAAAAAAAAAAAL0AAABSAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-02T11:53:40.165Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Weather.razor",
+              "DocumentMoniker": "C:\\Users\\KDavid02\\source\\repos\\LeagueFriendLadder\\Pages\\Weather.razor",
+              "RelativeDocumentMoniker": "Pages\\Weather.razor",
+              "ToolTip": "C:\\Users\\KDavid02\\source\\repos\\LeagueFriendLadder\\Pages\\Weather.razor",
+              "RelativeToolTip": "Pages\\Weather.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-03-04T02:03:48.565Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "RiotService.cs",
+              "DocumentMoniker": "C:\\Users\\KDavid02\\source\\repos\\LeagueFriendLadder\\Services\\RiotService.cs",
+              "RelativeDocumentMoniker": "Services\\RiotService.cs",
+              "ToolTip": "C:\\Users\\KDavid02\\source\\repos\\LeagueFriendLadder\\Services\\RiotService.cs",
+              "RelativeToolTip": "Services\\RiotService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADQAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-04T17:05:36.158Z"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Leaderboard.razor",
+              "DocumentMoniker": "C:\\Users\\KDavid02\\source\\repos\\LeagueFriendLadder\\Pages\\Leaderboard.razor",
+              "RelativeDocumentMoniker": "Pages\\Leaderboard.razor",
+              "ToolTip": "C:\\Users\\KDavid02\\source\\repos\\LeagueFriendLadder\\Pages\\Leaderboard.razor",
+              "RelativeToolTip": "Pages\\Leaderboard.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-03-04T02:16:15.003Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Monitor.cs",
               "DocumentMoniker": "C:\\Users\\kassa\\AppData\\Local\\Temp\\.vsdbgsrc\\1ca169b5f8096b3fd01bc738c77225099d363dea7bb508bd774b256157500bca\\Monitor.cs",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\1ca169b5f8096b3fd01bc738c77225099d363dea7bb508bd774b256157500bca\\Monitor.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\kassa\\AppData\\Local\\Temp\\.vsdbgsrc\\1ca169b5f8096b3fd01bc738c77225099d363dea7bb508bd774b256157500bca\\Monitor.cs",
               "ToolTip": "C:\\Users\\kassa\\AppData\\Local\\Temp\\.vsdbgsrc\\1ca169b5f8096b3fd01bc738c77225099d363dea7bb508bd774b256157500bca\\Monitor.cs [Read Only]",
-              "RelativeToolTip": "..\\..\\..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\1ca169b5f8096b3fd01bc738c77225099d363dea7bb508bd774b256157500bca\\Monitor.cs [Read Only]",
+              "RelativeToolTip": "..\\..\\..\\..\\kassa\\AppData\\Local\\Temp\\.vsdbgsrc\\1ca169b5f8096b3fd01bc738c77225099d363dea7bb508bd774b256157500bca\\Monitor.cs [Read Only]",
               "ViewState": "AgIAADgAAAAAAAAAAAAiwFcAAAArAAAAAQAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-04T02:18:30.564Z",
@@ -86,185 +203,63 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Leaderboard.razor",
-              "DocumentMoniker": "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder\\Pages\\Leaderboard.razor",
-              "RelativeDocumentMoniker": "Pages\\Leaderboard.razor",
-              "ToolTip": "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder\\Pages\\Leaderboard.razor",
-              "RelativeToolTip": "Pages\\Leaderboard.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-03-04T02:16:15.003Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "Weather.razor",
-              "DocumentMoniker": "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder\\Pages\\Weather.razor",
-              "RelativeDocumentMoniker": "Pages\\Weather.razor",
-              "ToolTip": "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder\\Pages\\Weather.razor",
-              "RelativeToolTip": "Pages\\Weather.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-03-04T02:03:48.565Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Settings.razor",
-              "DocumentMoniker": "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder\\Pages\\Settings.razor",
-              "RelativeDocumentMoniker": "Pages\\Settings.razor",
-              "ToolTip": "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder\\Pages\\Settings.razor",
-              "RelativeToolTip": "Pages\\Settings.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAHAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-03-04T02:03:47.25Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "NavMenu.razor",
-              "DocumentMoniker": "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder\\Layout\\NavMenu.razor",
-              "RelativeDocumentMoniker": "Layout\\NavMenu.razor",
-              "ToolTip": "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder\\Layout\\NavMenu.razor",
-              "RelativeToolTip": "Layout\\NavMenu.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAABdAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-03-04T01:51:01.431Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "NavMenu.razor.css",
-              "DocumentMoniker": "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder\\Layout\\NavMenu.razor.css",
-              "RelativeDocumentMoniker": "Layout\\NavMenu.razor.css",
-              "ToolTip": "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder\\Layout\\NavMenu.razor.css",
-              "RelativeToolTip": "Layout\\NavMenu.razor.css",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAACAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2026-03-04T01:34:39.11Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "MainLayout.razor",
-              "DocumentMoniker": "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder\\Layout\\MainLayout.razor",
-              "RelativeDocumentMoniker": "Layout\\MainLayout.razor",
-              "ToolTip": "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder\\Layout\\MainLayout.razor",
-              "RelativeToolTip": "Layout\\MainLayout.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAA+AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-03-04T01:15:32.911Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "MainLayout.razor.css",
-              "DocumentMoniker": "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder\\Layout\\MainLayout.razor.css",
-              "RelativeDocumentMoniker": "Layout\\MainLayout.razor.css",
-              "ToolTip": "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder\\Layout\\MainLayout.razor.css",
-              "RelativeToolTip": "Layout\\MainLayout.razor.css",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABUAAAAZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2026-03-04T01:13:55.809Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 10,
               "Title": "index.html",
-              "DocumentMoniker": "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder\\wwwroot\\index.html",
+              "DocumentMoniker": "C:\\Users\\KDavid02\\source\\repos\\LeagueFriendLadder\\wwwroot\\index.html",
               "RelativeDocumentMoniker": "wwwroot\\index.html",
-              "ToolTip": "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder\\wwwroot\\index.html",
+              "ToolTip": "C:\\Users\\KDavid02\\source\\repos\\LeagueFriendLadder\\wwwroot\\index.html",
               "RelativeToolTip": "wwwroot\\index.html",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAABCAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2026-03-04T01:10:42.565Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-04T01:10:42.565Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 11,
               "Title": "app.css",
-              "DocumentMoniker": "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder\\wwwroot\\css\\app.css",
+              "DocumentMoniker": "C:\\Users\\KDavid02\\source\\repos\\LeagueFriendLadder\\wwwroot\\css\\app.css",
               "RelativeDocumentMoniker": "wwwroot\\css\\app.css",
-              "ToolTip": "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder\\wwwroot\\css\\app.css",
+              "ToolTip": "C:\\Users\\KDavid02\\source\\repos\\LeagueFriendLadder\\wwwroot\\css\\app.css",
               "RelativeToolTip": "wwwroot\\css\\app.css",
               "ViewState": "AgIAAOQAAAAAAAAAAAAAAAQBAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2026-03-04T00:43:26.764Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-04T00:43:26.764Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 12,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder\\Program.cs",
+              "DocumentMoniker": "C:\\Users\\KDavid02\\source\\repos\\LeagueFriendLadder\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder\\Program.cs",
+              "ToolTip": "C:\\Users\\KDavid02\\source\\repos\\LeagueFriendLadder\\Program.cs",
               "RelativeToolTip": "Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-04T17:07:20.108Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "RiotService.cs",
-              "DocumentMoniker": "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder\\Services\\RiotService.cs",
-              "RelativeDocumentMoniker": "Services\\RiotService.cs",
-              "ToolTip": "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder\\Services\\RiotService.cs",
-              "RelativeToolTip": "Services\\RiotService.cs",
-              "ViewState": "AgIAACMAAAAAAAAAAAAwwDQAAAAeAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-04T17:05:36.158Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "Home.razor",
-              "DocumentMoniker": "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder\\Pages\\Home.razor",
-              "RelativeDocumentMoniker": "Pages\\Home.razor",
-              "ToolTip": "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder\\Pages\\Home.razor",
-              "RelativeToolTip": "Pages\\Home.razor",
-              "ViewState": "AgIAAAQAAAAAAAAAAAAUwDUAAAAqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-07-02T11:53:40.165Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "ListPlayers.razor",
-              "DocumentMoniker": "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder\\Pages\\ListPlayers.razor",
-              "RelativeDocumentMoniker": "Pages\\ListPlayers.razor",
-              "ToolTip": "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder\\Pages\\ListPlayers.razor",
-              "RelativeToolTip": "Pages\\ListPlayers.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADEAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-07-04T13:34:59.143Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-04T17:07:20.108Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 13,
+              "Title": "ListPlayers.razor",
+              "DocumentMoniker": "C:\\Users\\KDavid02\\source\\repos\\LeagueFriendLadder\\Pages\\ListPlayers.razor",
+              "RelativeDocumentMoniker": "Pages\\ListPlayers.razor",
+              "ToolTip": "C:\\Users\\KDavid02\\source\\repos\\LeagueFriendLadder\\Pages\\ListPlayers.razor",
+              "RelativeToolTip": "Pages\\ListPlayers.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADEAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-04T13:34:59.143Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
               "Title": "LeagueListDTO.cs",
-              "DocumentMoniker": "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder\\Models\\LeagueListDTO.cs",
+              "DocumentMoniker": "C:\\Users\\KDavid02\\source\\repos\\LeagueFriendLadder\\Models\\LeagueListDTO.cs",
               "RelativeDocumentMoniker": "Models\\LeagueListDTO.cs",
-              "ToolTip": "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder\\Models\\LeagueListDTO.cs",
+              "ToolTip": "C:\\Users\\KDavid02\\source\\repos\\LeagueFriendLadder\\Models\\LeagueListDTO.cs",
               "RelativeToolTip": "Models\\LeagueListDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-04T15:03:24.198Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-04T15:03:24.198Z"
             }
           ]
         }
