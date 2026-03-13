@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.13.35828.75
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeagueFriendLadder", "LeagueFriendLadder.csproj", "{34A7A36B-2734-4009-9D8B-F19897409DDD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeagueFriendLadder.Client", "LeagueFriendLadder.Client.csproj", "{34A7A36B-2734-4009-9D8B-F19897409DDD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeagueFriendLadder.Server", "..\LeagueFriendLadder.Server\LeagueFriendLadder.Server.csproj", "{BFEC38B3-2992-40B3-B4A6-331DB642A020}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeagueFriendLadder.Shared", "..\LeagueFriendLadder.Shared\LeagueFriendLadder.Shared.csproj", "{0674780C-CFB3-438B-8AB2-B9A340161A24}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{34A7A36B-2734-4009-9D8B-F19897409DDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34A7A36B-2734-4009-9D8B-F19897409DDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34A7A36B-2734-4009-9D8B-F19897409DDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFEC38B3-2992-40B3-B4A6-331DB642A020}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFEC38B3-2992-40B3-B4A6-331DB642A020}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFEC38B3-2992-40B3-B4A6-331DB642A020}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFEC38B3-2992-40B3-B4A6-331DB642A020}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0674780C-CFB3-438B-8AB2-B9A340161A24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0674780C-CFB3-438B-8AB2-B9A340161A24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0674780C-CFB3-438B-8AB2-B9A340161A24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0674780C-CFB3-438B-8AB2-B9A340161A24}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
