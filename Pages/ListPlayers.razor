@@ -3,6 +3,9 @@
 @using LeagueFriendLadder.Models
 @inject HttpClient Http
 @inject RiotService RiotService
+@inject Services.PlayerSessionService Session
+@inject NavigationManager Nav
+
 <PageTitle>List Players</PageTitle>
 <EditForm Model="LeagueList" OnValidSubmit="findPlayers">
     <DataAnnotationsValidator />
@@ -62,7 +65,7 @@
     <ul>
         @foreach (var player in filteredPlayers)
         {
-            <li>Name: @player.SummonerName</li>
+            <li>Name: <a @onclick="() => viewProfile(player)">@player.SummonerName</a></li>
             <li>Tag: @player.Tag</li>
             <li>Rank: @player.Rank</li>
             <li>Tier: @player.Tier</li>
@@ -71,6 +74,7 @@
             <li>Losses: @player.Losses</li>
             <li>Winrate: @player.Winrate%</li>
             <li>Region: @LeagueList.Region</li>
+            <button type="submit" style="width:10%; height: 100px;text-align:center;" onclick="sendFriendRequest">Add Friend</button>
             <p>--------------------------------------------------------------</p>
         }
     </ul>
@@ -81,6 +85,7 @@ else if (!string.IsNullOrEmpty(errorMessage))
 }
 
 @code {
+
     private LeagueListDTO LeagueList = new()
         {
             Winrate = 0,
@@ -111,7 +116,7 @@ else if (!string.IsNullOrEmpty(errorMessage))
                 {
                     filteredPlayers = response
                         .Where(p => p.LeaguePoints >= LeagueList.LeaguePoints &&
-                                    Math.Round(GetWinrate(p.Wins, p.Losses), 1) >= LeagueList.Winrate)
+                                    Math.Round(RiotService.getWinrate(p),1) >= LeagueList.Winrate)
                         .ToList();
                     foreach (var player in filteredPlayers)
                     {
@@ -123,7 +128,7 @@ else if (!string.IsNullOrEmpty(errorMessage))
                             player.Tag = name.TagLine;
                             player.Tier = "I";
                             player.Rank = LeagueList.Rank;
-                            player.Winrate = Math.Round(GetWinrate(player.Wins, player.Losses), 1);
+                            player.Winrate = RiotService.getWinrate(player);
                         }
                     }
                 }
@@ -138,10 +143,10 @@ else if (!string.IsNullOrEmpty(errorMessage))
             }
         }
     }
-
-    private double GetWinrate(int wins, int losses)
+    
+    void viewProfile(LeagueEntryDTO p)
     {
-        if (wins + losses == 0) return 0;
-        return Math.Round((double)wins / (wins + losses) * 100, 2);
+        Session.SelectedPlayer = p;
+        Nav.NavigateTo("/profile");
     }
 }

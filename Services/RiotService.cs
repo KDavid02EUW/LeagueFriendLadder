@@ -38,8 +38,7 @@ public class RiotService
             {
                 if (entry.QueueType == "RANKED_SOLO_5x5")
                 {
-                    double games = entry.Wins + entry.Losses;
-                    entry.Winrate = Math.Round((entry.Wins / games) * 100);
+                    entry.Winrate = getWinrate(entry);
                     return entry;
                 }
             }
@@ -47,10 +46,14 @@ public class RiotService
 
         return null;
     }
+    public double getWinrate(LeagueEntryDTO e)
+    {
+        double games = e.Wins + e.Losses;
+        return Math.Round((e.Wins / games) * 100 ,1);
+    }
     public async Task<RiotAccount?> GetRiotIDByPuuid(string puuid)
     {
-        var url = $"https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-puuid/{puuid}?api_key={apiKey}";
-        await Task.Delay(150);
+        var url = $"https://europe.api.riotgames.com/riot/account/v1/accounts/by-puuid/{puuid}?api_key={apiKey}";
         return await _http.GetFromJsonAsync<RiotAccount>(url);
     }
 }

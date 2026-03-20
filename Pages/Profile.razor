@@ -1,27 +1,57 @@
-﻿@page "/profile"
+﻿@page "/Profile"
+@using LeagueFriendLadder.Models
+@using Microsoft.AspNetCore.Components
+@inject RiotService RiotService
+@inject LeagueFriendLadder.Services.PlayerSessionService Session
+@inject NavigationManager Nav
 
-<PageTitle>Profile</PageTitle>
+<PageTitle>Profile - @(player?.SummonerName ?? "Loading...")</PageTitle>
 
+@if (player == null)
+{
+    <div class="alert alert-warning">
+        No user selected. Redirecting to the list...
+    </div>
+}
+else
+{
+    <h1>@player.SummonerName's Statistics</h1>
 
-<h1>My statistics</h1>
+    <table>
+        <thead style="text-align:center;">
+            <tr style="text-align:center;">
+                <th>Player</th>
+                <th>Rank</th>
+                <th>LP</th>
+                <th>Winrate</th>
+                <th>Games</th>
+                <th>Winstreak</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr style="text-align:center;">
+                <td>@player.SummonerName#@player.Tag</td>
+                <td>@player.Rank</td>
+                <td>@player.LeaguePoints</td>
+                <td>@RiotService.getWinrate(@player)</td>
+                <td>@(player.Wins + player.Losses)</td>
+                <td>@(player.HotStreak)</td>
+            </tr>
+        </tbody>
+    </table>
+}
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Player</th>
-            <th>Role</th>
-            <th>Rank</th>
-            <th>Winrate</th>
-            <th>Games played</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><a href="KDavid02">KDavid02</a></td>
-            <td>Adc</td>
-            <td>Master 739</td>
-            <td>52.1%</td>
-            <td>413</td>
-        </tr>
-    </tbody>
-</table>
+@code {
+    private LeagueEntryDTO? player;
+
+    protected override async Task OnInitializedAsync()
+    {
+        player = await Session.GetPlayerAsync();
+
+        if (player == null)
+        {
+            await Task.Delay(2000);
+            Nav.NavigateTo("ListPlayers");
+        }
+    }
+}
