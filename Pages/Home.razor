@@ -2,6 +2,7 @@
 @using System.ComponentModel.DataAnnotations
 @using LeagueFriendLadder.Models
 @inject HttpClient Http
+@inject RiotService riotService
 
 <PageTitle>Home</PageTitle>
 
@@ -128,6 +129,7 @@ else if (!isLoading && result == null && result2 == null && hasSearched)
 
 
 @code {
+
     private bool hasSearched = false;
     private bool isLoading = false;
     private bool unranked = false;
@@ -200,7 +202,8 @@ else if (!isLoading && result == null && result2 == null && hasSearched)
                         double games = result2.Wins + result2.Losses;
                         double wins = result2.Wins;
                         double losses = result2.Losses;
-                        result2.Winrate = (Math.Round((wins / games) * 100));
+
+                        result2.Winrate = riotService.getWinrate(resp);
                         errorMessage = null;
                     }
                     else if (puuid != null && resp == null)
@@ -212,13 +215,13 @@ else if (!isLoading && result == null && result2 == null && hasSearched)
                 }
             } else
             {
-                errorMessage = $"Hiba: Summoner not found for the selected region: [{RiotID.Region}]";
+                errorMessage = $"Error: Summoner not found for the selected region: [{RiotID.Region}]";
                 result = null;
             }
         }
         catch (Exception ex)
         {
-            errorMessage = $"Hiba: {ex.Message}";
+            errorMessage = $"Error: {ex.Message}";
             result2 = null;
         }
     }

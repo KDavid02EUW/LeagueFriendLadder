@@ -1,0 +1,11 @@
+[
+  {
+    "Name": "Start",
+    "Projects": [
+      {
+        "Path": "LeagueFriendLadder.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]
