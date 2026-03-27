@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Dapper;
 using LeagueFriendLadder.Api.Services;
-using LeagueFriendLadder.Models;
 
 namespace LeagueFriendLadder.Api.Controllers
 {

@@ -1,0 +1,131 @@
+﻿@page "/Profile"
+@using System.Globalization
+@using LeagueFriendLadder.Models
+@using Microsoft.AspNetCore.Components
+@inject RiotService RiotService
+@inject LeagueFriendLadder.Services.PlayerSessionService Session
+@inject NavigationManager Nav
+
+<PageTitle>Profile - @(player?.SummonerName ?? "Loading...")</PageTitle>
+
+@if (player == null)
+{
+    <div class="alert alert-warning">
+        No user selected. Redirecting to the list...
+    </div>
+}
+else
+{
+    <h1>@player.SummonerName's Statistics</h1>
+
+    <table>
+        <thead style="text-align:center;">
+            <tr style="text-align:center;">
+                <th>Player</th>
+                <th>Rank</th>
+                <th>LP</th>
+                <th>Winrate</th>
+                <th>Games</th>
+                <th>Winstreak</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr style="text-align:center;">
+                <td>@player.SummonerName#@player.Tag</td>
+                <td>@player.Rank</td>
+                <td>@player.LeaguePoints</td>
+                <td>@RiotService.getWinrate(@player)%</td>
+                <td>@(player.Wins + player.Losses)</td>
+                <td>@(player.HotStreak)</td>
+            </tr>
+        </tbody>
+    </table>
+    <main>
+        <div id="history">
+            @if (matches == null)
+            {
+                <div class="d-flex justify-content-center">
+                    <div class="spinner-border" role="status"></div>
+                    <span class="ms-2">Loading matches...</span>
+                </div>
+            }
+            else
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th colspan="3" style="text-align:center;padding-bottom:0px;border-bottom:revert;">Last 20 games of @player.SummonerName</th>
+                        </tr>
+                        <tr>
+                            <th>Champion</th>
+                            <th>Result</th>
+                            <th>KDA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var match in matches)
+                        {
+                            string currentChamp = "";
+                            bool isWin = false;
+                            string kda = "";
+
+                            foreach (var participant in match.Participants)
+                            {
+                                if (participant.riotIDGameName == player.SummonerName && participant.riotIDTagLine == player.Tag)
+                                {
+                                    currentChamp = participant.championName;
+                                    isWin = participant.win;
+
+                                    if (participant.deaths == 0)
+                                    {
+                                        kda = "Perfect";
+                                    }
+                                    else
+                                    {
+                                        double kdaValue = (double)(participant.kills + participant.assists) / participant.deaths;
+                                        kda = kdaValue.ToString("F1", CultureInfo.InvariantCulture);
+                                    }
+                                }
+                            }
+
+                            <tr class="@(isWin ? "text-success" : "text-danger")">
+                                <td>
+                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.6.1/img/champion/@(currentChamp).png"
+                                         width="40" height="40" style="border-radius: 50%;" />
+                                    <span class="ms-2">@currentChamp</span>
+                                </td>
+                                <td>
+                                    @(isWin ? "Win" : "Loss")
+                                </td>
+                                <td>@kda</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </main>
+}
+
+@code {
+    private LeagueEntryDTO? player;
+    private List<MatchDTO>? matches;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        player = await Session.GetPlayerAsync();
+
+
+
+        if (player == null)
+        {
+            await Task.Delay(2000);
+            Nav.NavigateTo("ListPlayers");
+        } else
+        {
+            matches = await RiotService.getMatchesByPuuid(player.Puuid);
+
+        }
+    }
+}

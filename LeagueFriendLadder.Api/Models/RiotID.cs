@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace LeagueFriendLadder.Models
+namespace LeagueFriendLadder
 {
     public class RiotID
     {

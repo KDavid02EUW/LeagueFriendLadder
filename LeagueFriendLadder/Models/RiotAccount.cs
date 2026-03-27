@@ -1,4 +1,4 @@
-﻿namespace LeagueFriendLadder
+﻿namespace LeagueFriendLadder.Models
 {
     public class RiotAccount
     {
@@ -14,6 +14,7 @@
         }
         public RiotAccount()
         {
+
         }
     }
 }

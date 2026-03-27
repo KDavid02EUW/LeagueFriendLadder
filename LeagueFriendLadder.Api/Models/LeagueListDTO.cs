@@ -1,4 +1,4 @@
-﻿namespace LeagueFriendLadder.Models
+﻿namespace LeagueFriendLadder
 {
     public class LeagueListDTO
     {
