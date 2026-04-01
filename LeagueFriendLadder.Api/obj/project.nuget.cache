@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "4qtne7Cmrf0=",
+  "dgSpecHash": "YgBgccLWkHk=",
   "success": false,
-  "projectFilePath": "C:\\Users\\KDavid02\\source\\repos\\LeagueFriendLadder.Api\\LeagueFriendLadder.Api.csproj",
+  "projectFilePath": "C:\\Users\\KDavid02\\Source\\Repos\\LeagueFriendLadder.Api\\LeagueFriendLadder.Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\KDavid02\\.nuget\\packages\\dapper\\2.1.72\\dapper.2.1.72.nupkg.sha512",
     "C:\\Users\\KDavid02\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
@@ -20,10 +20,10 @@
     {
       "code": "NU1104",
       "level": "Error",
-      "message": "Unable to find project 'C:\\Users\\KDavid02\\source\\repos\\LeagueFriendLadder.csproj'. Check that the project reference is valid and that the project file exists.",
-      "projectPath": "C:\\Users\\KDavid02\\source\\repos\\LeagueFriendLadder.Api\\LeagueFriendLadder.Api.csproj",
-      "filePath": "C:\\Users\\KDavid02\\source\\repos\\LeagueFriendLadder.Api\\LeagueFriendLadder.Api.csproj",
-      "libraryId": "C:\\Users\\KDavid02\\source\\repos\\LeagueFriendLadder.csproj",
+      "message": "Unable to find project 'C:\\Users\\KDavid02\\Source\\Repos\\LeagueFriendLadder.csproj'. Check that the project reference is valid and that the project file exists.",
+      "projectPath": "C:\\Users\\KDavid02\\Source\\Repos\\LeagueFriendLadder.Api\\LeagueFriendLadder.Api.csproj",
+      "filePath": "C:\\Users\\KDavid02\\Source\\Repos\\LeagueFriendLadder.Api\\LeagueFriendLadder.Api.csproj",
+      "libraryId": "C:\\Users\\KDavid02\\Source\\Repos\\LeagueFriendLadder.csproj",
       "targetGraphs": [
         "net8.0"
       ]

@@ -12,6 +12,7 @@
 {
     <div class="alert alert-warning">
         No user selected. Redirecting to the list...
+        <progress id="progress-2"></progress>
     </div>
 }
 else
@@ -47,19 +48,21 @@ else
                 <div class="d-flex justify-content-center">
                     <div class="spinner-border" role="status"></div>
                     <span class="ms-2">Loading matches...</span>
+                    <progress id="progress-2"></progress>
                 </div>
             }
             else
             {
-                <table class="table">
+				<table>    
                     <thead>
                         <tr>
-                            <th colspan="3" style="text-align:center;padding-bottom:0px;border-bottom:revert;">Last 20 games of @player.SummonerName</th>
+							<th colspan="4" style="border-collapse:collapse;border-spacing:0;text-align:center;">Last 20 games of @player.SummonerName</th>
                         </tr>
                         <tr>
                             <th>Champion</th>
                             <th>Result</th>
                             <th>KDA</th>
+                            <th>Details</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -68,6 +71,10 @@ else
                             string currentChamp = "";
                             bool isWin = false;
                             string kda = "";
+                            int kills = 0;
+                            int deaths = 0;
+                            int assists = 0;
+                            int champLevel = 0;
 
                             foreach (var participant in match.Participants)
                             {
@@ -75,6 +82,10 @@ else
                                 {
                                     currentChamp = participant.championName;
                                     isWin = participant.win;
+                                    kills = participant.kills;
+                                    deaths = participant.deaths;
+                                    assists = participant.assists;
+                                    champLevel = participant.champLevel;
 
                                     if (participant.deaths == 0)
                                     {
@@ -82,23 +93,147 @@ else
                                     }
                                     else
                                     {
-                                        double kdaValue = (double)(participant.kills + participant.assists) / participant.deaths;
+                                        double kdaValue = (double)(kills + assists) / deaths;
                                         kda = kdaValue.ToString("F1", CultureInfo.InvariantCulture);
                                     }
                                 }
                             }
 
+                            bool isExpanded = expandedMatches.Contains(match.MatchID);
+
                             <tr class="@(isWin ? "text-success" : "text-danger")">
                                 <td>
-                                    <img src="https://ddragon.leagueoflegends.com/cdn/14.6.1/img/champion/@(currentChamp).png"
-                                         width="40" height="40" style="border-radius: 50%;" />
-                                    <span class="ms-2">@currentChamp</span>
+                                    <div style="display:flex;align-items:center;gap:10px">
+                                        <div class="champ-wrapper">
+                                            <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/@(currentChamp).png" width="50" height="50" style="border-radius: 50%;" />
+                                            <span class="champlevel">@champLevel</span>
+                                        </div>
+                                    </div>
                                 </td>
                                 <td>
                                     @(isWin ? "Win" : "Loss")
                                 </td>
-                                <td>@kda</td>
+                                <td>
+                                    @kills/@deaths/@assists
+                                    <p style="font-style:oblique;color:grey;margin-bottom:0;">@kda KDA</p>
+                                </td>
+                                <td style="vertical-align: middle; text-align: right;">
+                                    <button class="btn btn-sm btn-outline-light" @onclick="() => ToggleMatchDetails(match.MatchID)">
+                                        @(isExpanded ? "▲" : "▼")
+                                    </button>
+                                </td>
                             </tr>
+
+                            @if (isExpanded)
+                            {
+                                <tr class="details-row">
+                                    <td colspan="4" style="background-color: #2b2b2b; color: white; padding: 15px; border-left: 6px solid @(isWin ? "#5383e8" : "#e84057");">
+                                        <div class="row">
+                                            <div class="col-md-6" id="blue_team">
+                                                <strong style="color: #5383e8;">Blue Team</strong>
+                                                <table>
+                                                    <thead>
+                                                            <tr>
+                                                                <th>Champion</th>
+                                                                <th>Summoner Name</th>
+                                                                <th>Total Damage Dealt</th>
+                                                                <th>Items</th>
+
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        @foreach (var p in match.Participants.Take(5))
+                                                        {
+                                                            <tr>
+																<td>
+                                                                    <div style="display:flex;align-items:center;gap:10px">
+																	    <div class="champ-wrapper">
+																		    <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/@(p.championName).png" width="50" height="50" style="border-radius: 50%;" />
+																		    <span class="champlevel">@p.champLevel</span>
+																		</div>
+																	</div>
+                                                                </td>
+																<td><span style="font-size: 1rem;text-align:center;">@p.riotIDGameName#@p.riotIDTagLine</span></td>
+																<td><span style="font-size: 1rem;text-align:center;">@p.totalDamageDealtToChampions</span></td>
+                                                                <td>
+                                                                    <div style="display:flex;gap:4px;align-items:center;">
+
+
+                                                                        @foreach (var itemId in new[] { p.item0, p.item1, p.item2, p.item3, p.item4, p.item5, p.item6 })
+                                                                        {
+                                                                            @if (itemId > 0)
+                                                                            {
+                                                                                <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/item/@(itemId).png"
+                                                                                     width="40" height="40"
+                                                                                     style="border-radius: 4px; border: 1px solid rgba(255,255,255,0.1);" />
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <div style="width: 40px; height: 40px; background-color: rgba(0,0,0,0.2); border-radius: 4px;flex-shrink:0;"></div>
+                                                                            }
+                                                                        }
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="col-md-6" id="red_team">
+                                                <strong style="color: #e84057;">Red Team</strong>
+                                                <table>
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Champion</th>
+                                                            <th>Summoner Name</th>
+                                                            <th>Total Damage Dealt</th>
+                                                            <th>Items</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    @foreach (var p in match.Participants.Skip(5).Take(5))
+                                                    {
+                                                        <tr>
+																<td>
+                                                                    <div style="display:flex;align-items:center;gap:10px">
+																	    <div class="champ-wrapper">
+																		    <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/@(p.championName).png" width="50" height="50" style="border-radius: 50%;" />
+																		    <span class="champlevel">@p.champLevel</span>
+																		</div>
+																	</div>
+                                                                </td>
+																<td><span style="font-size: 1rem;text-align:center;">@p.riotIDGameName#@p.riotIDTagLine</span></td>
+																<td><span style="font-size: 1rem;text-align:center;">@p.totalDamageDealtToChampions</span></td>
+                                                                <td>
+                                                                    <div style="display:flex;gap:4px;align-items:center;">
+
+                                                                    
+                                                                    @foreach (var itemId in new[] { p.item0, p.item1, p.item2, p.item3, p.item4, p.item5, p.item6 })
+                                                                    {
+                                                                        @if (itemId > 0)
+                                                                        {
+                                                                            <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/item/@(itemId).png"
+                                                                                 width="40" height="40"
+                                                                                 style="border-radius: 4px; border: 1px solid rgba(255,255,255,0.1);" />
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <div style="width: 40px; height: 40px; background-color: rgba(0,0,0,0.2); border-radius: 4px;flex-shrink:0;"></div>
+                                                                        }
+                                                                    }
+                                                                    </div>
+                                                                </td>
+                                                            
+                                                        </tr>
+                                                                                                                
+                                                    }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
                         }
                     </tbody>
                 </table>
@@ -111,6 +246,7 @@ else
     private LeagueEntryDTO? player;
     private List<MatchDTO>? matches;
 
+    private HashSet<string> expandedMatches = new HashSet<string>();
 
     protected override async Task OnInitializedAsync()
     {
@@ -126,6 +262,17 @@ else
         {
             matches = await RiotService.getMatchesByPuuid(player.Puuid);
 
+        }
+    }
+    private void ToggleMatchDetails(string matchId)
+    {
+        if (expandedMatches.Contains(matchId))
+        {
+            expandedMatches.Remove(matchId);
+        }
+        else
+        {
+            expandedMatches.Add(matchId);
         }
     }
 }

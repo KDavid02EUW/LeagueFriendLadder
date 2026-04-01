@@ -8,9 +8,10 @@
     public class ParticipantDTO
     {
         public string championName { get; set; } = "";
+        public int champLevel { get; set; } = 0;
         public int deaths { get; set; } = 0;
         public int damageDealtToTurrets { get; set; } = 0;
-        public int totalDamageDealt { get; set; } = 0;
+        public int totalDamageDealtToChampions { get; set; } = 0;
         public int totalDamageTaken { get; set; } = 0;
         public int damageDealtToObjectives { get; set; } = 0;
         public int damageSelfMitigated { get; set; } = 0;

@@ -272,7 +272,45 @@ tr.text-danger td {
     tr.text-danger td:first-child {
         border-left: 6px solid #e84057 !important;
     }
-table {
-    border-collapse: separate !important;
-    border-spacing: 0 8px !important;
+table > tbody > tr > td {
+    border-bottom: 0.2rem solid var(--pico-table-border-color)
+}
+body ul li {
+    list-style-type:none !important;
+    list-style:none !important;
+}
+.blue_team {
+    color:rgb(147,197,253 / 0.5);
+}
+.red_team {
+    color: #d31a45;
+}
+.champ-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    flex-shrink:0;
+}
+.champlevel {
+    position: absolute;
+    bottom: 0;
+    right: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #010a13;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: bold;
+    border: 1px solid #c8aa6e;
+}
+thead > tr > th {
+    text-align:center;
+}
+tbody > tr > td {
+    text-align:center;
 }

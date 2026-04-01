@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LeagueFriendLadder.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7391c93e6b7ace26a2438b86db4a5e19bf46adea")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7b0f153cdcc4a1d6513a303f0ff7cd89d2b13541")]
 [assembly: System.Reflection.AssemblyProductAttribute("LeagueFriendLadder.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LeagueFriendLadder.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

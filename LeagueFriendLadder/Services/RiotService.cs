@@ -84,7 +84,7 @@ public class RiotService
                             championName = p.championName,
                             deaths = p.deaths,
                             damageDealtToTurrets = p.damageDealtToTurrets,
-                            totalDamageDealt = p.totalDamageDealt,
+                            totalDamageDealtToChampions = p.totalDamageDealtToChampions,
                             totalDamageTaken = p.totalDamageTaken,
                             damageDealtToObjectives = p.damageDealtToObjectives,
                             damageSelfMitigated = p.damageSelfMitigated,
@@ -110,7 +110,8 @@ public class RiotService
                             totalHeal = p.totalHeal,
                             visionScore = p.visionScore,
                             visionWardsBought = p.visionWardsBought,
-                            win = p.win
+                            win = p.win,
+                            champLevel = p.champLevel,
                         });
                     }
                     resultList.Add(newMatch);
