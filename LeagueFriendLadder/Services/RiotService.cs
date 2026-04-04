@@ -112,6 +112,10 @@ public class RiotService
                             visionWardsBought = p.visionWardsBought,
                             win = p.win,
                             champLevel = p.champLevel,
+                            totalAllyJungleMinionsKilled = p.totalAllyJungleMinionsKilled,
+                            totalEnemyJungleMinionsKilled = p.totalEnemyJungleMinionsKilled,
+                            neutralMinionsKilled = p.neutralMinionsKilled,
+                            totalMinionsKilled = p.totalMinionsKilled + p.neutralMinionsKilled,
                         });
                     }
                     resultList.Add(newMatch);

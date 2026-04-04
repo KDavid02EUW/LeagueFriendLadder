@@ -696,30 +696,30 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
-      "C:\\Users\\KDavid02\\Source\\Repos\\LeagueFriendLadder.csproj",
+      "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder.csproj",
       "Dapper >= 2.1.72",
       "Npgsql >= 10.0.2",
       "Swashbuckle.AspNetCore >= 6.6.2"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\KDavid02\\.nuget\\packages\\": {},
+    "C:\\Users\\kassa\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\KDavid02\\Source\\Repos\\LeagueFriendLadder.Api\\LeagueFriendLadder.Api.csproj",
+      "projectUniqueName": "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder.Api\\LeagueFriendLadder.Api.csproj",
       "projectName": "LeagueFriendLadder.Api",
-      "projectPath": "C:\\Users\\KDavid02\\Source\\Repos\\LeagueFriendLadder.Api\\LeagueFriendLadder.Api.csproj",
-      "packagesPath": "C:\\Users\\KDavid02\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\KDavid02\\source\\repos\\LeagueFriendLadder.Api\\obj\\",
+      "projectPath": "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder.Api\\LeagueFriendLadder.Api.csproj",
+      "packagesPath": "C:\\Users\\kassa\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\kassa\\Source\\Repos\\LeagueFriendLadder\\LeagueFriendLadder.Api\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\KDavid02\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\kassa\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -734,8 +734,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\KDavid02\\Source\\Repos\\LeagueFriendLadder.csproj": {
-              "projectPath": "C:\\Users\\KDavid02\\Source\\Repos\\LeagueFriendLadder.csproj"
+            "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder.csproj": {
+              "projectPath": "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder.csproj"
             }
           }
         }
@@ -750,7 +750,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.300"
+      "SdkAnalysisLevel": "9.0.200"
     },
     "frameworks": {
       "net8.0": {
@@ -788,7 +788,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
       }
     }
   },
@@ -796,8 +796,8 @@
     {
       "code": "NU1104",
       "level": "Error",
-      "message": "Unable to find project 'C:\\Users\\KDavid02\\Source\\Repos\\LeagueFriendLadder.csproj'. Check that the project reference is valid and that the project file exists.",
-      "libraryId": "C:\\Users\\KDavid02\\Source\\Repos\\LeagueFriendLadder.csproj",
+      "message": "Unable to find project 'C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder.csproj'. Check that the project reference is valid and that the project file exists.",
+      "libraryId": "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder.csproj",
       "targetGraphs": [
         "net8.0"
       ]

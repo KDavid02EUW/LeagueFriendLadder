@@ -38,5 +38,9 @@
         public int visionWardsBought { get; set; } = 0;
         public int assists { get; set; } = 0;
         public bool win { get; set; } = false;
+        public int totalMinionsKilled { get; set; } = 0;
+        public int totalAllyJungleMinionsKilled { get; set; } = 0;
+        public int totalEnemyJungleMinionsKilled { get; set; } = 0;
+        public int neutralMinionsKilled { get; set; } = 0;
     }
 }

@@ -130,13 +130,18 @@ else
                                     <td colspan="4" style="background-color: #2b2b2b; color: white; padding: 15px; border-left: 6px solid @(isWin ? "#5383e8" : "#e84057");">
                                         <div class="row">
                                             <div class="col-md-6" id="blue_team">
-                                                <strong style="color: #5383e8;">Blue Team</strong>
+                                                
                                                 <table>
                                                     <thead>
                                                             <tr>
+                                                            <th colspan="100%" style="background-color:rgba(18,23,31,1)"><strong style="color: #5383e8;">Blue Team</strong></th>
+                                                            </tr>
+                                                            <tr>
                                                                 <th>Champion</th>
                                                                 <th>Summoner Name</th>
-                                                                <th>Total Damage Dealt</th>
+															    <th>KDA</th>
+															    <th>Total Damage Dealt</th>
+															    <th>CS</th>
                                                                 <th>Items</th>
 
                                                             </tr>
@@ -151,10 +156,15 @@ else
 																		    <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/@(p.championName).png" width="50" height="50" style="border-radius: 50%;" />
 																		    <span class="champlevel">@p.champLevel</span>
 																		</div>
+                                                                        <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/@(GetSummonerSpellName(p.summoner1ID)).png" height="40" width="40" />
+                                                                        <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/@(GetSummonerSpellName(p.summoner2ID)).png" height="40" width="40" />
 																	</div>
                                                                 </td>
 																<td><span style="font-size: 1rem;text-align:center;">@p.riotIDGameName#@p.riotIDTagLine</span></td>
+                                                                <td><span style="font-size: 1rem;text-align:center;">@p.kills/@p.deaths/@p.assists <p style="font-style:oblique;color:grey;margin-bottom:0;">TODO</p></span></td>
 																<td><span style="font-size: 1rem;text-align:center;">@p.totalDamageDealtToChampions</span></td>
+																<td><span style="font-size: 1rem;text-align:center;">@p.totalMinionsKilled</span></td>
+																
                                                                 <td>
                                                                     <div style="display:flex;gap:4px;align-items:center;">
 
@@ -180,13 +190,19 @@ else
                                                 </table>
                                             </div>
                                             <div class="col-md-6" id="red_team">
-                                                <strong style="color: #e84057;">Red Team</strong>
-                                                <table>
-                                                    <thead>
+												<table>
+
+													<thead>
+                                                        <tr>
+															<th colspan="100%"><strong style="color: #e84057;">Red Team</strong></th>
+                                                        </tr>
+														    
                                                         <tr>
                                                             <th>Champion</th>
-                                                            <th>Summoner Name</th>
+															<th>Summoner Name</th>
+															<th>KDA</th>
                                                             <th>Total Damage Dealt</th>
+                                                            <th>CS</th>
                                                             <th>Items</th>
                                                         </tr>
                                                     </thead>
@@ -200,10 +216,14 @@ else
 																		    <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/@(p.championName).png" width="50" height="50" style="border-radius: 50%;" />
 																		    <span class="champlevel">@p.champLevel</span>
 																		</div>
+                                                                        <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/@(GetSummonerSpellName(p.summoner1ID)).png" height="40" width="40" />
+                                                                        <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/@(GetSummonerSpellName(p.summoner2ID)).png" height="40" width="40" />
 																	</div>
                                                                 </td>
 																<td><span style="font-size: 1rem;text-align:center;">@p.riotIDGameName#@p.riotIDTagLine</span></td>
+																<td><span style="font-size: 1rem;text-align:center;">@p.kills/@p.deaths/@p.assists <p style="font-style:oblique;color:grey;margin-bottom:0;">TODO</p></span></td>
 																<td><span style="font-size: 1rem;text-align:center;">@p.totalDamageDealtToChampions</span></td>
+                                                                <td><span style="font-size: 1rem;text-align:center;">@p.totalMinionsKilled</span></td>
                                                                 <td>
                                                                     <div style="display:flex;gap:4px;align-items:center;">
 
@@ -275,4 +295,18 @@ else
             expandedMatches.Add(matchId);
         }
     }
+    public static string GetSummonerSpellName(int spellId) => spellId switch
+    {
+        1 => "SummonerBoost",
+        3 => "SummonerExhaust",
+        4 => "SummonerFlash",
+        6 => "SummonerHaste",
+        7 => "SummonerHeal",
+        11 => "SummonerSmite",
+        12 => "SummonerTeleport",
+        14 => "SummonerDot",
+        21 => "SummonerBarrier",
+        32 => "SummonerSnowball",
+        _ => "SummonerEmpty"
+    };
 }

@@ -314,3 +314,7 @@ thead > tr > th {
 tbody > tr > td {
     text-align:center;
 }
+
+td > th {
+    background-color:rgba(12,14,18,1) !important;
+}
