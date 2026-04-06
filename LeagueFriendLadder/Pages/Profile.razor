@@ -53,10 +53,10 @@ else
             }
             else
             {
-				<table>    
+                <table class="table-history">    
                     <thead>
                         <tr>
-							<th colspan="4" style="border-collapse:collapse;border-spacing:0;text-align:center;">Last 20 games of @player.SummonerName</th>
+                            <th colspan="4">Last 20 games of @player.SummonerName</th>
                         </tr>
                         <tr>
                             <th>Champion</th>
@@ -93,7 +93,7 @@ else
                                     }
                                     else
                                     {
-                                        double kdaValue = (double)(kills + assists) / deaths;
+                                        double kdaValue = RiotService.getKDA(kills, deaths, assists);
                                         kda = kdaValue.ToString("F1", CultureInfo.InvariantCulture);
                                     }
                                 }
@@ -107,11 +107,11 @@ else
                                         <div class="champ-wrapper">
                                             <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/@(currentChamp).png" width="50" height="50" style="border-radius: 50%;" />
                                             <span class="champlevel">@champLevel</span>
-                                        </div>
+										</div>
                                     </div>
                                 </td>
                                 <td>
-                                    @(isWin ? "Win" : "Loss")
+                                    @(isWin ? "Victory" : "Defeat")
                                 </td>
                                 <td>
                                     @kills/@deaths/@assists
@@ -126,8 +126,15 @@ else
 
                             @if (isExpanded)
                             {
+                                var spaceFormat = (System.Globalization.NumberFormatInfo)System.Globalization.CultureInfo.InvariantCulture.NumberFormat.Clone();
+                                spaceFormat.NumberGroupSeparator = " ";
+                                int blueMaxDamage = match.Participants.Take(5).Max(p => p.totalDamageDealtToChampions);
+                                int redMaxDamage = match.Participants.Skip(5).Take(5).Max(p => p.totalDamageDealtToChampions);
+                                if (blueMaxDamage == 0) blueMaxDamage = 1;
+                                if (redMaxDamage == 0) redMaxDamage = 1;
+
                                 <tr class="details-row">
-                                    <td colspan="4" style="background-color: #2b2b2b; color: white; padding: 15px; border-left: 6px solid @(isWin ? "#5383e8" : "#e84057");">
+                                    <td colspan="4" style="background-color: #2b2b2b; color: white; padding: 15px;">
                                         <div class="row">
                                             <div class="col-md-6" id="blue_team">
                                                 
@@ -137,18 +144,18 @@ else
                                                             <th colspan="100%" style="background-color:rgba(18,23,31,1)"><strong style="color: #5383e8;">Blue Team</strong></th>
                                                             </tr>
                                                             <tr>
-                                                                <th>Champion</th>
-                                                                <th>Summoner Name</th>
-															    <th>KDA</th>
-															    <th>Total Damage Dealt</th>
-															    <th>CS</th>
-                                                                <th>Items</th>
-
+                                                                <th style="width:8%;">Champion</th>
+                                                                <th style="width:5%">Summoner Name</th>
+                                                                <th style="width:5%">KDA</th>
+                                                                <th style="width:5%">Total Damage Dealt</th>
+                                                                <th style="width:3%">CS</th>
+                                                                <th style="width:15%">Items</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                         @foreach (var p in match.Participants.Take(5))
                                                         {
+                                                            double bluePercent = (double)p.totalDamageDealtToChampions / blueMaxDamage * 100;
                                                             <tr>
 																<td>
                                                                     <div style="display:flex;align-items:center;gap:10px">
@@ -156,16 +163,27 @@ else
 																		    <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/@(p.championName).png" width="50" height="50" style="border-radius: 50%;" />
 																		    <span class="champlevel">@p.champLevel</span>
 																		</div>
-                                                                        <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/@(GetSummonerSpellName(p.summoner1ID)).png" height="40" width="40" />
-                                                                        <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/@(GetSummonerSpellName(p.summoner2ID)).png" height="40" width="40" />
+                                                                        <img style="border-radius: 50%;" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/@(GetSummonerSpellName(p.summoner1ID)).png" height="30" width="30" />
+                                                                        <img style="border-radius: 50%;" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/@(GetSummonerSpellName(p.summoner2ID)).png" height="30" width="30" />
 																	</div>
                                                                 </td>
-																<td><span style="font-size: 1rem;text-align:center;">@p.riotIDGameName#@p.riotIDTagLine</span></td>
-                                                                <td><span style="font-size: 1rem;text-align:center;">@p.kills/@p.deaths/@p.assists <p style="font-style:oblique;color:grey;margin-bottom:0;">TODO</p></span></td>
-																<td><span style="font-size: 1rem;text-align:center;">@p.totalDamageDealtToChampions</span></td>
-																<td><span style="font-size: 1rem;text-align:center;">@p.totalMinionsKilled</span></td>
-																
+																<td class="summonerName"><span style="font-size: 1rem;">@p.riotIDGameName#@p.riotIDTagLine</span></td>
+                                                                <td><span style="font-size: 1rem;">@p.kills/@p.deaths/@p.assists <p style="font-style:oblique;color:grey;margin-bottom:0;">@RiotService.getKDA(p.kills, p.deaths, p.assists).ToString("F1", CultureInfo.InvariantCulture) KDA</p></span></td>
                                                                 <td>
+                                                                    <div style="text-align: center;">
+                                                                        <span style="font-size: 0.9rem; font-weight: @(p.totalDamageDealtToChampions == blueMaxDamage ? "bold" : "normal")">
+                                                                            @p.totalDamageDealtToChampions.ToString("N0", spaceFormat)
+                                                                        </span>
+                                                                        <div class="damage-bar-container">
+                                                                            <div class="damage-bar-fill bg-blue-damage"
+                                                                                 style="width: @(bluePercent.ToString("F0", CultureInfo.InvariantCulture))%;">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td><span style="font-size: 1rem;text-align:center;color:#c8aa6e"><img src="csIcon.png" /> @p.totalMinionsKilled</span></td>
+																
+                                                                <td style="padding:8px 50px !important;">
                                                                     <div style="display:flex;gap:4px;align-items:center;">
 
 
@@ -198,17 +216,18 @@ else
                                                         </tr>
 														    
                                                         <tr>
-                                                            <th>Champion</th>
-															<th>Summoner Name</th>
-															<th>KDA</th>
-                                                            <th>Total Damage Dealt</th>
-                                                            <th>CS</th>
-                                                            <th>Items</th>
+                                                            <th style="width:8%;">Champion</th>
+                                                            <th style="width:5%">Summoner Name</th>
+                                                            <th style="width:5%">KDA</th>
+                                                            <th style="width:5%">Total Damage Dealt</th>
+                                                            <th style="width:3%">CS</th>
+                                                            <th style="width:15%">Items</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                     @foreach (var p in match.Participants.Skip(5).Take(5))
                                                     {
+                                                            double redPercent = (double)p.totalDamageDealtToChampions / redMaxDamage * 100;
                                                         <tr>
 																<td>
                                                                     <div style="display:flex;align-items:center;gap:10px">
@@ -216,15 +235,26 @@ else
 																		    <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/@(p.championName).png" width="50" height="50" style="border-radius: 50%;" />
 																		    <span class="champlevel">@p.champLevel</span>
 																		</div>
-                                                                        <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/@(GetSummonerSpellName(p.summoner1ID)).png" height="40" width="40" />
-                                                                        <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/@(GetSummonerSpellName(p.summoner2ID)).png" height="40" width="40" />
+                                                                        <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/@(GetSummonerSpellName(p.summoner1ID)).png" height="30" width="30" style="border-radius: 50%;" />
+                                                                        <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/@(GetSummonerSpellName(p.summoner2ID)).png" height="30" width="30" style="border-radius: 50%;" />
 																	</div>
                                                                 </td>
-																<td><span style="font-size: 1rem;text-align:center;">@p.riotIDGameName#@p.riotIDTagLine</span></td>
-																<td><span style="font-size: 1rem;text-align:center;">@p.kills/@p.deaths/@p.assists <p style="font-style:oblique;color:grey;margin-bottom:0;">TODO</p></span></td>
-																<td><span style="font-size: 1rem;text-align:center;">@p.totalDamageDealtToChampions</span></td>
-                                                                <td><span style="font-size: 1rem;text-align:center;">@p.totalMinionsKilled</span></td>
+																<td><span style="font-size: 1rem;">@p.riotIDGameName#@p.riotIDTagLine</span></td>
+                                                                <td><span style="font-size: 1rem;">@p.kills/@p.deaths/@p.assists <p style="font-style:oblique;color:grey;margin-bottom:0;">@RiotService.getKDA(p.kills, p.deaths, p.assists).ToString("F1", CultureInfo.InvariantCulture) KDA</p></span></td>
                                                                 <td>
+                                                                    <div style="text-align: center;">
+                                                                        <span style="font-size: 0.9rem; font-weight: @(p.totalDamageDealtToChampions == redMaxDamage ? "bold" : "normal")">
+                                                                            @p.totalDamageDealtToChampions.ToString("N0", spaceFormat)
+                                                                        </span>
+                                                                        <div class="damage-bar-container">
+                                                                            <div class="damage-bar-fill bg-red-damage"
+                                                                                 style="width: @(redPercent.ToString("F0", CultureInfo.InvariantCulture))%;">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td><span style="font-size: 1rem;text-align:center;color:#c8aa6e;"><img src="csIcon.png" /> @p.totalMinionsKilled</span></td>
+                                                                <td style="padding:8px 50px !important;">
                                                                     <div style="display:flex;gap:4px;align-items:center;">
 
                                                                     
@@ -265,6 +295,7 @@ else
 @code {
     private LeagueEntryDTO? player;
     private List<MatchDTO>? matches;
+
 
     private HashSet<string> expandedMatches = new HashSet<string>();
 

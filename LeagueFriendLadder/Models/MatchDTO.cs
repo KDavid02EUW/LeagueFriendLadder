@@ -1,4 +1,8 @@
-﻿namespace LeagueFriendLadder.Models
+﻿using static System.Net.WebRequestMethods;
+using LeagueFriendLadder.Services;
+using System.Numerics;
+
+namespace LeagueFriendLadder.Models
 {
     public class MatchDTO
     {
@@ -42,5 +46,7 @@
         public int totalAllyJungleMinionsKilled { get; set; } = 0;
         public int totalEnemyJungleMinionsKilled { get; set; } = 0;
         public int neutralMinionsKilled { get; set; } = 0;
+        public string puuid { get; set; } = "";
+        public string region { get; set; } = "";
     }
 }

@@ -4,8 +4,16 @@ html, body {
     padding: 0;
 }
 
-th, td {
+td.summonerName {
     text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+}
+td {
+    overflow:clip;
+    white-space:nowrap;
 }
 
 h1:focus {
@@ -253,26 +261,21 @@ input:checked + .slider:before {
         background-color: rgba(255,255,255,0.08);
     }
 
-/* Gyõzelem (Victory) */
-tr.text-success td {
+.table-history tr.text-success td {
     background-color: #28344e !important;
 }
 
-    /* Csak az elsõ TD kapja meg a kék csíkot */
-    tr.text-success td:first-child {
+    .table-history tr.text-success td:first-child {
         border-left: 6px solid #5383e8 !important;
     }
-
-/* Vereség (Defeat) */
-tr.text-danger td {
+.table-history tr.text-danger td {
     background-color: #59343b !important;
 }
 
-    /* Csak az elsõ TD kapja meg a piros csíkot */
-    tr.text-danger td:first-child {
+    .table-history tr.text-danger td:first-child {
         border-left: 6px solid #e84057 !important;
     }
-table > tbody > tr > td {
+table tbody tr td {
     border-bottom: 0.2rem solid var(--pico-table-border-color)
 }
 body ul li {
@@ -308,13 +311,52 @@ body ul li {
     font-weight: bold;
     border: 1px solid #c8aa6e;
 }
-thead > tr > th {
+thead tr th {
     text-align:center;
 }
-tbody > tr > td {
+tbody tr td {
     text-align:center;
+}
+td:nth-child(2) span {
+    padding-left:25%;
+}
+td:nth-child(2) {
+    text-align: left !important;
 }
 
 td > th {
     background-color:rgba(12,14,18,1) !important;
+}
+table td, table th {
+    padding: 8px 4px !important; 
+}
+.damage-bar-container {
+    width: 100%;
+    height: 14px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    margin-top: 4px;
+    overflow: hidden;
+}
+
+.damage-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+}
+
+.bg-blue-damage {
+    background-color: #5383e8;
+}
+
+.bg-red-damage {
+    background-color: #e84057;
+}
+
+.table-history {
+    border-collapse: separate !important;
+    border-spacing: 0 5px !important;
+    width: 100%;
+}
+.table-history thead tr th {
+    border-collapse:collapse !important;
 }

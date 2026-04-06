@@ -65,7 +65,7 @@
     <ul>
         @foreach (var player in filteredPlayers)
         {
-            <li>Name: <a @onclick="() => viewProfile(player)">@player.SummonerName</a></li>
+            <li>Name: <a @onclick="() => RiotService.viewProfile(player)">@player.SummonerName</a></li>
             <li>Tag: @player.Tag</li>
             <li>Rank: @player.Rank</li>
             <li>Tier: @player.Tier</li>
@@ -142,11 +142,5 @@ else if (!string.IsNullOrEmpty(errorMessage))
                 isLoading = false;
             }
         }
-    }
-    
-    void viewProfile(LeagueEntryDTO p)
-    {
-        Session.SelectedPlayer = p;
-        Nav.NavigateTo("/profile");
     }
 }

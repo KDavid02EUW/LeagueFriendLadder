@@ -1,4 +1,5 @@
 using LeagueFriendLadder.Api.Services;
+using LeagueFriendLadder.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors(options =>
@@ -16,6 +17,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+builder.Services.AddScoped<PlayerSessionService>();
+builder.Services.AddScoped<RiotService>();
 builder.Services.AddScoped<DatabaseService>();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

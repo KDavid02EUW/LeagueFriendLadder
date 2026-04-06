@@ -1,16 +1,30 @@
 ﻿using LeagueFriendLadder.Models;
+using LeagueFriendLadder.Services;
+using System.Globalization;
 using System.Net.Http.Json;
 using System.Numerics;
 using System.Reflection.Metadata.Ecma335;
+using Microsoft.AspNetCore.Components;
+
 
 public class RiotService
 {
+
     private readonly HttpClient _http;
     private readonly string apiKey = "RGAPI-15de7229-e9c5-49f8-a1d0-69a63a7bb4ab";
+    private readonly PlayerSessionService _session;
+    private readonly NavigationManager _nav;
 
-    public RiotService(HttpClient http)
+    public RiotService(HttpClient http, PlayerSessionService session, NavigationManager nav)
     {
         _http = http;
+        _session = session;
+        _nav = nav;
+    }
+
+    public RiotService()
+    {
+
     }
 
     public async Task<RiotAccount?> GetRiotID(string riotId)
@@ -116,6 +130,8 @@ public class RiotService
                             totalEnemyJungleMinionsKilled = p.totalEnemyJungleMinionsKilled,
                             neutralMinionsKilled = p.neutralMinionsKilled,
                             totalMinionsKilled = p.totalMinionsKilled + p.neutralMinionsKilled,
+                            puuid = p.puuid,
+                            region = p.region,
                         });
                     }
                     resultList.Add(newMatch);
@@ -124,5 +140,15 @@ public class RiotService
         }
         return resultList;
     }
+    public double getKDA(int kills, int deaths, int assists)
+    {
+        return (double)(kills + assists) / deaths;
+    }
+    public void viewProfile(LeagueEntryDTO p)
+    {
+        if (p == null) return;
 
+        _session.SelectedPlayer = p;
+        _nav.NavigateTo("/profile");
+    }
 }

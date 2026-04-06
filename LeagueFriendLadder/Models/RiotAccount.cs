@@ -6,15 +6,11 @@
         public string GameName { get; set; } 
         public string TagLine { get; set; } 
 
-        public RiotAccount(string puuid, string gameName, string tagLine, string accountId)
+        public RiotAccount(string puuid, string gameName, string tagLine)
         {
             Puuid = puuid;
             GameName = gameName;
             TagLine = tagLine;
-        }
-        public RiotAccount()
-        {
-
         }
     }
 }

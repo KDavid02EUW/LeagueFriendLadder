@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LeagueFriendLadder.csproj" />
+    <ProjectReference Include="..\LeagueFriendLadder\LeagueFriendLadder.csproj" />
   </ItemGroup>
 
 </Project>
