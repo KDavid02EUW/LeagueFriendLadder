@@ -56,12 +56,13 @@ else
                 <table class="table-history">    
                     <thead>
                         <tr>
-                            <th colspan="4">Last 20 games of @player.SummonerName</th>
+                            <th colspan="100%">Last 20 games of @player.SummonerName</th>
                         </tr>
                         <tr>
                             <th>Champion</th>
                             <th>Result</th>
                             <th>KDA</th>
+                            <th>Items</th>
                             <th>Details</th>
                         </tr>
                     </thead>
@@ -75,6 +76,16 @@ else
                             int deaths = 0;
                             int assists = 0;
                             int champLevel = 0;
+                            int spell1 = 0;
+                            int spell2 = 0;
+                            string position = "";
+                            int item0 = 0;
+                            int item1 = 0;
+                            int item2 = 0;
+                            int item3 = 0;
+                            int item4 = 0;
+                            int item5 = 0;
+                            int item6 = 0;
 
                             foreach (var participant in match.Participants)
                             {
@@ -86,6 +97,17 @@ else
                                     deaths = participant.deaths;
                                     assists = participant.assists;
                                     champLevel = participant.champLevel;
+                                    spell1 = participant.summoner1ID;
+                                    spell2 = participant.summoner2ID;
+                                    position = participant.teamPosition;
+                                    item0 = participant.item0;
+                                    item1 = participant.item1;
+                                    item2 = participant.item2;
+                                    item3 = participant.item3;
+                                    item4 = participant.item4;
+                                    item5 = participant.item5;
+                                    item6 = participant.item6;
+
 
                                     if (participant.deaths == 0)
                                     {
@@ -103,19 +125,39 @@ else
 
                             <tr class="@(isWin ? "text-success" : "text-danger")">
                                 <td>
-                                    <div style="display:flex;align-items:center;gap:10px">
+                                    <div style="display:flex;align-items:center;gap:10px;padding-left:5% !important;">
                                         <div class="champ-wrapper">
                                             <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/@(currentChamp).png" width="50" height="50" style="border-radius: 50%;" />
                                             <span class="champlevel">@champLevel</span>
+                                            <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/@(GetSummonerSpellName(spell1)).png" height="30" width="30" style="border-radius: 50%;" />
+                                            <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/@(GetSummonerSpellName(spell2)).png" height="30" width="30" style="border-radius: 50%;" />
+                                            <img src="https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-clash/global/default/assets/images/position-selector/positions/icon-position-@(GetPositionName(position)).png" width="30" height="30" />
 										</div>
                                     </div>
                                 </td>
-                                <td>
+                                <td style="padding-left:5% !important;">
                                     @(isWin ? "Victory" : "Defeat")
                                 </td>
                                 <td>
                                     @kills/@deaths/@assists
                                     <p style="font-style:oblique;color:grey;margin-bottom:0;">@kda KDA</p>
+                                </td>
+                                <td>
+                                    <div style="display:flex;gap:4px;align-items:center;width:140px;">
+                                        @foreach (var itemId in new[] { item0, item1, item2, item3, item4, item5, item6 })
+                                        {
+                                            @if (itemId > 0)
+                                            {
+                                                <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/item/@(itemId).png"
+                                                     width="40" height="40"
+                                                     style="border-radius: 4px; border: 1px solid rgba(255,255,255,0.1);" />
+                                            }
+                                            else
+                                            {
+                                                <div style="width: 40px; height: 40px; background-color: rgba(0,0,0,0.2); border-radius: 4px;flex-shrink:0;"></div>
+                                            }
+                                        }
+                                    </div>
                                 </td>
                                 <td style="vertical-align: middle; text-align: right;">
                                     <button class="btn btn-sm btn-outline-light" @onclick="() => ToggleMatchDetails(match.MatchID)">
@@ -149,7 +191,7 @@ else
                                                                 <th style="width:5%">KDA</th>
                                                                 <th style="width:5%">Total Damage Dealt</th>
                                                                 <th style="width:3%">CS</th>
-                                                                <th style="width:12%">Items</th>
+                                                                <th colspan="2" style="width:12%">Items</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -165,7 +207,8 @@ else
 																		</div>
                                                                         <img style="border-radius: 50%;" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/@(GetSummonerSpellName(p.summoner1ID)).png" height="30" width="30" />
                                                                         <img style="border-radius: 50%;" src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/@(GetSummonerSpellName(p.summoner2ID)).png" height="30" width="30" />
-																	</div>
+                                                                        <img src="https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-clash/global/default/assets/images/position-selector/positions/icon-position-@(GetPositionName(p.teamPosition)).png" width="30" height="30" />
+                                                                    </div>
                                                                 </td>
 																<td class="summonerName" title="@p.riotIDGameName#@p.riotIDTagLine"><span style="font-size: 1rem;">@p.riotIDGameName#@p.riotIDTagLine</span></td>
                                                                 <td><span style="font-size: 1rem;">@p.kills/@p.deaths/@p.assists <p style="font-style:oblique;color:grey;margin-bottom:0;">@RiotService.getKDA(p.kills, p.deaths, p.assists).ToString("F1", CultureInfo.InvariantCulture) KDA</p></span></td>
@@ -184,7 +227,7 @@ else
                                                                 <td><span style="font-size: 1rem;text-align:center;color:#c8aa6e"><img src="csIcon.png" /> @p.totalMinionsKilled</span></td>
 																
                                                                 <td style="padding:8px 50px !important;">
-                                                                    <div style="display:flex;gap:4px;align-items:center;">
+                                                                    <div style="display:flex;gap:4px;align-items:center;width:140px;">
 
 
                                                                         @foreach (var itemId in new[] { p.item0, p.item1, p.item2, p.item3, p.item4, p.item5, p.item6 })
@@ -237,6 +280,7 @@ else
 																		</div>
                                                                         <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/@(GetSummonerSpellName(p.summoner1ID)).png" height="30" width="30" style="border-radius: 50%;" />
                                                                         <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/@(GetSummonerSpellName(p.summoner2ID)).png" height="30" width="30" style="border-radius: 50%;" />
+                                                                        <img src="https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-clash/global/default/assets/images/position-selector/positions/icon-position-@(GetPositionName(p.teamPosition)).png" width="30" height="30" style="background-color:1px solid black;border-radius:50%;"/>
 																	</div>
                                                                 </td>
 																<td><span style="font-size: 1rem;">@p.riotIDGameName#@p.riotIDTagLine</span></td>
@@ -255,7 +299,7 @@ else
                                                                 </td>
                                                                 <td><span style="font-size: 1rem;text-align:center;color:#c8aa6e;"><img src="csIcon.png" /> @p.totalMinionsKilled</span></td>
                                                                 <td style="padding:8px 50px !important;">
-                                                                    <div style="display:flex;gap:4px;align-items:center;">
+                                                                    <div style="display:flex;gap:4px;align-items:center;width:140px;">
 
                                                                     
                                                                     @foreach (var itemId in new[] { p.item0, p.item1, p.item2, p.item3, p.item4, p.item5, p.item6 })
@@ -339,5 +383,13 @@ else
         21 => "SummonerBarrier",
         32 => "SummonerSnowball",
         _ => "SummonerEmpty"
+    };
+    private string GetPositionName(string position) => position?.ToLower() switch
+    {
+        "top" => "top",
+        "jungle" => "jungle",
+        "middle" => "middle",
+        "bottom" => "bottom",
+        "utility" => "utility",
     };
 }
