@@ -318,7 +318,7 @@ tbody tr td {
     text-align:center;
 }
 td:nth-child(2) span {
-    padding-left:25%;
+    padding-left:15%;
 }
 td:nth-child(2) {
     text-align: left !important;
