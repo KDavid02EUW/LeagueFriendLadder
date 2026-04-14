@@ -320,9 +320,6 @@ tbody tr td {
 td:nth-child(2) span {
     padding-left:15%;
 }
-tbody > tr > td:nth-child(2) {
-    padding-left:15%;
-}
 td:nth-child(2) {
     text-align: left !important;
 }
@@ -362,4 +359,19 @@ table td, table th {
 }
 .table-history thead tr th {
     border-collapse:collapse !important;
+}
+
+table tbody tr.text-success:hover td {
+    background-color: #5383e8 !important;
+}
+
+table tbody tr.text-danger:hover td {
+    background-color: #e84057 !important;
+}
+/*
+    TODO
+
+*/
+table > tbody > tr:hover > td {
+    background-color: #3b3b40 !important;
 }

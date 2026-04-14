@@ -176,7 +176,7 @@ else
                                 if (redMaxDamage == 0) redMaxDamage = 1;
 
                                 <tr class="details-row">
-                                    <td colspan="4" style="background-color: #2b2b2b; color: white; padding: 15px;">
+                                    <td colspan="100%" style="background-color: #2b2b2b; color: white; padding: 15px;">
                                         <div class="row">
                                             <div class="col-md-6" id="blue_team">
                                                 
@@ -190,7 +190,8 @@ else
                                                                 <th style="width:4%">Summoner Name</th>
                                                                 <th style="width:5%">KDA</th>
                                                                 <th style="width:5%">Total Damage Dealt</th>
-                                                                <th style="width:3%">CS</th>
+															    <th style="width:3%">Gold earned</th>
+															    <th style="width:3%">CS</th>
                                                                 <th colspan="2" style="width:12%">Items</th>
                                                             </tr>
                                                         </thead>
@@ -224,10 +225,10 @@ else
                                                                         </div>
                                                                     </div>
                                                                 </td>
-                                                                <td><span style="font-size: 1rem;text-align:center;color:#c8aa6e"><img src="csIcon.png" /> @p.totalMinionsKilled</span></td>
-																
+                                                                <td><span style="font-size: 1rem;text-align:center;align-items:center;">@p.goldEarned.ToString("N0",spaceFormat)<img src="https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-postgame/global/default/mask-icon-gold.png" height="30" width="30" /></span></td>
+																<td><span style="font-size: 1rem;text-align:center;color:#c8aa6e"><img src="csIcon.png" /> @p.totalMinionsKilled</span></td>
                                                                 <td style="padding:8px 50px !important;">
-                                                                    <div style="display:flex;gap:4px;align-items:center;width:140px;">
+                                                                    <div style="display:flex;gap:4px;align-items:center;width:130px;">
 
 
                                                                         @foreach (var itemId in new[] { p.item0, p.item1, p.item2, p.item3, p.item4, p.item5, p.item6 })
@@ -263,7 +264,8 @@ else
                                                             <th style="width:4%">Summoner Name</th>
                                                             <th style="width:5%">KDA</th>
                                                             <th style="width:5%">Total Damage Dealt</th>
-                                                            <th style="width:3%">CS</th>
+															<th style="width:3%">Gold earned</th>
+															<th style="width:3%">CS</th>
                                                             <th style="width:12%">Items</th>
                                                         </tr>
                                                     </thead>
@@ -297,9 +299,10 @@ else
                                                                         </div>
                                                                     </div>
                                                                 </td>
-                                                                <td><span style="font-size: 1rem;text-align:center;color:#c8aa6e;"><img src="csIcon.png" /> @p.totalMinionsKilled</span></td>
+                                                                <td><span style="font-size: 1rem;text-align:center;align-items:center;">@p.goldEarned.ToString("N0", spaceFormat)<img src="https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-postgame/global/default/mask-icon-gold.png" height="30" width="30" /></span></td>
+                                                                <td><span style="font-size: 1rem;text-align:center;color:#c8aa6e;align-items:center;"><img src="csIcon.png" /> @p.totalMinionsKilled</span></td>
                                                                 <td style="padding:8px 50px !important;">
-                                                                    <div style="display:flex;gap:4px;align-items:center;width:140px;">
+                                                                    <div style="display:flex;gap:4px;align-items:center;width:130px;">
 
                                                                     
                                                                     @foreach (var itemId in new[] { p.item0, p.item1, p.item2, p.item3, p.item4, p.item5, p.item6 })
@@ -317,9 +320,7 @@ else
                                                                     }
                                                                     </div>
                                                                 </td>
-                                                            
-                                                        </tr>
-                                                                                                                
+                                                        </tr>                                                                                                              
                                                     }
                                                     </tbody>
                                                 </table>
