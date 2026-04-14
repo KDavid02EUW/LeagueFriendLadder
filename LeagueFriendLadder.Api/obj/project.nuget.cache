@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "rw4qvNzxEMc=",
+  "dgSpecHash": "7wRK+9MvHNw=",
   "success": false,
-  "projectFilePath": "C:\\Users\\KDavid02\\Source\\Repos\\LeagueFriendLadder\\LeagueFriendLadder.Api\\LeagueFriendLadder.Api.csproj",
+  "projectFilePath": "C:\\Users\\KDavid02\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder.Api\\LeagueFriendLadder.Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\KDavid02\\.nuget\\packages\\dapper\\2.1.72\\dapper.2.1.72.nupkg.sha512",
     "C:\\Users\\KDavid02\\.nuget\\packages\\microsoft.aspnetcore.authorization\\8.0.14\\microsoft.aspnetcore.authorization.8.0.14.nupkg.sha512",
@@ -42,10 +42,10 @@
     {
       "code": "NU1104",
       "level": "Error",
-      "message": "Unable to find project 'C:\\Users\\KDavid02\\Source\\Repos\\LeagueFriendLadder\\LeagueFriendLadder.csproj'. Check that the project reference is valid and that the project file exists.",
-      "projectPath": "C:\\Users\\KDavid02\\Source\\Repos\\LeagueFriendLadder\\LeagueFriendLadder.Api\\LeagueFriendLadder.Api.csproj",
-      "filePath": "C:\\Users\\KDavid02\\Source\\Repos\\LeagueFriendLadder\\LeagueFriendLadder.Api\\LeagueFriendLadder.Api.csproj",
-      "libraryId": "C:\\Users\\KDavid02\\Source\\Repos\\LeagueFriendLadder\\LeagueFriendLadder.csproj",
+      "message": "Unable to find project 'C:\\Users\\KDavid02\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder.csproj'. Check that the project reference is valid and that the project file exists.",
+      "projectPath": "C:\\Users\\KDavid02\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder.Api\\LeagueFriendLadder.Api.csproj",
+      "filePath": "C:\\Users\\KDavid02\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder.Api\\LeagueFriendLadder.Api.csproj",
+      "libraryId": "C:\\Users\\KDavid02\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder.csproj",
       "targetGraphs": [
         "net8.0"
       ]

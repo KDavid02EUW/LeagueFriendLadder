@@ -368,10 +368,56 @@ table tbody tr.text-success:hover td {
 table tbody tr.text-danger:hover td {
     background-color: #e84057 !important;
 }
-/*
-    TODO
 
-*/
-table > tbody > tr:hover > td {
+table > tbody > tr:hover > td{
     background-color: #3b3b40 !important;
+}
+
+.rate-limit-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Sötét áttetszõ háttér kívül */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.rate-limit-content {
+    background-color: #f8f9fa; /* Világos kártya háttér */
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+    max-width: 400px;
+    border: 2px solid #000; /* Keret a határozott megjelenésért */
+}
+
+.countdown-display {
+    font-size: 1.8rem;
+    margin: 20px 0;
+    color: black !important;
+}
+
+.hourglass-anim {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    animation: flip 2s infinite;
+}
+
+@keyframes flip {
+    0% {
+        transform: rotate(0);
+    }
+
+    50% {
+        transform: rotate(180deg);
+    }
+
+    100% {
+        transform: rotate(180deg);
+    }
 }

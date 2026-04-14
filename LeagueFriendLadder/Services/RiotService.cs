@@ -149,6 +149,6 @@ public class RiotService
         if (p == null) return;
 
         _session.SelectedPlayer = p;
-        _nav.NavigateTo("/profile");
+        _nav.NavigateTo($"/profile/{p.SummonerName}/{p.Tag}");
     }
 }

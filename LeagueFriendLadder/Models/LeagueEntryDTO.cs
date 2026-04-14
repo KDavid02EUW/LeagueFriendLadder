@@ -13,5 +13,6 @@
         public int Losses { get; set; } = 0;
         public Boolean HotStreak { get; set; }
         public double Winrate { get; set; }
+        public string Region { get; set; } = "";
     }
 }

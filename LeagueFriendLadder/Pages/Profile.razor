@@ -1,12 +1,13 @@
-﻿@page "/Profile"
+﻿@page "/Profile/{SummonerName}/{Tag}"
 @using System.Globalization
 @using LeagueFriendLadder.Models
 @using Microsoft.AspNetCore.Components
+@using System.Timers
 @inject RiotService RiotService
 @inject LeagueFriendLadder.Services.PlayerSessionService Session
 @inject NavigationManager Nav
 
-<PageTitle>Profile - @(player?.SummonerName ?? "Loading...")</PageTitle>
+<PageTitle>Profile - @(SummonerName ?? "Loading...")</PageTitle>
 
 @if (player == null)
 {
@@ -17,7 +18,7 @@
 }
 else
 {
-    <h1>@player.SummonerName's Statistics</h1>
+    <h1>@SummonerName's Statistics</h1>
 
     <table>
         <thead style="text-align:center;">
@@ -32,7 +33,7 @@ else
         </thead>
         <tbody>
             <tr style="text-align:center;">
-                <td>@player.SummonerName#@player.Tag</td>
+                <td>@SummonerName#@Tag</td>
                 <td>@player.Rank</td>
                 <td>@player.LeaguePoints</td>
                 <td>@RiotService.getWinrate(@player)%</td>
@@ -211,7 +212,7 @@ else
                                                                         <img src="https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-clash/global/default/assets/images/position-selector/positions/icon-position-@(GetPositionName(p.teamPosition)).png" width="30" height="30" />
                                                                     </div>
                                                                 </td>
-																<td class="summonerName" title="@p.riotIDGameName#@p.riotIDTagLine"><span style="font-size: 1rem;">@p.riotIDGameName#@p.riotIDTagLine</span></td>
+                                                                <td class="summonerName" title="@p.riotIDGameName#@p.riotIDTagLine" @onclick="() => NavigateToPlayer(p.riotIDGameName, p.riotIDTagLine)"><span style="font-size: 1rem;">@p.riotIDGameName#@p.riotIDTagLine</span></td>
                                                                 <td><span style="font-size: 1rem;">@p.kills/@p.deaths/@p.assists <p style="font-style:oblique;color:grey;margin-bottom:0;">@RiotService.getKDA(p.kills, p.deaths, p.assists).ToString("F1", CultureInfo.InvariantCulture) KDA</p></span></td>
                                                                 <td>
                                                                     <div style="text-align: center;">
@@ -285,7 +286,7 @@ else
                                                                         <img src="https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-clash/global/default/assets/images/position-selector/positions/icon-position-@(GetPositionName(p.teamPosition)).png" width="30" height="30" style="background-color:1px solid black;border-radius:50%;"/>
 																	</div>
                                                                 </td>
-																<td><span style="font-size: 1rem;">@p.riotIDGameName#@p.riotIDTagLine</span></td>
+                                                                <td class="summonerName" title="@p.riotIDGameName#@p.riotIDTagLine" @onclick="() => NavigateToPlayer(p.riotIDGameName, p.riotIDTagLine)"><span style="font-size: 1rem;">@p.riotIDGameName#@p.riotIDTagLine</span></td>
                                                                 <td><span style="font-size: 1rem;">@p.kills/@p.deaths/@p.assists <p style="font-style:oblique;color:grey;margin-bottom:0;">@RiotService.getKDA(p.kills, p.deaths, p.assists).ToString("F1", CultureInfo.InvariantCulture) KDA</p></span></td>
                                                                 <td>
                                                                     <div style="text-align: center;">
@@ -336,10 +337,44 @@ else
         </div>
     </main>
 }
+@if (isRateLimited)
+{
+    <div class="rate-limit-overlay">
+        <div class="rate-limit-content">
+            <div class="hourglass-anim">⏳</div>
+            <h2 style="color: black; font-weight: bold;">Wait a minute!</h2>
+            <p style="color: black;">The Riot servers are getting too many requests.</p>
 
+            <div class="countdown-display" style="color: #d71919; font-weight: bold;">
+                Retry in:
+                <strong>
+                    @(countdownValue / 60):@(countdownValue % 60 < 10 ? "0" : "")@(countdownValue % 60)
+                </strong>
+            </div>
+
+            <div class="progress mt-3" style="height: 12px; background-color: rgba(255,255,255,0.1); border-radius: 6px; overflow: hidden;">
+                <div class="progress-bar bg-dark" role="progressbar"
+                     style="width: @( (double)countdownValue / maxCountdownValue * 100 )%; transition: width 1s linear;">
+                </div>
+            </div>
+
+            <button class="btn btn-outline-primary mt-4" @onclick="() => isRateLimited = false">
+                Reload
+            </button>
+        </div>
+    </div>
+}
 @code {
+    [Parameter] public string? SummonerName { get; set; }
+    [Parameter] public string? Tag { get; set; }
     private LeagueEntryDTO? player;
     private List<MatchDTO>? matches;
+    private RiotAccount? riotAccount;
+    private string? currentRegion;
+    private bool isRateLimited = false;
+    private int countdownValue = 0;
+    private int maxCountdownValue = 120;
+    private Timer? rateLimitTimer;
 
 
     private HashSet<string> expandedMatches = new HashSet<string>();
@@ -356,9 +391,65 @@ else
             Nav.NavigateTo("ListPlayers");
         } else
         {
-            matches = await RiotService.getMatchesByPuuid(player.Puuid);
-
+            await LoadMatchesSafe();
         }
+    }
+    protected override async Task OnParametersSetAsync()
+    {
+        matches = null;
+        player = await Session.GetPlayerAsync();
+        try
+        {
+            if (player == null || player.SummonerName != SummonerName || player.Tag != Tag)
+            {
+                string riotId = SummonerName + "#" + Tag;
+                var fetchedAccount = await RiotService.GetRiotID(riotId);
+
+                if (fetchedAccount != null)
+                {
+                    player = new LeagueEntryDTO
+                        {
+                            SummonerName = SummonerName,
+                            Tag = Tag,
+                            Puuid = fetchedAccount.Puuid
+                        };
+                }
+                else
+                {
+                    Nav.NavigateTo("ListPlayers");
+                    return;
+                }
+            }
+
+            if (player != null)
+            {
+                currentRegion = player.Region;
+                await LoadMatchesSafe();
+            }
+        }
+        catch (HttpRequestException ex) when (ex.StatusCode == System.Net.HttpStatusCode.TooManyRequests)
+        {
+            await StartCountdown(120);
+        }
+    }
+    private async Task LoadMatchesSafe()
+    {
+        try
+        {
+            if (player != null)
+            {
+                matches = await RiotService.getMatchesByPuuid(player.Puuid);
+            }
+        }
+        catch (HttpRequestException ex) when (ex.StatusCode == System.Net.HttpStatusCode.TooManyRequests)
+        {
+            await StartCountdown(120);
+        }
+    }
+    private void NavigateToPlayer(string name, string tag)
+    {
+
+        Nav.NavigateTo($"/profile/{name}/{tag}");
     }
     private void ToggleMatchDetails(string matchId)
     {
@@ -393,4 +484,30 @@ else
         "bottom" => "bottom",
         "utility" => "utility",
     };
+    private async Task StartCountdown(int seconds)
+    {
+        countdownValue = seconds;
+        maxCountdownValue = seconds;
+        isRateLimited = true;
+
+        rateLimitTimer?.Stop();
+        rateLimitTimer?.Dispose();
+
+        rateLimitTimer = new Timer(1000);
+        rateLimitTimer.Elapsed += (sender, e) =>
+        {
+            if (countdownValue > 0)
+            {
+                countdownValue--;
+                InvokeAsync(StateHasChanged);
+            }
+            else
+            {
+                rateLimitTimer.Stop();
+                isRateLimited = false;
+                InvokeAsync(StateHasChanged);
+            }
+        };
+        rateLimitTimer.Start();
+    }
 }

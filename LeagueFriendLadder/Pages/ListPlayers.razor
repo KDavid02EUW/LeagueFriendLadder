@@ -129,6 +129,7 @@ else if (!string.IsNullOrEmpty(errorMessage))
                             player.Tier = "I";
                             player.Rank = LeagueList.Rank;
                             player.Winrate = RiotService.getWinrate(player);
+                            player.Region = LeagueList.Region;
                         }
                     }
                 }
