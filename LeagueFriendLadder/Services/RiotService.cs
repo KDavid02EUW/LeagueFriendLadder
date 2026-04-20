@@ -140,9 +140,13 @@ public class RiotService
         }
         return resultList;
     }
-    public double getKDA(int kills, int deaths, int assists)
+    public string getKDA(int kills, int deaths, int assists)
     {
-        return (double)(kills + assists) / deaths;
+        if(deaths == 0)
+        {
+            return "Perfect";
+        }
+        return ((kills + assists) / deaths).ToString();
     }
     public void viewProfile(LeagueEntryDTO p)
     {

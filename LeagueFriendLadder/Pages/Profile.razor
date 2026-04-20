@@ -18,30 +18,6 @@
 }
 else
 {
-    <h1>@SummonerName's Statistics</h1>
-
-    <table>
-        <thead style="text-align:center;">
-            <tr style="text-align:center;">
-                <th>Player</th>
-                <th>Rank</th>
-                <th>LP</th>
-                <th>Winrate</th>
-                <th>Games</th>
-                <th>Winstreak</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr style="text-align:center;">
-                <td>@SummonerName#@Tag</td>
-                <td>@player.Rank</td>
-                <td>@player.LeaguePoints</td>
-                <td>@RiotService.getWinrate(@player)%</td>
-                <td>@(player.Wins + player.Losses)</td>
-                <td>@(player.HotStreak)</td>
-            </tr>
-        </tbody>
-    </table>
     <main>
         <div id="history">
             @if (matches == null)
@@ -116,8 +92,8 @@ else
                                     }
                                     else
                                     {
-                                        double kdaValue = RiotService.getKDA(kills, deaths, assists);
-                                        kda = kdaValue.ToString("F1", CultureInfo.InvariantCulture);
+                                        double kdaValue = RiotService.getKDA(kills, deaths, assists).ToString("F2", CultureInfo.InvariantCulture);
+                                        kda = kdaValue;
                                     }
                                 }
                             }
@@ -175,16 +151,25 @@ else
                                 int redMaxDamage = match.Participants.Skip(5).Take(5).Max(p => p.totalDamageDealtToChampions);
                                 if (blueMaxDamage == 0) blueMaxDamage = 1;
                                 if (redMaxDamage == 0) redMaxDamage = 1;
+                                var blueTeam = match.Participants.Take(5);
+                                var redTeam = match.Participants.Skip(5).Take(5);
+                                bool blueWins = blueTeam.Any(p => p.win);
+                                string teamWin = blueWins ? "Blue" : "Red";
 
                                 <tr class="details-row">
                                     <td colspan="100%" style="background-color: #2b2b2b; color: white; padding: 15px;">
                                         <div class="row">
                                             <div class="col-md-6" id="blue_team">
-                                                
+
                                                 <table>
                                                     <thead>
-                                                            <tr>
-                                                            <th colspan="100%" style="background-color:rgba(18,23,31,1)"><strong style="color: #5383e8;">Blue Team</strong></th>
+                                                        <tr>
+                                                            <th>
+                                                                <span>
+                                                                    @(blueWins ? "Victory" : "Defeat")
+                                                                </span>
+                                                            </th>
+                                                            <th colspan="75%" style="background-color:rgba(18,23,31,1)"><strong style="color: #5383e8;">Blue Team</strong></th>
                                                             </tr>
                                                             <tr>
                                                                 <th style="width:8%;">Champion</th>
@@ -213,7 +198,7 @@ else
                                                                     </div>
                                                                 </td>
                                                                 <td class="summonerName" title="@p.riotIDGameName#@p.riotIDTagLine" @onclick="() => NavigateToPlayer(p.riotIDGameName, p.riotIDTagLine)"><span style="font-size: 1rem;">@p.riotIDGameName#@p.riotIDTagLine</span></td>
-                                                                <td><span style="font-size: 1rem;">@p.kills/@p.deaths/@p.assists <p style="font-style:oblique;color:grey;margin-bottom:0;">@RiotService.getKDA(p.kills, p.deaths, p.assists).ToString("F1", CultureInfo.InvariantCulture) KDA</p></span></td>
+                                                                <td><span style="font-size: 1rem;">@p.kills/@p.deaths/@p.assists <p style="font-style:oblique;color:grey;margin-bottom:0;">@RiotService.getKDA(p.kills, p.deaths, p.assists).ToString("F2",CultureInfo.InvariantCulture) KDA</p></span></td>
                                                                 <td>
                                                                     <div style="text-align: center;">
                                                                         <span style="font-size: 0.9rem; font-weight: @(p.totalDamageDealtToChampions == blueMaxDamage ? "bold" : "normal")">
@@ -257,6 +242,11 @@ else
 
 													<thead>
                                                         <tr>
+                                                            <th>
+                                                                <span>
+                                                                    @(blueWins ? "Defeat" : "Victory")
+                                                                </span>
+                                                            </th>
 															<th colspan="100%"><strong style="color: #e84057;">Red Team</strong></th>
                                                         </tr>
 														    
@@ -287,7 +277,7 @@ else
 																	</div>
                                                                 </td>
                                                                 <td class="summonerName" title="@p.riotIDGameName#@p.riotIDTagLine" @onclick="() => NavigateToPlayer(p.riotIDGameName, p.riotIDTagLine)"><span style="font-size: 1rem;">@p.riotIDGameName#@p.riotIDTagLine</span></td>
-                                                                <td><span style="font-size: 1rem;">@p.kills/@p.deaths/@p.assists <p style="font-style:oblique;color:grey;margin-bottom:0;">@RiotService.getKDA(p.kills, p.deaths, p.assists).ToString("F1", CultureInfo.InvariantCulture) KDA</p></span></td>
+                                                                <td><span style="font-size: 1rem;">@p.kills/@p.deaths/@p.assists <p style="font-style:oblique;color:grey;margin-bottom:0;">@RiotService.getKDA(p.kills, p.deaths, p.assists) KDA</p></span></td>
                                                                 <td>
                                                                     <div style="text-align: center;">
                                                                         <span style="font-size: 0.9rem; font-weight: @(p.totalDamageDealtToChampions == redMaxDamage ? "bold" : "normal")">
@@ -483,6 +473,7 @@ else
         "middle" => "middle",
         "bottom" => "bottom",
         "utility" => "utility",
+        _ => "none",
     };
     private async Task StartCountdown(int seconds)
     {
