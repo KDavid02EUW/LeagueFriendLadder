@@ -48,5 +48,9 @@ namespace LeagueFriendLadder.Models
         public int neutralMinionsKilled { get; set; } = 0;
         public string puuid { get; set; } = "";
         public string region { get; set; } = "";
+        public int playerAugment1 { get; set; } = 0;
+        public int playerAugment2 { get; set; } = 0;
+        public int playerAugment3 { get; set; } = 0;
+        public int playerAugment4 { get; set; } = 0;
     }
 }

@@ -132,6 +132,10 @@ public class RiotService
                             totalMinionsKilled = p.totalMinionsKilled + p.neutralMinionsKilled,
                             puuid = p.puuid,
                             region = p.region,
+                            playerAugment1 = p.playerAugment1,
+                            playerAugment2 = p.playerAugment2,
+                            playerAugment3 = p.playerAugment3,
+                            playerAugment4 = p.playerAugment4,
                         });
                     }
                     resultList.Add(newMatch);
@@ -142,11 +146,13 @@ public class RiotService
     }
     public string getKDA(int kills, int deaths, int assists)
     {
-        if(deaths == 0)
+        if (deaths == 0)
         {
             return "Perfect";
         }
-        return ((kills + assists) / deaths).ToString();
+        double kdaValue = (double)(kills + assists) / deaths;
+
+        return kdaValue.ToString("F2", System.Globalization.CultureInfo.InvariantCulture);
     }
     public void viewProfile(LeagueEntryDTO p)
     {
