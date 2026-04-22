@@ -9,6 +9,7 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddScoped<PlayerSessionService>();
 builder.Services.AddScoped<RiotService>();
+builder.Services.AddScoped<ApiService>();
 
 builder.Services.AddScoped(sp => new HttpClient
 {

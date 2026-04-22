@@ -23,61 +23,47 @@ namespace LeagueFriendLadder.Api.Controllers
         [HttpPost("save")]
         public async Task<IActionResult> SavePlayer([FromBody] LeagueEntryDTO player, [FromQuery] string tag, [FromQuery] string region)
         {
-            if (player == null || string.IsNullOrEmpty(player.Puuid))
+            try
             {
-                return BadRequest("Invalid summoner data.");
+                using var connection = _db.CreateConnection();
+
+                string sql = @"
+                INSERT INTO summoners (puuid, name, tag, tier, rank, lp, win, loss, winrate, region, userid) 
+                VALUES (@Puuid, @SummonerName, @Tag, @Tier, @Rank, @LeaguePoints, @Wins, @Losses, @Winrate, @Region, @UserId)
+                ON CONFLICT (puuid) DO UPDATE 
+                SET name = @SummonerName, tag = @Tag, tier = @Tier, rank = @Rank, 
+                    lp = @LeaguePoints, win = @Wins, loss = @Losses, winrate = @Winrate, region = @Region;";
+
+                await connection.ExecuteAsync(sql, new
+                {
+                    player.Puuid,
+                    SummonerName = player.SummonerName,
+                    Tag = tag,
+                    player.Tier,
+                    player.Rank,
+                    LeaguePoints = player.LeaguePoints,
+                    Wins = player.Wins,
+                    Losses = player.Losses,
+                    Winrate = player.Winrate,
+                    Region = region,
+                    UserId = 1
+                });
+
+                return Ok(new { message = "Success!" });
             }
-
-            using var connection = _db.CreateConnection();
-
-            double winrate = 0;
-            if ((player.Wins + player.Losses) > 0)
+            catch (Exception ex)
             {
-                winrate = _riotService.getWinrate(player);
+                Console.WriteLine("Database Error: " + ex.Message);
+
+                return StatusCode(500, "Error in the API: " + ex.Message);
             }
-
-            string sql = @"
-                INSERT INTO ""Summoner"" (
-                    ""Puuid"", ""Name"", ""Tag"", ""Tier"", ""Rank"", 
-                    ""LP"", ""Win"", ""Loss"", ""Winrate"", ""Region""
-                ) 
-                VALUES (
-                    @Puuid, @SummonerName, @Tag, @Tier, @Rank, 
-                    @LeaguePoints, @Wins, @Losses, @Winrate, @Region
-                )
-                ON CONFLICT (""Puuid"") DO UPDATE 
-                SET ""Name"" = @SummonerName, 
-                    ""Tag"" = @Tag,
-                    ""Tier"" = @Tier, 
-                    ""Rank"" = @Rank, 
-                    ""LP"" = @LeaguePoints,
-                    ""Win"" = @Wins,
-                    ""Loss"" = @Losses,
-                    ""Winrate"" = @Winrate,
-                    ""Region"" = @Region;";
-
-            await connection.ExecuteAsync(sql, new
-            {
-                player.Puuid,
-                SummonerName = player.SummonerName,
-                Tag = tag,
-                player.Tier,
-                player.Rank,
-                LeaguePoints = player.LeaguePoints,
-                Wins = player.Wins,
-                Losses = player.Losses,
-                Winrate = winrate,
-                Region = region
-            });
-
-            return Ok(new { message = $"Summoner ({player.SummonerName}) successfully saved!" });
         }
 
         [HttpGet("{puuid}")]
         public async Task<IActionResult> GetSummoner(string puuid)
         {
             using var connection = _db.CreateConnection();
-            string sql = @"SELECT * FROM ""Summoner"" WHERE ""Puuid"" = @puuid";
+            string sql = @"SELECT * FROM summoners WHERE puuid = @puuid";
             var summoner = await connection.QueryFirstOrDefaultAsync(sql, new { puuid });
             if (summoner == null) return NotFound("User not found in the database");
             return Ok(summoner);
@@ -88,9 +74,9 @@ namespace LeagueFriendLadder.Api.Controllers
         {
             using var connection = _db.CreateConnection();
             string sql = @"
-                SELECT * FROM ""Summoner"" 
+                SELECT * FROM summoners 
                 ORDER BY 
-                    CASE ""Tier""
+                    CASE tier
                         WHEN 'CHALLENGER' THEN 1
                         WHEN 'GRANDMASTER' THEN 2
                         WHEN 'MASTER' THEN 3
@@ -103,7 +89,7 @@ namespace LeagueFriendLadder.Api.Controllers
                         WHEN 'IRON' THEN 10
                         ELSE 11
                     END, 
-                    ""LP"" DESC 
+                    lp DESC 
                 LIMIT 100";
 
             var ladder = await connection.QueryAsync(sql);

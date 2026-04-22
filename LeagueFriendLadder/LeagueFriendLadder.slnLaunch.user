@@ -5,6 +5,10 @@
       {
         "Path": "LeagueFriendLadder.csproj",
         "Action": "Start"
+      },
+      {
+        "Path": "..\\LeagueFriendLadder.Api\\LeagueFriendLadder.Api.csproj",
+        "Action": "Start"
       }
     ]
   }

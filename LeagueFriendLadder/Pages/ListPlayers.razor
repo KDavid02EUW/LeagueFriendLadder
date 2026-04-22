@@ -4,6 +4,7 @@
 @inject HttpClient Http
 @inject RiotService RiotService
 @inject Services.PlayerSessionService Session
+@inject Services.ApiService apiService
 @inject NavigationManager Nav
 
 <PageTitle>List Players</PageTitle>
@@ -74,7 +75,7 @@
             <li>Losses: @player.Losses</li>
             <li>Winrate: @player.Winrate%</li>
             <li>Region: @LeagueList.Region</li>
-            <button type="submit" style="width:10%; height: 100px;text-align:center;" onclick="sendFriendRequest">Add Friend</button>
+            <button type="submit" style="width:10%; height: 100px;text-align:center;" @onclick="() => apiService.SavePlayerToDb(player)">Save Player</button>
             <p>--------------------------------------------------------------</p>
         }
     </ul>
