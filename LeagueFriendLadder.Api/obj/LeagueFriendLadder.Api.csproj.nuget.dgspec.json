@@ -32,9 +32,6 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\KDavid02\\Source\\Repos\\LeagueFriendLadder\\LeagueFriendLadder.csproj": {
-                "projectPath": "C:\\Users\\KDavid02\\Source\\Repos\\LeagueFriendLadder\\LeagueFriendLadder.csproj"
-              },
               "C:\\Users\\KDavid02\\Source\\Repos\\LeagueFriendLadder\\LeagueFriendLadder\\LeagueFriendLadder.csproj": {
                 "projectPath": "C:\\Users\\KDavid02\\Source\\Repos\\LeagueFriendLadder\\LeagueFriendLadder\\LeagueFriendLadder.csproj"
               }
@@ -147,6 +144,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[8.0.14, )"
+            },
+            "Microsoft.Extensions.Http": {
+              "target": "Package",
+              "version": "[10.0.7, )"
             },
             "Microsoft.NET.ILLink.Tasks": {
               "suppressParent": "All",

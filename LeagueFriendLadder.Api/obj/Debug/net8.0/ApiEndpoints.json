@@ -1,0 +1,54 @@
+[
+  {
+    "ContainingType": "LeagueFriendLadder.Api.Controllers.SummonerController",
+    "Method": "GetSummoner",
+    "RelativePath": "api/Summoner/{puuid}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "puuid",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "LeagueFriendLadder.Api.Controllers.SummonerController",
+    "Method": "GetLadder",
+    "RelativePath": "api/Summoner/ladder",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "LeagueFriendLadder.Api.Controllers.SummonerController",
+    "Method": "SavePlayer",
+    "RelativePath": "api/Summoner/save",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "player",
+        "Type": "LeagueFriendLadder.Models.LeagueEntryDTO",
+        "IsRequired": true
+      },
+      {
+        "Name": "tag",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "region",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

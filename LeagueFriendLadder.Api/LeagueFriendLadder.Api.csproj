@@ -16,9 +16,8 @@
     <Folder Include="Models\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\LeagueFriendLadder.csproj" />
-    <ProjectReference Include="..\LeagueFriendLadder\LeagueFriendLadder.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\LeagueFriendLadder\LeagueFriendLadder.csproj" />
+	</ItemGroup>
 
 </Project>

@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "dgSpecHash": "rw4qvNzxEMc=",
-  "success": false,
+  "dgSpecHash": "iGu+j3Q0R84=",
+  "success": true,
   "projectFilePath": "C:\\Users\\KDavid02\\Source\\Repos\\LeagueFriendLadder\\LeagueFriendLadder.Api\\LeagueFriendLadder.Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\KDavid02\\.nuget\\packages\\dapper\\2.1.72\\dapper.2.1.72.nupkg.sha512",
@@ -13,20 +13,24 @@
     "C:\\Users\\KDavid02\\.nuget\\packages\\microsoft.aspnetcore.components.webassembly\\8.0.14\\microsoft.aspnetcore.components.webassembly.8.0.14.nupkg.sha512",
     "C:\\Users\\KDavid02\\.nuget\\packages\\microsoft.aspnetcore.metadata\\8.0.14\\microsoft.aspnetcore.metadata.8.0.14.nupkg.sha512",
     "C:\\Users\\KDavid02\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
-    "C:\\Users\\KDavid02\\.nuget\\packages\\microsoft.extensions.configuration\\8.0.0\\microsoft.extensions.configuration.8.0.0.nupkg.sha512",
-    "C:\\Users\\KDavid02\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\8.0.0\\microsoft.extensions.configuration.abstractions.8.0.0.nupkg.sha512",
-    "C:\\Users\\KDavid02\\.nuget\\packages\\microsoft.extensions.configuration.binder\\8.0.2\\microsoft.extensions.configuration.binder.8.0.2.nupkg.sha512",
+    "C:\\Users\\KDavid02\\.nuget\\packages\\microsoft.extensions.configuration\\10.0.7\\microsoft.extensions.configuration.10.0.7.nupkg.sha512",
+    "C:\\Users\\KDavid02\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\10.0.7\\microsoft.extensions.configuration.abstractions.10.0.7.nupkg.sha512",
+    "C:\\Users\\KDavid02\\.nuget\\packages\\microsoft.extensions.configuration.binder\\10.0.7\\microsoft.extensions.configuration.binder.10.0.7.nupkg.sha512",
     "C:\\Users\\KDavid02\\.nuget\\packages\\microsoft.extensions.configuration.fileextensions\\8.0.1\\microsoft.extensions.configuration.fileextensions.8.0.1.nupkg.sha512",
     "C:\\Users\\KDavid02\\.nuget\\packages\\microsoft.extensions.configuration.json\\8.0.1\\microsoft.extensions.configuration.json.8.0.1.nupkg.sha512",
-    "C:\\Users\\KDavid02\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\8.0.1\\microsoft.extensions.dependencyinjection.8.0.1.nupkg.sha512",
-    "C:\\Users\\KDavid02\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.2\\microsoft.extensions.dependencyinjection.abstractions.8.0.2.nupkg.sha512",
+    "C:\\Users\\KDavid02\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\10.0.7\\microsoft.extensions.dependencyinjection.10.0.7.nupkg.sha512",
+    "C:\\Users\\KDavid02\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\10.0.7\\microsoft.extensions.dependencyinjection.abstractions.10.0.7.nupkg.sha512",
+    "C:\\Users\\KDavid02\\.nuget\\packages\\microsoft.extensions.diagnostics\\10.0.7\\microsoft.extensions.diagnostics.10.0.7.nupkg.sha512",
+    "C:\\Users\\KDavid02\\.nuget\\packages\\microsoft.extensions.diagnostics.abstractions\\10.0.7\\microsoft.extensions.diagnostics.abstractions.10.0.7.nupkg.sha512",
     "C:\\Users\\KDavid02\\.nuget\\packages\\microsoft.extensions.fileproviders.abstractions\\8.0.0\\microsoft.extensions.fileproviders.abstractions.8.0.0.nupkg.sha512",
     "C:\\Users\\KDavid02\\.nuget\\packages\\microsoft.extensions.fileproviders.physical\\8.0.0\\microsoft.extensions.fileproviders.physical.8.0.0.nupkg.sha512",
     "C:\\Users\\KDavid02\\.nuget\\packages\\microsoft.extensions.filesystemglobbing\\8.0.0\\microsoft.extensions.filesystemglobbing.8.0.0.nupkg.sha512",
-    "C:\\Users\\KDavid02\\.nuget\\packages\\microsoft.extensions.logging\\8.0.1\\microsoft.extensions.logging.8.0.1.nupkg.sha512",
-    "C:\\Users\\KDavid02\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\8.0.3\\microsoft.extensions.logging.abstractions.8.0.3.nupkg.sha512",
-    "C:\\Users\\KDavid02\\.nuget\\packages\\microsoft.extensions.options\\8.0.2\\microsoft.extensions.options.8.0.2.nupkg.sha512",
-    "C:\\Users\\KDavid02\\.nuget\\packages\\microsoft.extensions.primitives\\8.0.0\\microsoft.extensions.primitives.8.0.0.nupkg.sha512",
+    "C:\\Users\\KDavid02\\.nuget\\packages\\microsoft.extensions.http\\10.0.7\\microsoft.extensions.http.10.0.7.nupkg.sha512",
+    "C:\\Users\\KDavid02\\.nuget\\packages\\microsoft.extensions.logging\\10.0.7\\microsoft.extensions.logging.10.0.7.nupkg.sha512",
+    "C:\\Users\\KDavid02\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\10.0.7\\microsoft.extensions.logging.abstractions.10.0.7.nupkg.sha512",
+    "C:\\Users\\KDavid02\\.nuget\\packages\\microsoft.extensions.options\\10.0.7\\microsoft.extensions.options.10.0.7.nupkg.sha512",
+    "C:\\Users\\KDavid02\\.nuget\\packages\\microsoft.extensions.options.configurationextensions\\10.0.7\\microsoft.extensions.options.configurationextensions.10.0.7.nupkg.sha512",
+    "C:\\Users\\KDavid02\\.nuget\\packages\\microsoft.extensions.primitives\\10.0.7\\microsoft.extensions.primitives.10.0.7.nupkg.sha512",
     "C:\\Users\\KDavid02\\.nuget\\packages\\microsoft.jsinterop\\8.0.14\\microsoft.jsinterop.8.0.14.nupkg.sha512",
     "C:\\Users\\KDavid02\\.nuget\\packages\\microsoft.jsinterop.webassembly\\8.0.14\\microsoft.jsinterop.webassembly.8.0.14.nupkg.sha512",
     "C:\\Users\\KDavid02\\.nuget\\packages\\microsoft.openapi\\1.6.14\\microsoft.openapi.1.6.14.nupkg.sha512",
@@ -35,20 +39,8 @@
     "C:\\Users\\KDavid02\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.6.2\\swashbuckle.aspnetcore.swagger.6.6.2.nupkg.sha512",
     "C:\\Users\\KDavid02\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.6.2\\swashbuckle.aspnetcore.swaggergen.6.6.2.nupkg.sha512",
     "C:\\Users\\KDavid02\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.6.2\\swashbuckle.aspnetcore.swaggerui.6.6.2.nupkg.sha512",
-    "C:\\Users\\KDavid02\\.nuget\\packages\\system.diagnostics.diagnosticsource\\9.0.11\\system.diagnostics.diagnosticsource.9.0.11.nupkg.sha512",
+    "C:\\Users\\KDavid02\\.nuget\\packages\\system.diagnostics.diagnosticsource\\10.0.7\\system.diagnostics.diagnosticsource.10.0.7.nupkg.sha512",
     "C:\\Users\\KDavid02\\.nuget\\packages\\system.io.pipelines\\8.0.0\\system.io.pipelines.8.0.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1104",
-      "level": "Error",
-      "message": "Unable to find project 'C:\\Users\\KDavid02\\Source\\Repos\\LeagueFriendLadder\\LeagueFriendLadder.csproj'. Check that the project reference is valid and that the project file exists.",
-      "projectPath": "C:\\Users\\KDavid02\\Source\\Repos\\LeagueFriendLadder\\LeagueFriendLadder.Api\\LeagueFriendLadder.Api.csproj",
-      "filePath": "C:\\Users\\KDavid02\\Source\\Repos\\LeagueFriendLadder\\LeagueFriendLadder.Api\\LeagueFriendLadder.Api.csproj",
-      "libraryId": "C:\\Users\\KDavid02\\Source\\Repos\\LeagueFriendLadder\\LeagueFriendLadder.csproj",
-      "targetGraphs": [
-        "net8.0"
-      ]
-    }
-  ]
+  "logs": []
 }

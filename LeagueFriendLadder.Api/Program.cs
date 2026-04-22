@@ -1,5 +1,6 @@
 using LeagueFriendLadder.Api.Services;
 using LeagueFriendLadder.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors(options =>
@@ -9,18 +10,17 @@ builder.Services.AddCors(options =>
               .AllowAnyMethod()
               .AllowAnyHeader());
 });
-// Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var app = builder.Build();
-builder.Services.AddScoped<PlayerSessionService>();
-builder.Services.AddScoped<RiotService>();
+
 builder.Services.AddScoped<DatabaseService>();
-// Configure the HTTP request pipeline.
+builder.Services.AddScoped<RiotService>();
+
+var app = builder.Build();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -28,11 +28,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors("AllowBlazor");
-
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();
