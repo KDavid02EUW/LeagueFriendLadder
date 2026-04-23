@@ -621,7 +621,11 @@ else
             {
                 rateLimitTimer.Stop();
                 isRateLimited = false;
-                InvokeAsync(StateHasChanged);
+
+                InvokeAsync(() =>
+                {
+                    Nav.NavigateTo(Nav.Uri, forceLoad: true);
+                });
             }
         };
         rateLimitTimer.Start();

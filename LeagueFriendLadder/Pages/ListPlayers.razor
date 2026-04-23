@@ -6,6 +6,7 @@
 @inject Services.PlayerSessionService Session
 @inject Services.ApiService apiService
 @inject NavigationManager Nav
+@inject IJSRuntime JS
 
 <PageTitle>List Players</PageTitle>
 <EditForm Model="LeagueList" OnValidSubmit="findPlayers">
@@ -65,10 +66,12 @@
     <br />
     <p><strong>Loading...</strong><progress id="progress-2"></progress></p>
 }
+<div id="target"></div>
 @if (filteredPlayers != null)
 {
     <h3>Matches Found: [@requestCount]</h3>
-    <table>
+	
+	<table>
         <thead>
             <th>Name</th>
         <th style="text-align:start !important;">Tag</th>
@@ -92,11 +95,14 @@
 					<td>@player.Wins</td>
 					<td>@player.Losses</td>
 					<td>@player.Winrate%</td>
-					<td><button type="submit" @onclick="() => apiService.SavePlayerToDb(player)">Save Player</button></td>
+					<td><button type="button" @onclick="() => apiService.SavePlayerToDb(player)">Save Player</button></td>
                 </tr>
             }
+            
         </tbody>
-    </table>
+	</table>
+
+	
 }
 else if (!string.IsNullOrEmpty(errorMessage))
 {
@@ -122,6 +128,13 @@ else if (!string.IsNullOrEmpty(errorMessage))
         filteredPlayers = null;
         requestCount = 0;
         isLoading = true;
+        StateHasChanged();
+        await JS.InvokeVoidAsync("eval", @"
+                    var el = document.getElementById('target');
+                    if (el) {
+                        el.scrollIntoView({behavior: 'smooth', block: 'start'});
+                    }
+                ");
         if(LeagueList.Rank=="" || LeagueList.Rank == null)
         {
             errorMessage += "Please select a rank";
@@ -160,6 +173,14 @@ else if (!string.IsNullOrEmpty(errorMessage))
             finally
             {
                 isLoading = false;
+                StateHasChanged();
+                await Task.Delay(200);
+                await JS.InvokeVoidAsync("eval", @"
+                    var el = document.getElementById('target');
+                    if (el) {
+                        el.scrollIntoView({behavior: 'smooth', block: 'start'});
+                    }
+                ");
             }
         }
     }
