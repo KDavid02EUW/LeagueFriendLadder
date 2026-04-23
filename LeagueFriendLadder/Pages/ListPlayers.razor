@@ -9,50 +9,55 @@
 
 <PageTitle>List Players</PageTitle>
 <EditForm Model="LeagueList" OnValidSubmit="findPlayers">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
-    <label>Minimum LP:</label>
-    <InputNumber @bind-Value="LeagueList.LeaguePoints" style="width:50%" />
-    <br />
-    <label>Minimum Winrate (%):</label>
-    <InputNumber @bind-Value="LeagueList.Winrate" style="width:50%" />
-    <br />
-    <label>Rank:</label>
-    <InputSelect @bind-Value="LeagueList.Rank" style="width:50%">
-        <option value="" hidden>Select a rank</option>
-        <option value="Challenger">CHALLENGER</option>
-        <option value="Grandmaster">GRANDMASTER</option>
-        <option value="Master">MASTER</option>
-        <option value="Diamond">DIAMOND</option>
-        <option value="Emerald">EMERALD</option>
-        <option value="Platinum">PLATINUM</option>
-        <option value="Gold">GOLD</option>
-        <option value="Silver">SILVER</option>
-        <option value="Bronze">BRONZE</option>
-        <option value="Iron">IRON</option>
-    </InputSelect>
-    <br />
-    <label>Region:</label>
-    <InputSelect @bind-Value="LeagueList.Region" style="width:50%">
-        <option value="">Select your region</option>
-        <option value="BR1">BR</option>
-        <option value="EUN1">EUNE</option>
-        <option value="EUW1">EUW</option>
-        <option value="JP1">JP</option>
-        <option value="KR">KR</option>
-        <option value="LA1">LAN</option>
-        <option value="LA2">LAS</option>
-        <option value="ME1">ME</option>
-        <option value="NA1">NA</option>
-        <option value="OC1">OCE</option>
-        <option value="RU">RU</option>
-        <option value="SG2">SG</option>
-        <option value="TR1">TR</option>
-        <option value="TW2">TW</option>
-        <option value="VN2">VN</option>
-    </InputSelect>
-    <br />
-    <button type="submit" style="width:50%">List Players</button>
+    <div class="form-style-container">
+        <div>
+			<DataAnnotationsValidator />
+			<ValidationSummary />
+			<label>Minimum LP:</label>
+			<InputNumber @bind-Value="LeagueList.LeaguePoints"/>
+			<br />
+			<label>Minimum Winrate (%):</label>
+			<InputNumber @bind-Value="LeagueList.Winrate"/>
+			<br />
+			<label>Rank:</label>
+			<InputSelect @bind-Value="LeagueList.Rank">
+				<option value="" hidden>Select a rank</option>
+				<option value="Challenger">CHALLENGER</option>
+				<option value="Grandmaster">GRANDMASTER</option>
+				<option value="Master">MASTER</option>
+				<option value="Diamond">DIAMOND</option>
+				<option value="Emerald">EMERALD</option>
+				<option value="Platinum">PLATINUM</option>
+				<option value="Gold">GOLD</option>
+				<option value="Silver">SILVER</option>
+				<option value="Bronze">BRONZE</option>
+				<option value="Iron">IRON</option>
+			</InputSelect>
+			<br />
+			<label>Region:</label>
+			<InputSelect @bind-Value="LeagueList.Region">
+				<option value="">Select your region</option>
+				<option value="BR1">BR</option>
+				<option value="EUN1">EUNE</option>
+				<option value="EUW1">EUW</option>
+				<option value="JP1">JP</option>
+				<option value="KR">KR</option>
+				<option value="LA1">LAN</option>
+				<option value="LA2">LAS</option>
+				<option value="ME1">ME</option>
+				<option value="NA1">NA</option>
+				<option value="OC1">OCE</option>
+				<option value="RU">RU</option>
+				<option value="SG2">SG</option>
+				<option value="TR1">TR</option>
+				<option value="TW2">TW</option>
+				<option value="VN2">VN</option>
+			</InputSelect>
+			<br />
+			<button type="submit">List Players</button>
+        </div>
+    </div>
+    
 </EditForm>
 
 @if (isLoading && errorMessage == null)
@@ -63,22 +68,35 @@
 @if (filteredPlayers != null)
 {
     <h3>Matches Found: [@requestCount]</h3>
-    <ul>
-        @foreach (var player in filteredPlayers)
-        {
-            <li>Name: <a @onclick="() => RiotService.viewProfile(player)">@player.SummonerName</a></li>
-            <li>Tag: @player.Tag</li>
-            <li>Rank: @player.Rank</li>
-            <li>Tier: @player.Tier</li>
-            <li>LP: @player.LeaguePoints</li>
-            <li>Wins: @player.Wins</li>
-            <li>Losses: @player.Losses</li>
-            <li>Winrate: @player.Winrate%</li>
-            <li>Region: @LeagueList.Region</li>
-            <button type="submit" style="width:10%; height: 100px;text-align:center;" @onclick="() => apiService.SavePlayerToDb(player)">Save Player</button>
-            <p>--------------------------------------------------------------</p>
-        }
-    </ul>
+    <table>
+        <thead>
+            <th>Name</th>
+            <th>Tag</th>
+            <th>Rank</th>
+            <th>Tier</th>
+            <th>LP</th>
+            <th>Wins</th>
+            <th>Losses</th>
+            <th>Winrate</th>
+            <th></th>
+        </thead>
+        <tbody>
+            @foreach (var player in filteredPlayers)
+            {
+                <tr>
+					<td><a @onclick="() => RiotService.viewProfile(player)">@player.SummonerName</a></td>
+					<td>@player.Tag</td>
+					<td>@player.Rank</td>
+					<td>@player.Tier</td>
+					<td>@player.LeaguePoints</td>
+					<td>@player.Wins</td>
+					<td>@player.Losses</td>
+					<td>@player.Winrate%</td>
+					<td><button type="submit" @onclick="() => apiService.SavePlayerToDb(player)">Save Player</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }
 else if (!string.IsNullOrEmpty(errorMessage))
 {
