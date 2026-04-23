@@ -147,8 +147,8 @@ else
                                         }
                                     </div>
                                 </td>
-                                <td style="padding-left:5% !important;">
-                                    @(isWin ? "Victory" : "Defeat")
+                                <td>
+                                    @(isWin ? "Victory" : "Defeat") <p style="font-style:oblique;color:grey;margin-bottom:0;">@(TimeSpan.FromMilliseconds(match.gameEndTimeStamp - match.gameStartTimeStamp).ToString(@"mm'm 'ss's'"))</p>
                                 </td>
                                 <td>
                                     @kills/@deaths/@assists
@@ -200,7 +200,7 @@ else
                                                         <tr>
                                                             <th>
                                                                 <span>
-                                                                    @(blueWins ? "Victory" : "Defeat")
+                                                                    @(blueWins ? "Victory" : "Defeat") @(TimeSpan.FromMilliseconds(match.gameEndTimeStamp - match.gameStartTimeStamp).ToString(@"mm'm 'ss's'"))
                                                                 </span>
                                                             </th>
                                                             <th colspan="75%" style="background-color:rgba(18,23,31,1)"><strong style="color: #5383e8;">Blue Team</strong></th>

@@ -195,9 +195,6 @@ input:checked + .slider:before {
             box-shadow: 0 0 0 0.2rem rgba(var(--pico-primary-rgb), 0.25) !important;
         }
 
-    label {
-        color: #cccccc !important;
-    }
 
     .sidebar,
     main,
@@ -421,3 +418,39 @@ table > tbody > tr:hover > td{
         transform: rotate(180deg);
     }
 }
+
+.form-style-container {
+    background-color: white !important;
+    padding: 50px 15px 10px 15px !important;
+    margin-left:15%;
+    text-align: center !important;
+    width: 70% !important;
+    border: 20px double grey !important;
+    border-radius: 5% !important;
+
+}
+input {
+    width: 50%;
+    background-color: #222;
+    border: 2px solid #444;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    outline: none;
+    transition: all 0.3s ease;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    box-shadow:0 0 black 10px 0px inset;
+}
+
+    input:focus, button:hover, button:focus {
+        border-color: darkblue !important;
+        box-shadow: 0 0 12px rgba(0, 0, 255, 1) !important;
+        outline:none;
+    }
+
+label {
+    text-align:left;
+}
+
+

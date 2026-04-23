@@ -7,6 +7,8 @@ namespace LeagueFriendLadder.Models
     public class MatchDTO
     {
         public string MatchID { get; set; } = "";
+        public long gameStartTimeStamp { get; set; }
+        public long gameEndTimeStamp { get; set; }
         public List<ParticipantDTO> Participants { get; set; } = new();
     }
     public class ParticipantDTO

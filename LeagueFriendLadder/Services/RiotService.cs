@@ -89,7 +89,11 @@ public class RiotService
 
                 if (rawMatch?.info?.participants != null)
                 {
-                    var newMatch = new MatchDTO { MatchID = id };
+                    var newMatch = new MatchDTO {
+                        MatchID = id,
+                        gameEndTimeStamp = rawMatch.info.gameEndTimeStamp,
+                        gameStartTimeStamp = rawMatch.info.gameStartTimeStamp,
+                    };
 
                     foreach (var p in rawMatch.info.participants)
                     {
