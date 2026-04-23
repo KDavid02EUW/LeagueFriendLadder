@@ -15,6 +15,9 @@ td {
     overflow:clip;
     white-space:nowrap;
 }
+#myDropdown > a {
+    color:black !important;
+}
 
 h1:focus {
     outline: none;
@@ -467,5 +470,10 @@ button {
 .form-style-content {
     color:black !important;
     text-decoration:none;
-    text-align:left;
+}
+tbody > tr > td > a {
+    text-decoration:none !important;
+}
+.single-view > td {
+    text-align:center !important;
 }

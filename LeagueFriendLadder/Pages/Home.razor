@@ -6,35 +6,40 @@
 
 <PageTitle>Home</PageTitle>
 
-<h1>TODO: Login átirányítás </h1>
-<h3>Ha login akkor</h3>
+<!--TODO LOGIN ÁTIRÁNYÍTÁS-->
 
 <EditForm Model="RiotID" OnValidSubmit="getRiotID">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
-
-    <InputText @bind-Value="RiotID.SummonerName" style="width:50%"></InputText>
+    <div class="form-style-container">
+        <div class="form-style-content">
+			<DataAnnotationsValidator />
+			
+            <label>Summoner Name#Tag</label>
+			<InputText @bind-Value="RiotID.SummonerName"></InputText>
+			<label>Region</label>
+			<InputSelect @bind-Value="RiotID.Region">
+				<option value="">Select your region</option>
+				<option value="BR1">BR</option>
+				<option value="EUN1">EUNE</option>
+				<option value="EUW1">EUW</option>
+				<option value="JP1">JP</option>
+				<option value="KR">KR</option>
+				<option value="LA1">LAN</option>
+				<option value="LA2">LAS</option>
+				<option value="ME1">ME</option>
+				<option value="NA1">NA</option>
+				<option value="OC1">OCE</option>
+				<option value="RU">RU</option>
+				<option value="SG2">SG</option>
+				<option value="TR1">TR</option>
+				<option value="TW2">TW</option>
+				<option value="VN2">VN</option>
+			</InputSelect>
+			<br /><br />
+			<button type="submit" href="#target">Search</button>
+        </div>
+    </div>
     <br />
-    <InputSelect @bind-Value="RiotID.Region" style="width:50%">
-        <option value="">Select your region</option>
-        <option value="BR1">BR</option>
-        <option value="EUN1">EUNE</option>
-        <option value="EUW1">EUW</option>
-        <option value="JP1">JP</option>
-        <option value="KR">KR</option>
-        <option value="LA1">LAN</option>
-        <option value="LA2">LAS</option>
-        <option value="ME1">ME</option>
-        <option value="NA1">NA</option>
-        <option value="OC1">OCE</option>
-        <option value="RU">RU</option>
-        <option value="SG2">SG</option>
-        <option value="TR1">TR</option>
-        <option value="TW2">TW</option>
-        <option value="VN2">VN</option>
-    </InputSelect>
-    <br /><br />
-    <button type="submit" style="width:50%">Search</button>
+    <ValidationSummary />
 </EditForm>
 
 @if (!string.IsNullOrEmpty(errorMessage) && !isLoading && hasSearched)
@@ -52,39 +57,58 @@
 }
 else if (result != null && result2 != null)
 {
-    <div>
-        <br />
-        <p><strong>Summoner Name:</strong> @result.GameName</p>
-        <p><strong>Tag:</strong> @result.TagLine</p>
-        <p><strong>Queue Type:</strong> @result2.QueueType</p>
-        <p><strong>Tier:</strong> @result2.Tier</p>
-        <p><strong>Rank:</strong> @result2.Rank</p>
-        <p><strong>LP:</strong> @result2.LeaguePoints</p>
-        <p><strong>Wins:</strong> @result2.Wins</p>
-        <p><strong>Losses:</strong> @result2.Losses</p>
-        <p><strong>Winrate:</strong> @result2.Winrate%</p>
-        <p><strong>Hotstreak:</strong> @result2.HotStreak</p>
-    </div>
+    <table>
+        <thead>
+            <th>Summoner Name</th>
+            <th>Tag</th>
+            <th>Queue Type</th>
+            <th>Tier</th>
+            <th>Rank</th>
+            <th>LP</th>
+            <th>Wins</th>
+            <th>Losses</th>
+            <th>Winrate</th>
+            <th>Hotstreak</th>
+        </thead>
+        <tbody class="single-view" id="target">
+            <td><a @onclick="() => riotService.viewProfile(result2)">@result.GameName</a></td>
+            <td>@result.TagLine</td>
+            <td>@result2.QueueType</td>
+            <td>@result2.Tier</td>
+            <td>@result2.Rank</td>
+            <td>@result2.LeaguePoints</td>
+            <td>@result2.Wins</td>
+            <td>@result2.Losses</td>
+            <td>@result2.Winrate%</td>
+            <td>@result2.HotStreak</td>
+        </tbody>
+    </table>
 }
 else if (result != null && result2 == null)
 {
-    <br />
-    <p><strong>Summoner Name:</strong> @result.GameName</p>
-    <p><strong>Tag:</strong> @result.TagLine</p>
-    <p><strong>Tier:</strong> Unranked</p>
+    <table>
+        <thead>
+        <th>Summoner Name</th>
+        <th>Tag</th>
+        <th>Rank</th>
+        </thead>
+        <tbody class="single-view">
+        <td>@result.GameName</td>
+        <td>@result.TagLine</td>
+        <td>Unranked</td>
+        </tbody>
+    </table>
 }
 else if(!isLoading && result != null && unranked)
 {
     <br /><strong>Name:</strong>
  
     @RiotID.SummonerName
-    <br />
+	<br />
+	<p><strong>Tag:</strong> @result.TagLine</p>
+	<br />
     <strong>Region:</strong>
- 
-    @RiotID.Region
-    <br />
-    <p><strong>Tag:</strong> @result.TagLine</p>
-    <p><strong>Rank:</strong> Unranked</p>
+    @RiotID.Region    
     <p style="color:red">
         @errorMessage
     </p>
@@ -184,6 +208,9 @@ else if (!isLoading && result == null && result2 == null && hasSearched)
                         double games = result2.Wins + result2.Losses;
                         double wins = result2.Wins;
                         double losses = result2.Losses;
+                        result2.Puuid = result.Puuid;
+                        result2.Tag = result.TagLine;
+                        result2.SummonerName = result.GameName;
 
                         result2.Winrate = riotService.getWinrate(resp);
                         errorMessage = null;
@@ -194,7 +221,9 @@ else if (!isLoading && result == null && result2 == null && hasSearched)
                         unranked = true;
                         errorMessage = null;
                     }
+                    
                 }
+                
             } else
             {
                 errorMessage = $"Error: Summoner not found for the selected region: [{RiotID.Region}]";

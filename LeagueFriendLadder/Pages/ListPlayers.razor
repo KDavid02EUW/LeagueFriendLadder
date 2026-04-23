@@ -71,7 +71,7 @@
     <table>
         <thead>
             <th>Name</th>
-            <th>Tag</th>
+        <th style="text-align:start !important;">Tag</th>
             <th>Rank</th>
             <th>Tier</th>
             <th>LP</th>
@@ -85,7 +85,7 @@
             {
                 <tr>
 					<td><a @onclick="() => RiotService.viewProfile(player)">@player.SummonerName</a></td>
-					<td>@player.Tag</td>
+					<td >@player.Tag</td>
 					<td>@player.Rank</td>
 					<td>@player.Tier</td>
 					<td>@player.LeaguePoints</td>
