@@ -1,18 +1,78 @@
 ﻿@page "/login"
+@using LeagueFriendLadder.Api.Models
+@using Blazored.LocalStorage
+@inject HttpClient Http
+@inject NavigationManager Nav
+@inject ILocalStorageService LocalStorage
 
 <PageTitle>Login</PageTitle>
 
 <div class="form-style-container">
-    <div>
-        <label>
-            Username
-            <input type="text"/>
-        </label>
-        <label>
-            Password
-            <input type="password" placeholder=""/>
-        </label>
-        <button type="submit">Submit</button>
-		    <a href="/register">I don't have an account</a>
-	</div>
+    <EditForm Model="loginModel" OnValidSubmit="HandleLogin">
+        <DataAnnotationsValidator />
+
+        <div class="form-style-content">
+            <h3 style="color:black">Login</h3>
+
+            <label style="color:black !important">
+                Username
+                <InputText @bind-Value="loginModel.Username" />
+            </label>
+
+            <label style="color:black !important">
+                Password
+                <InputText type="password" @bind-Value="loginModel.Password" />
+            </label>
+
+            @if (!string.IsNullOrEmpty(errorMessage))
+            {
+                <p style="color:red; font-weight:bold">@errorMessage</p>
+            }
+
+            <button type="submit" disabled="@isProcessing">
+                @(isProcessing ? "Login..." : "Submit")
+            </button>
+
+            <a href="/register">I don't have an account</a>
+        </div>
+    </EditForm>
 </div>
+
+@code {
+    private LoginModel loginModel = new();
+    private string? errorMessage;
+    private bool isProcessing = false;
+
+    private async Task HandleLogin()
+    {
+        isProcessing = true;
+        errorMessage = null;
+
+        try
+        {
+            var response = await Http.PostAsJsonAsync("api/user/login", loginModel);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var user = await response.Content.ReadFromJsonAsync<User>();
+                if (user != null)
+                {
+                    await LocalStorage.SetItemAsync("user", user);
+                    Nav.NavigateTo("/");
+                }
+            }
+            else
+            {
+                errorMessage = "Invalid username or password!";
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = "Error: " + ex.Message;
+        }
+        finally
+        {
+            isProcessing = false;
+        }
+    }
+}

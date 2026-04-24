@@ -6,16 +6,3 @@ C:\Users\KDavid02\Source\Repos\LeagueFriendLadder\LeagueFriendLadder\obj\Debug\n
 C:\Users\KDavid02\Source\Repos\LeagueFriendLadder\LeagueFriendLadder\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\KDavid02\Source\Repos\LeagueFriendLadder\LeagueFriendLadder\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\KDavid02\Source\Repos\LeagueFriendLadder\LeagueFriendLadder\obj\Debug\net8.0\staticwebassets.build.json
-C:\Users\KDavid02\Source\Repos\LeagueFriendLadder\LeagueFriendLadder\obj\Debug\net8.0\staticwebassets.build.json
-C:\Users\KDavid02\Source\Repos\LeagueFriendLadder\LeagueFriendLadder\obj\Debug\net8.0\staticwebassets.build.json
-C:\Users\KDavid02\Source\Repos\LeagueFriendLadder\LeagueFriendLadder\obj\Debug\net8.0\staticwebassets.build.json
-C:\Users\KDavid02\Source\Repos\LeagueFriendLadder\LeagueFriendLadder\obj\Debug\net8.0\staticwebassets.build.json
-C:\Users\KDavid02\Source\Repos\LeagueFriendLadder\LeagueFriendLadder\obj\Debug\net8.0\staticwebassets.build.json
-C:\Users\KDavid02\Source\Repos\LeagueFriendLadder\LeagueFriendLadder\obj\Debug\net8.0\staticwebassets.build.json
-C:\Users\KDavid02\Source\Repos\LeagueFriendLadder\LeagueFriendLadder\obj\Debug\net8.0\staticwebassets.build.json
-C:\Users\KDavid02\Source\Repos\LeagueFriendLadder\LeagueFriendLadder\obj\Debug\net8.0\staticwebassets.build.json
-C:\Users\KDavid02\Source\Repos\LeagueFriendLadder\LeagueFriendLadder\obj\Debug\net8.0\staticwebassets.build.json
-C:\Users\KDavid02\Source\Repos\LeagueFriendLadder\LeagueFriendLadder\obj\Debug\net8.0\staticwebassets.build.json
-C:\Users\KDavid02\Source\Repos\LeagueFriendLadder\LeagueFriendLadder\obj\Debug\net8.0\staticwebassets.build.json
-C:\Users\KDavid02\Source\Repos\LeagueFriendLadder\LeagueFriendLadder\obj\Debug\net8.0\staticwebassets.build.json
-C:\Users\KDavid02\Source\Repos\LeagueFriendLadder\LeagueFriendLadder\obj\Debug\net8.0\staticwebassets.build.json

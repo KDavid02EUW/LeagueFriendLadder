@@ -1,19 +1,87 @@
 ﻿@page "/register"
+@using LeagueFriendLadder.Api.Models 
+@using Blazored.LocalStorage 
+@inject HttpClient Http
+@inject NavigationManager Nav
+@inject ILocalStorageService LocalStorage
+
 <div class="form-style-container">
-    <div class="form-style-content">
-        <label style="color:black !important">
-            Username
-            <input type="text" />
-        </label>
-        <label style="color:black !important">
-            Password
-            <input type="password" placeholder="" />
-        </label>
-        <label style="color:black !important">
-            Password again
-            <input type="password" placeholder="" />
-        </label>
-        <button type="submit">Submit</button>
-        <a href="/login">I already have an account</a>
-    </div>
+    <EditForm Model="regModel" OnValidSubmit="HandleRegistration">
+        <DataAnnotationsValidator />
+
+        <div class="form-style-content">
+            <h3 style="color:black">Registration</h3>
+
+            <label style="color:black !important">
+                Username
+                <InputText @bind-Value="regModel.Username" />
+                <ValidationMessage For="@(() => regModel.Username)" />
+            </label>
+
+            <label style="color:black !important">
+                Password
+                <InputText type="password" @bind-Value="regModel.Password" />
+                <ValidationMessage For="@(() => regModel.Password)" />
+            </label>
+
+            <label style="color:black !important">
+                Password again
+                <InputText type="password" @bind-Value="regModel.ConfirmPassword" />
+                <ValidationMessage For="@(() => regModel.ConfirmPassword)" />
+            </label>
+
+            @if (!string.IsNullOrEmpty(errorMessage))
+            {
+                <p style="color:red; font-weight:bold">@errorMessage</p>
+            }
+
+            <button type="submit" disabled="@isProcessing">
+                @(isProcessing ? "Processing..." : "Submit")
+            </button>
+
+            <a href="/login">I already have an account</a>
+        </div>
+    </EditForm>
 </div>
+
+@code {
+    private RegisterModel regModel = new();
+    private string? errorMessage;
+    private bool isProcessing = false;
+
+    private async Task HandleRegistration()
+    {
+        isProcessing = true;
+        errorMessage = null;
+
+        try
+        {
+            var response = await Http.PostAsJsonAsync("api/user/register", regModel);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var user = await response.Content.ReadFromJsonAsync<User>();
+
+                if (user != null)
+                {
+                    await LocalStorage.SetItemAsync("user", user);
+                    StateHasChanged();
+                    await Task.Delay(4000);
+                    Nav.NavigateTo("/");
+                }
+            }
+            else
+            {
+                errorMessage = await response.Content.ReadAsStringAsync();
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = "Error occurred: " + ex.Message;
+        }
+        finally
+        {
+            isProcessing = false;
+        }
+    }
+}
