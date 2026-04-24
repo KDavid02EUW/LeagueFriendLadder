@@ -1,5 +1,10 @@
 ﻿@inherits LayoutComponentBase
+@using Blazored.LocalStorage
+@using LeagueFriendLadder.Api.Models
+@implements IDisposable
 @inject IJSRuntime JSRuntime
+@inject ILocalStorageService LocalStorage
+@inject NavigationManager Nav
 
 <div class="page">
     <div class="sidebar">
@@ -11,13 +16,19 @@
             <div class="dropdown">
                 <button @onclick="ToggleDropdown" class="dropbtn">Profile</button>
                 <div id="myDropdown" class="dropdown-content">
-					<!-- TODO LOGINRA <a href="profile" style="text-decoration:none">Statistics</a>-->
-					<a href="" style="text-decoration:none"><button>Friends</button></a>
-					<a href="settings" style="text-decoration:none"><button>Settings</button></a>
-                 </div>
+                    <a href="" style="text-decoration:none"><button>Friends</button></a>
+                    <a href="settings" style="text-decoration:none"><button>Settings</button></a>
+                </div>
+                <a style="text-decoration:none"><button>About</button></a>
+                @if (isLoggedIn)
+                {
+                    <button @onclick="Logout" style="margin-left:15px;">Logout</button>
+                }
+                else
+                {
+                    <a href="login" style="text-decoration:none"><button>Login</button></a>
+                }
             </div>
-			<a style="text-decoration:none"><button>About</button></a>
-			<a href="login" sstyle="text-decoration:none"><button>Login</button></a>
         </div>
 
         <article class="content px-4">
@@ -27,11 +38,46 @@
 </div>
 
 @code {
+    private bool isLoggedIn = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Nav.LocationChanged += HandleLocationChanged;
+        await CheckLoginStatus();
+    }
+
+    private async void HandleLocationChanged(object? sender, LocationChangedEventArgs e)
+    {
+        await CheckLoginStatus();
+        StateHasChanged();
+    }
+
+    private async Task CheckLoginStatus()
+    {
+        isLoggedIn = await LocalStorage.ContainKeyAsync("user");
+    }
+
+    private async Task Logout()
+    {
+        await LocalStorage.RemoveItemAsync("user");
+        isLoggedIn = false;
+        Nav.NavigateTo("/login");
+    }
+
+    public void Dispose()
+    {
+        Nav.LocationChanged -= HandleLocationChanged;
+    }
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            await JSRuntime.InvokeVoidAsync("dropdownHelper.registerOutsideClick");
+            try
+            {
+                await JSRuntime.InvokeVoidAsync("dropdownHelper.registerOutsideClick");
+            }
+            catch {  }
         }
     }
 

@@ -1,12 +1,22 @@
 ﻿@page "/"
 @using System.ComponentModel.DataAnnotations
 @using LeagueFriendLadder.Models
+@using LeagueFriendLadder.Api.Models
+@using Blazored.LocalStorage
+@inject ILocalStorageService LocalStorage
+@inject NavigationManager Nav
 @inject HttpClient Http
 @inject RiotService riotService
 
 <PageTitle>Home</PageTitle>
 
-<!--TODO LOGIN ÁTIRÁNYÍTÁS-->
+@if (user != null)
+{
+    <div style="margin-bottom: 20px;text-align:center;">
+        <h2 style="color: #2000ea;">Welcome, @user.Username!</h2>
+        <p style="color: green; font-weight: bold;">Login successful!</p>
+    </div>
+}
 
 <EditForm Model="RiotID" OnValidSubmit="getRiotID">
     <div class="form-style-container">
@@ -142,9 +152,18 @@ else if (!isLoading && result == null && result2 == null && hasSearched)
     private RiotID RiotID = new();
     private RiotAccount? result;
     private LeagueEntryDTO? result2;
+    private User? user;
     private string? errorMessage;
     string apiKey = "RGAPI-15de7229-e9c5-49f8-a1d0-69a63a7bb4ab";
 
+    protected override async Task OnInitializedAsync()
+    {
+        user = await LocalStorage.GetItemAsync<User>("user");
+        if (user == null)
+        {
+            Nav.NavigateTo("/login");
+        }
+    }
     public async Task getRiotID()
     {
         hasSearched = true;
