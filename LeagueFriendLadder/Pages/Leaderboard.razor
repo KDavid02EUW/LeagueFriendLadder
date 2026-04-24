@@ -1,4 +1,11 @@
-﻿@page "/leaderboard"
+﻿@using LeagueFriendLadder.Api.Models
+@using LeagueFriendLadder.Models
+@using Blazored.LocalStorage
+@inject ILocalStorageService LocalStorage
+@inject NavigationManager Nav
+
+@page "/leaderboard"
+
 
 <PageTitle>Leaderboard</PageTitle>
 
@@ -32,3 +39,15 @@
         </tr>
     </tbody>
 </table>
+
+@code {
+    private User? user;
+    protected override async Task OnInitializedAsync()
+    {
+        user = await LocalStorage.GetItemAsync<User>("user");
+        if (user == null)
+        {
+            Nav.NavigateTo("/login");
+        }
+    }
+}

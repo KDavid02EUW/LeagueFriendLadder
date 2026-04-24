@@ -1,6 +1,9 @@
 ﻿@page "/ListPlayers"
 @using System.ComponentModel.DataAnnotations
 @using LeagueFriendLadder.Models
+@using LeagueFriendLadder.Api.Models
+@using Blazored.LocalStorage
+@inject ILocalStorageService LocalStorage
 @inject HttpClient Http
 @inject RiotService RiotService
 @inject Services.PlayerSessionService Session
@@ -120,8 +123,17 @@ else if (!string.IsNullOrEmpty(errorMessage))
     private string? errorMessage;
     private int requestCount;
     private bool isLoading = false;
+    private User? user;
     private const string apiKey = "RGAPI-15de7229-e9c5-49f8-a1d0-69a63a7bb4ab";
 
+    protected override async Task OnInitializedAsync()
+    {
+        user = await LocalStorage.GetItemAsync<User>("user");
+        if (user == null)
+        {
+            Nav.NavigateTo("/login");
+        }
+    }
     private async Task findPlayers()
     {
         errorMessage = null;
