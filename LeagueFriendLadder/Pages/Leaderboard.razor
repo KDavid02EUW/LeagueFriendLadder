@@ -10,36 +10,41 @@
 <PageTitle>Leaderboard</PageTitle>
 
 
-<h1>[Logged in user]'s Friend Ladder</h1>
+@if (user == null)
+{
+    <p><em>Loading leaderboard...</em></p>
+}
+else
+{
+    <h3 style="color:#2000ea">@user.Username's Friend Ladder</h3>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Player</th>
-            <th>Role</th>
-            <th>Rank</th>
-            <th>Winrate</th>
-            <th>Games played</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><a href="KDavid02">KDavid02</a></td>
-            <td>Adc</td>
-            <td>Master 739 LP</td>
-            <td>52.1%</td>
-			<td>413</td>
-        </tr>
-        <tr>
-            <td><a href="KDavid02">KDavid02</a></td>
-            <td>Adc</td>
-            <td>Master 739 LP</td>
-            <td>52.1%</td>
-            <td>413</td>
-        </tr>
-    </tbody>
-</table>
-
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Player</th>
+                <th>Role</th>
+                <th>Rank</th>
+                <th>Winrate</th>
+                <th>Games played</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <!-- Példa output
+                    Ide valami HTTP Get method, ami lekéri az összes puuid-t ami a users.summoners[] tömbben van puuidként.
+                    Ezeket a puuid-ket megkeresi
+                    az adatbázisban, ha nem találja akkor rengeteg api request.
+                    ha megtalálja akkor csak kiírja az adatokat
+                -->
+                <td><a href="KDavid02">KDavid02</a></td>
+                <td style="text-align:center !important;">Adc</td>
+                <td>Master 739 LP</td>
+                <td>52.1%</td>
+                <td>413</td>
+            </tr>
+        </tbody>
+    </table>
+}
 @code {
     private User? user;
     protected override async Task OnInitializedAsync()

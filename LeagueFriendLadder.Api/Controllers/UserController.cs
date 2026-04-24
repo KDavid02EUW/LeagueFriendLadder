@@ -63,5 +63,65 @@ namespace LeagueFriendLadder.Api.Controllers
                 user.Summoners
             });
         }
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        {
+            try
+            {
+                var users = await _context.Users
+                    .Select(u => new User
+                    {
+                        Id = u.Id,
+                        Username = u.Username, 
+                        IsAdmin = u.IsAdmin,
+                        Summoners = u.Summoners
+                    })
+                    .ToListAsync();
+
+                return Ok(users);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error handling the request: {ex.Message}");
+                return StatusCode(500, "Database error");
+            }
+        }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUser(int id)
+        {
+            var user = await _context.Users.FindAsync(id);
+
+            if (user == null)
+            {
+                return NotFound("User not found!");
+            }
+
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateUser(int id, [FromBody] User updatedUser)
+        {
+            if (id != updatedUser.Id) return BadRequest("ID mismatch");
+
+            var user = await _context.Users.FindAsync(id);
+            if (user == null) return NotFound();
+
+            user.Username = updatedUser.Username;
+            user.IsAdmin = updatedUser.IsAdmin;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                return StatusCode(500, "Error saving database.");
+            }
+
+            return NoContent();
+        }
     }
 }

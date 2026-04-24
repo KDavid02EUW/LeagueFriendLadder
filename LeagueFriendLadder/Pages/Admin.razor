@@ -1,0 +1,216 @@
+﻿@page "/admin"
+@using LeagueFriendLadder.Api.Models
+@using Blazored.LocalStorage
+@inject ILocalStorageService LocalStorage
+@inject NavigationManager Nav
+@inject HttpClient Http
+@inject IJSRuntime JSRuntime
+
+<PageTitle>Admin Panel</PageTitle>
+
+@if (currentUser == null)
+{
+    <p>Loading...</p>
+    <progress></progress>
+}
+else if (!currentUser.IsAdmin)
+{
+    <div class="container">
+        <h1 style="color:red">Access Denied!</h1>
+        <p>You do not have permission to view this page.</p>
+    </div>
+}
+else
+{
+    <div class="container">
+        <h2>User Management (Admin)</h2>
+
+        @if (users == null)
+        {
+            <progress>Loading...</progress>
+        }
+        else
+        {
+            <table class="striped">
+                <thead>
+                    <tr>
+                        <th @onclick='() => SortTable("Id")' style="cursor:pointer; user-select:none;">
+                            ID @GetSortArrow("Id")
+                        </th>
+                        <th @onclick='() => SortTable("Username")' style="cursor:pointer; user-select:none;">
+                            Username @GetSortArrow("Username")
+                        </th>
+                        <th @onclick='() => SortTable("Admin")' style="cursor:pointer; user-select:none;">
+                            Admin? @GetSortArrow("Admin")
+                        </th>
+                        <th @onclick='() => SortTable("Summoners")' style="cursor:pointer; user-select:none;">
+                            Summoners @GetSortArrow("Summoners")
+                        </th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var u in users)
+                    {
+                        <tr>
+                            <td>@u.Id</td>
+                            <td style="text-align:center !important;">@u.Username</td>
+                            <td>@(u.IsAdmin ? "✅" : "❌")</td>
+                            <td>@(u.Summoners?.Length ?? 0) summoners</td>
+                            <td>
+                                <button class="outline error" @onclick="() => EditUser(u)">Edit</button>
+                                <button style="color:crimson !important;border:1px solid crimson !important;" class="outline error" @onclick="() => DeleteUser(u.Id,u.Username)">Delete</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            @if (isEditing && editingUser != null)
+            {
+                <dialog open>
+                    <article>
+                        <header>
+                            <a aria-label="Close" style="cursor:pointer;" class="close" @onclick="CloseEdit"></a>
+                            Editing user: @editingUser.Username
+                        </header>
+                        <form>
+                            <table>
+                                <thead>
+                                    <th>Username</th>
+                                    <th>Admin</th>
+                                </thead>
+                                <tbody style="text-align:center !important;">
+                                    <td><input type="text" @bind="editingUser.Username" /></td>
+                                    <td><input style="height:65px;width:65px;margin-left:22%;margin-bottom:15%;" type="checkbox" @bind="editingUser.IsAdmin" /></td>
+                                </tbody>
+                            </table>
+                        </form>
+                        <footer>
+                            <button class="secondary outline" style="border:1px solid darkgrey !important;color:white !important;" @onclick="CloseEdit">Cancel</button>
+                            <button @onclick="SaveEdit">Save</button>
+                        </footer>
+                    </article>
+                </dialog>
+            }
+        }
+    </div>
+}
+
+@code {
+    private User? currentUser;
+    private List<User>? users;
+    private bool isEditing = false;
+    private User? editingUser;
+
+    protected override async Task OnInitializedAsync()
+    {
+        currentUser = await LocalStorage.GetItemAsync<User>("user");
+
+        if (currentUser == null)
+        {
+            Nav.NavigateTo("/login");
+            return;
+        }
+
+        if (currentUser.IsAdmin)
+        {
+            await LoadUsers();
+        }
+    }
+
+    private async Task LoadUsers()
+    {
+        users = await Http.GetFromJsonAsync<List<User>>("api/user");
+        SortTable("Id");
+    }
+
+    private async Task DeleteUser(int id, string name)
+    {
+        bool confirmed = await JSRuntime.InvokeAsync<bool>("confirm", $"Are u sure u want to delete {name}?");
+
+        if (confirmed)
+        {
+            var response = await Http.DeleteAsync($"api/user/{id}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                users?.RemoveAll(u => u.Id == id);
+                StateHasChanged();
+            }
+            else
+            {
+                await JSRuntime.InvokeVoidAsync("alert", "Error during deletion!");
+            }
+        }
+    }
+    private void EditUser(User user)
+    {
+
+        editingUser = new User
+        {
+            Id = user.Id,
+            Username = user.Username,
+            IsAdmin = user.IsAdmin,
+            Summoners = user.Summoners
+        };
+        isEditing = true;
+    }
+
+    private void CloseEdit()
+    {
+        isEditing = false;
+        editingUser = null;
+    }
+
+    private async Task SaveEdit()
+    {
+        if (editingUser == null) return;
+
+        var response = await Http.PutAsJsonAsync($"api/user/{editingUser.Id}", editingUser);
+
+        if (response.IsSuccessStatusCode)
+        {
+            var index = users!.FindIndex(u => u.Id == editingUser.Id);
+            users[index] = editingUser;
+
+            CloseEdit();
+            StateHasChanged();
+        }
+        else
+        {
+            await JSRuntime.InvokeVoidAsync("alert", "Error saving database!");
+        }
+    }
+    private string currentSortColumn = "Id";
+    private bool isAscending = true;
+
+    private void SortTable(string columnName)
+    {
+        if (currentSortColumn == columnName)
+        {
+            isAscending = !isAscending;
+        }
+        else
+        {
+            currentSortColumn = columnName;
+            isAscending = true;
+        }
+
+        if (users == null) return;
+
+        users = columnName switch
+        {
+            "Id" => isAscending ? users.OrderBy(u => u.Id).ToList() : users.OrderByDescending(u => u.Id).ToList(),
+            "Username" => isAscending ? users.OrderBy(u => u.Username).ToList() : users.OrderByDescending(u => u.Username).ToList(),
+            "Admin" => isAscending ? users.OrderBy(u => u.IsAdmin).ToList() : users.OrderByDescending(u => u.IsAdmin).ToList(),
+            "Summoners" => isAscending ? users.OrderBy(u => u.Summoners?.Length ?? 0).ToList() : users.OrderByDescending(u => u.Summoners?.Length ?? 0).ToList(),
+            _ => users
+        };
+    }
+
+    private string GetSortArrow(string columnName)
+    {
+        if (currentSortColumn != columnName) return "";
+        return isAscending ? "▲" : "▼";
+    }
+}
