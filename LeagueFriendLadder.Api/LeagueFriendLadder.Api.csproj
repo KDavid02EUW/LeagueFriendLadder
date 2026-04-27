@@ -27,4 +27,10 @@
 		<ProjectReference Include="..\LeagueFriendLadder\LeagueFriendLadder.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Content Update="wwwroot\data\augments.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+
 </Project>

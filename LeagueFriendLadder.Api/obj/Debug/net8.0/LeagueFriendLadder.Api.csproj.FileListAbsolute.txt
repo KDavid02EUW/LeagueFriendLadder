@@ -116,3 +116,4 @@ C:\Users\KDavid02\Source\Repos\LeagueFriendLadder\LeagueFriendLadder.Api\obj\Deb
 C:\Users\KDavid02\Source\Repos\LeagueFriendLadder\LeagueFriendLadder.Api\obj\Debug\net8.0\LeagueFriendLadder.Api.pdb
 C:\Users\KDavid02\Source\Repos\LeagueFriendLadder\LeagueFriendLadder.Api\obj\Debug\net8.0\LeagueFriendLadder.Api.genruntimeconfig.cache
 C:\Users\KDavid02\Source\Repos\LeagueFriendLadder\LeagueFriendLadder.Api\obj\Debug\net8.0\ref\LeagueFriendLadder.Api.dll
+C:\Users\KDavid02\Source\Repos\LeagueFriendLadder\LeagueFriendLadder.Api\bin\Debug\net8.0\wwwroot\data\augments.json

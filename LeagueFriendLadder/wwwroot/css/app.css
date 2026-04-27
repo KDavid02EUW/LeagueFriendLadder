@@ -450,7 +450,7 @@ input {
 }
 
 
-    input:focus, button:hover, button:focus {
+    input:focus, button:hover, button:focus, select:hover, select:focus {
         border-color: darkblue !important;
         box-shadow: 0 0 12px rgba(0, 0, 255, 1) !important;
         outline:none;
@@ -462,6 +462,7 @@ label {
 }
 
 button {
+    border:none !important;
     background-color:black !important;
 }
 
