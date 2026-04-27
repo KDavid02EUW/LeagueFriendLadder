@@ -1,5 +1,5 @@
 ﻿using LeagueFriendLadder.Models;
-using System.Net.Http.Json; // Fontos a PostAsJsonAsync-hez!
+using System.Net.Http.Json;
 
 namespace LeagueFriendLadder.Services
 {
@@ -19,9 +19,9 @@ namespace LeagueFriendLadder.Services
 
                 var response = await _http.PostAsJsonAsync(url, player);
 
+
                 if (response.IsSuccessStatusCode)
                 {
-                    Console.WriteLine($"{player.SummonerName} saved to db.");
                     return (true, null);
                 }
                 else

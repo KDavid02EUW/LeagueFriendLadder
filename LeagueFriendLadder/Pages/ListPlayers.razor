@@ -84,7 +84,7 @@
             <th>Wins</th>
             <th>Losses</th>
             <th>Winrate</th>
-            <th></th>
+            <th colspan="2">Actions</th>
         </thead>
         <tbody>
             @foreach (var player in filteredPlayers)
@@ -98,7 +98,8 @@
 					<td>@player.Wins</td>
 					<td>@player.Losses</td>
 					<td>@player.Winrate%</td>
-					<td><button type="button" @onclick="() => apiService.SavePlayerToDb(player)">Save Player</button></td>
+					<td><button type="button" @onclick="() => HandleSavePlayer(player)">Save Player</button></td>
+					<td><button type="button" @onclick="() => HandleSendFriendRequest(player,user)">Add Friend</button></td>
                 </tr>
             }
             
@@ -112,6 +113,42 @@ else if (!string.IsNullOrEmpty(errorMessage))
     <p style="color:red">@errorMessage</p>
 }
 
+
+@if (showSuccessModal && savedPlayer != null)
+{
+    <dialog open>
+        <article>
+            <header>
+                <a aria-label="Close" style="cursor:pointer;" class="close" @onclick="CloseModal"></a>
+                ✅ Player Saved Successfully!
+            </header>
+            <p>
+                <strong>@savedPlayer.SummonerName #@savedPlayer.Tag</strong> has been added to the database.
+            </p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name#Tag</th>
+                        <th>Rank</th>
+                        <th>LP</th>
+                        <th>Winrate</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="text-align:center !important;">
+                        <td>@savedPlayer.SummonerName#@savedPlayer.Tag</td>
+                        <td style ="text-align:center !important;">@savedPlayer.Rank @savedPlayer.Tier</td>
+                        <td>@savedPlayer.LeaguePoints</td>
+                        <td>@savedPlayer.Winrate%</td>
+                    </tr>
+                </tbody>
+            </table>
+            <footer>
+                <button class="secondary" style="width:100%;" @onclick="CloseModal">Ok</button>
+            </footer>
+        </article>
+    </dialog>
+}
 @code {
 
     private LeagueListDTO LeagueList = new()
@@ -125,6 +162,8 @@ else if (!string.IsNullOrEmpty(errorMessage))
     private bool isLoading = false;
     private User? user;
     private const string apiKey = "RGAPI-15de7229-e9c5-49f8-a1d0-69a63a7bb4ab";
+    private bool showSuccessModal = false;
+    private LeagueEntryDTO? savedPlayer;
 
     protected override async Task OnInitializedAsync()
     {
@@ -195,5 +234,34 @@ else if (!string.IsNullOrEmpty(errorMessage))
                 ");
             }
         }
+    }
+    private async Task HandleSavePlayer(LeagueEntryDTO player)
+    {
+        var success = await apiService.SavePlayerToDb(player);
+
+        if (success.Success)
+        {
+            savedPlayer = player;
+            showSuccessModal = true;
+            StateHasChanged();
+        }
+        else
+        {
+            await JS.InvokeVoidAsync("alert", "Error saving player!");
+        }
+    }
+    private void CloseModal()
+    {
+        showSuccessModal = false;
+        savedPlayer = null;
+    }
+    private async Task HandleSendFriendRequest(LeagueEntryDTO player, User sender)
+    {
+        /*
+        * TODO a loginolt USER barát lesz a választott playerrel, ez azt jelenti,hogy 
+             * A loginolt user (sender) összes lol accountja, ami hozzá van rendelve a summoners táblába puuid alapján
+             * A barátja lesz a másik User összes lol accountjával, ha az adatbázisban van olyan User, aminek a puuid-je a player.puuid
+             */
+        return;
     }
 }

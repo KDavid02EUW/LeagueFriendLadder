@@ -42,7 +42,16 @@
     private LoginModel loginModel = new();
     private string? errorMessage;
     private bool isProcessing = false;
+    private User? user;
 
+    protected override async Task OnInitializedAsync()
+    {
+        user = await LocalStorage.GetItemAsync<User>("user");
+        if (user != null)
+        {
+            Nav.NavigateTo("/");
+        }
+    }
     private async Task HandleLogin()
     {
         isProcessing = true;

@@ -70,6 +70,7 @@ else
                             int playerAugment2 = 0;
                             int playerAugment3= 0;
                             int playerAugment4 = 0;
+                            DateTime date = DateTimeOffset.FromUnixTimeMilliseconds(match.gameEndTimeStamp).DateTime;
 
                             foreach (var participant in match.Participants)
                             {
@@ -95,6 +96,7 @@ else
                                     playerAugment2 = participant.playerAugment2;
                                     playerAugment3 = participant.playerAugment3;
                                     playerAugment4 = participant.playerAugment4;
+                                    
 
 
                                     if (participant.deaths == 0)
@@ -147,8 +149,8 @@ else
                                         }
                                     </div>
                                 </td>
-                                <td>
-                                    @(isWin ? "Victory" : "Defeat") <p style="font-style:oblique;color:grey;margin-bottom:0;">@(TimeSpan.FromMilliseconds(match.gameEndTimeStamp - match.gameStartTimeStamp).ToString(@"mm'm 'ss's'"))</p>
+                                <td style="text-align:center !important;">
+                                    @date.ToString("yyyy.MM.dd HH:mm")<p style="font-style:oblique;color:grey;margin-bottom:0;">@(TimeSpan.FromMilliseconds(match.gameEndTimeStamp - match.gameStartTimeStamp).ToString(@"mm'm 'ss's'"))</p>@(isWin ? "Victory" : "Defeat")
                                 </td>
                                 <td>
                                     @kills/@deaths/@assists
@@ -172,7 +174,7 @@ else
                                     </div>
                                 </td>
                                 <td style="vertical-align: middle; text-align: right;">
-                                    <button class="btn btn-sm btn-outline-light" @onclick="() => ToggleMatchDetails(match.MatchID)">
+                                    <button class="btn btn-sm btn-outline-light" style="margin-right:30%;" @onclick="() => ToggleMatchDetails(match.MatchID)">
                                         @(isExpanded ? "▲" : "▼")
                                     </button>
                                 </td>
@@ -200,7 +202,7 @@ else
                                                         <tr>
                                                             <th>
                                                                 <span>
-                                                                    @(blueWins ? "Victory" : "Defeat") @(TimeSpan.FromMilliseconds(match.gameEndTimeStamp - match.gameStartTimeStamp).ToString(@"mm'm 'ss's'"))
+																	@date.ToString("yyyy.MM.dd HH:mm") | @(blueWins ? "Victory" : "Defeat") @(TimeSpan.FromMilliseconds(match.gameEndTimeStamp - match.gameStartTimeStamp).ToString(@"mm'm 'ss's'"))
                                                                 </span>
                                                             </th>
                                                             <th colspan="75%" style="background-color:rgba(18,23,31,1)"><strong style="color: #5383e8;">Blue Team</strong></th>
