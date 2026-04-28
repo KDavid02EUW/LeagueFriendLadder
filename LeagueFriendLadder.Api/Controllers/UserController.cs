@@ -1,8 +1,9 @@
-﻿using LeagueFriendLadder.Api.Models;
+﻿using BCrypt.Net;
+using LeagueFriendLadder.Api.Data;
+using LeagueFriendLadder.Api.Models;
+using LeagueFriendLadder.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using BCrypt.Net;
-using LeagueFriendLadder.Api.Data;
 
 namespace LeagueFriendLadder.Api.Controllers
 {
@@ -45,14 +46,7 @@ namespace LeagueFriendLadder.Api.Controllers
 
             if (user == null || !BCrypt.Net.BCrypt.Verify(model.Password, user.PasswordHash))
             {
-                Console.WriteLine($"User not found: {model.Username}");
                 return Unauthorized("Wrong username or password!");
-            }
-            bool isPasswordOk = BCrypt.Net.BCrypt.Verify(model.Password, user.PasswordHash);
-
-            if (!isPasswordOk)
-            {
-                return Unauthorized("Wrong password!");
             }
 
             return Ok(new
@@ -122,6 +116,53 @@ namespace LeagueFriendLadder.Api.Controllers
             }
 
             return NoContent();
+        }
+        [HttpPost("{userId}/link-summoner")]
+        public async Task<IActionResult> LinkSummoner(int userId, [FromBody] LeagueEntryDTO summonerDto)
+        {
+            var user = await _context.Users.FindAsync(userId);
+            if (user == null) return NotFound("User not found.");
+
+            if (user.Summoners.Contains(summonerDto.Puuid))
+            {
+                return BadRequest("This account is already linked to this user.");
+            }
+
+            var updatedSummoners = user.Summoners.ToList();
+            updatedSummoners.Add(summonerDto.Puuid);
+            user.Summoners = updatedSummoners.ToArray();
+
+            await _context.SaveChangesAsync();
+            return Ok(user);
+        }
+        public class FriendRequestDTO
+        {
+            public int SenderId { get; set; }
+            public string TargetPuuid { get; set; } = string.Empty;
+        }
+        [HttpPost("friend-request")]
+        public async Task<IActionResult> SendRequest(int senderId, string targetPuuid)
+        {
+            var targetUser = await _context.Users
+                .FirstOrDefaultAsync(u => u.Summoners.Contains(targetPuuid));
+
+            if (targetUser == null)
+                return NotFound("This player has not registered to our website, so he cannot accept friend requests.");
+
+            if (senderId == targetUser.Id)
+                return BadRequest("You cannot send a friend request to yourself.");
+
+            var existing = await _context.Friends
+                .AnyAsync(f => (f.SenderUserId == senderId && f.ReceiverUserId == targetUser.Id) ||
+                               (f.SenderUserId == targetUser.Id && f.ReceiverUserId == senderId));
+
+            if (existing) return BadRequest($"There is already a pending request to that user. {targetUser.Username}");
+
+            var request = new Friend { SenderUserId = senderId, ReceiverUserId = targetUser.Id };
+            _context.Friends.Add(request);
+            await _context.SaveChangesAsync();
+
+            return Ok("Friend request sent!");
         }
     }
 }

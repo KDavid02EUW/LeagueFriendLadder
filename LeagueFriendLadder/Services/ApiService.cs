@@ -35,5 +35,24 @@ namespace LeagueFriendLadder.Services
                 return (false, ex.Message);
             }
         }
+        public async Task<(bool Success, string? Message)> SendFriendRequest(int senderId, string targetPuuid)
+        {
+            try
+            {
+                var response = await _http.PostAsync($"api/User/friend-request?senderId={senderId}&targetPuuid={targetPuuid}", null);
+                var message = await response.Content.ReadAsStringAsync();
+
+                return (response.IsSuccessStatusCode, message);
+            }
+            catch (Exception ex)
+            {
+                return (false, ex.Message);
+            }
+        }
+        public async Task<bool> LinkSummonerToUser(int userId, LeagueEntryDTO summoner)
+        {
+            var response = await _http.PostAsJsonAsync($"api/User/{userId}/link-summoner", summoner);
+            return response.IsSuccessStatusCode;
+        }
     }
 }

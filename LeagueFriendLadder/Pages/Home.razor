@@ -4,9 +4,12 @@
 @using LeagueFriendLadder.Api.Models
 @using Blazored.LocalStorage
 @inject ILocalStorageService LocalStorage
-@inject NavigationManager Nav
 @inject HttpClient Http
 @inject RiotService riotService
+@inject Services.PlayerSessionService Session
+@inject Services.ApiService apiService
+@inject NavigationManager Nav
+@inject IJSRuntime JS
 
 <PageTitle>Home</PageTitle>
 
@@ -22,7 +25,7 @@
     <div class="form-style-container">
         <div class="form-style-content">
 			<DataAnnotationsValidator />
-			
+			<ValidationSummary />
             <label>Summoner Name#Tag</label>
 			<InputText @bind-Value="RiotID.SummonerName"></InputText>
 			<label>Region</label>
@@ -49,7 +52,6 @@
         </div>
     </div>
     <br />
-    <ValidationSummary />
 </EditForm>
 
 @if (!string.IsNullOrEmpty(errorMessage) && !isLoading && hasSearched)
@@ -79,6 +81,7 @@ else if (result != null && result2 != null)
             <th>Losses</th>
             <th>Winrate</th>
             <th>Hotstreak</th>
+            <th></th>
         </thead>
         <tbody class="single-view" id="target">
             <td><a @onclick="() => riotService.viewProfile(result2)">@result.GameName</a></td>
@@ -91,6 +94,7 @@ else if (result != null && result2 != null)
             <td>@result2.Losses</td>
             <td>@result2.Winrate%</td>
             <td>@result2.HotStreak</td>
+        <td><button type="button" @onclick="() => HandleFriendRequest(result2)">Add Friend</button></td>
         </tbody>
     </table>
 }
@@ -253,6 +257,21 @@ else if (!isLoading && result == null && result2 == null && hasSearched)
         {
             errorMessage = $"Error: {ex.Message}";
             result2 = null;
+        }
+    }
+    private async Task HandleFriendRequest(LeagueEntryDTO player)
+    {
+        if (user == null) return;
+
+        var result = await apiService.SendFriendRequest(user.Id, player.Puuid);
+
+        if (result.Success)
+        {
+            await JS.InvokeVoidAsync("alert", "Request sent!");
+        }
+        else
+        {
+            await JS.InvokeVoidAsync("alert", result.Message);
         }
     }
 }

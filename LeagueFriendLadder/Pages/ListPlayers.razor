@@ -99,7 +99,7 @@
 					<td>@player.Losses</td>
 					<td>@player.Winrate%</td>
 					<td><button type="button" @onclick="() => HandleSavePlayer(player)">Save Player</button></td>
-					<td><button type="button" @onclick="() => HandleSendFriendRequest(player,user)">Add Friend</button></td>
+					<td><button type="button" @onclick="() => HandleFriendRequest(player)">Add Friend</button></td>
                 </tr>
             }
             
@@ -255,13 +255,19 @@ else if (!string.IsNullOrEmpty(errorMessage))
         showSuccessModal = false;
         savedPlayer = null;
     }
-    private async Task HandleSendFriendRequest(LeagueEntryDTO player, User sender)
+    private async Task HandleFriendRequest(LeagueEntryDTO player)
     {
-        /*
-        * TODO a loginolt USER barát lesz a választott playerrel, ez azt jelenti,hogy 
-             * A loginolt user (sender) összes lol accountja, ami hozzá van rendelve a summoners táblába puuid alapján
-             * A barátja lesz a másik User összes lol accountjával, ha az adatbázisban van olyan User, aminek a puuid-je a player.puuid
-             */
-        return;
+        if (user == null) return;
+
+        var result = await apiService.SendFriendRequest(user.Id, player.Puuid);
+
+        if (result.Success)
+        {
+            await JS.InvokeVoidAsync("alert", "Request sent!");
+        }
+        else
+        {
+            await JS.InvokeVoidAsync("alert", result.Message);
+        }
     }
 }

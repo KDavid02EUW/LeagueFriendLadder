@@ -110,6 +110,48 @@
   },
   {
     "ContainingType": "LeagueFriendLadder.Api.Controllers.UserController",
+    "Method": "LinkSummoner",
+    "RelativePath": "api/User/{userId}/link-summoner",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "summonerDto",
+        "Type": "LeagueFriendLadder.Models.LeagueEntryDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "LeagueFriendLadder.Api.Controllers.UserController",
+    "Method": "SendRequest",
+    "RelativePath": "api/User/friend-request",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "senderId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "targetPuuid",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "LeagueFriendLadder.Api.Controllers.UserController",
     "Method": "Login",
     "RelativePath": "api/User/login",
     "HttpMethod": "POST",

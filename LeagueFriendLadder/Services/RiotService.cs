@@ -71,6 +71,41 @@ public class RiotService
         var url = $"https://europe.api.riotgames.com/riot/account/v1/accounts/by-puuid/{puuid}?api_key={apiKey}";
         return await _http.GetFromJsonAsync<RiotAccount>(url);
     }
+    public async Task<LeagueEntryDTO?> GetSummonerByNameAndTag(string name, string tag, string region)
+    {
+        try
+        {
+            var account = await GetRiotID($"{name}#{tag}");
+            if (account == null) return null;
+
+            var details = await GetSummonerDetailsByPuuidAsync(account.Puuid, region);
+
+            if (details == null)
+            {
+                details = new LeagueEntryDTO
+                {
+                    Puuid = account.Puuid,
+                    SummonerName = account.GameName,
+                    Tag = account.TagLine,
+                    Region = region,
+                    Tier = "UNRANKED",
+                    Rank = ""
+                };
+            }
+            else
+            {
+                details.SummonerName = account.GameName;
+                details.Tag = account.TagLine;
+                details.Region = region;
+            }
+
+            return details;
+        }
+        catch
+        {
+            return null;
+        }
+    }
 
     public async Task<List<MatchDTO>> getMatchesByPuuid(string puuid)
     {

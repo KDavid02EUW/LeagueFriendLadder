@@ -1,0 +1,178 @@
+﻿@page "/Summoner linking"
+@using LeagueFriendLadder.Models
+@using LeagueFriendLadder.Api.Models
+@using Blazored.LocalStorage
+@inject HttpClient Http
+@inject NavigationManager Nav
+@inject ILocalStorageService LocalStorage
+@inject Services.ApiService ApiService
+@inject RiotService RiotService
+
+<PageTitle>Link Summoner</PageTitle>
+
+<div class="container">
+    @if (user == null)
+    {
+        <p><em>Loading user profile...</em></p>
+    }
+    else
+    {
+        <EditForm Model="searchModel" OnValidSubmit="SearchSummoner">
+            <div class="form-style-container">
+                <label>Riot ID (Name#Tag)</label>
+                <InputText @bind-Value="searchModel.FullRiotId" placeholder="SummonerName#Tag" class="form-control" />
+
+                <label>Region</label>
+                <InputSelect @bind-Value="searchModel.Region">
+                    <option value="" hidden>Select region</option>
+                    <option value="BR1">BR</option>
+                    <option value="EUN1">EUNE</option>
+                    <option value="EUW1">EUW</option>
+                    <option value="JP1">JP</option>
+                    <option value="KR">KR</option>
+                    <option value="LA1">LAN</option>
+                    <option value="LA2">LAS</option>
+                    <option value="ME1">ME</option>
+                    <option value="NA1">NA</option>
+                    <option value="OC1">OCE</option>
+                    <option value="RU">RU</option>
+                    <option value="SG2">SG</option>
+                    <option value="TR1">TR</option>
+                    <option value="TW2">TW</option>
+                    <option value="VN2">VN</option>
+                </InputSelect>
+                <br />
+                <button type="submit" disabled="@isSearching">
+                    @if (isSearching)
+                    {
+                        <span>Searching...</span>
+                    }
+                    else
+                    {
+
+                        <span>Search Account</span>
+                    }
+                </button>
+            </div>
+        </EditForm>
+
+        @if (!string.IsNullOrEmpty(statusMessage))
+        {
+            <p style="color:orange; margin-top:10px;">@statusMessage</p>
+        }
+
+        @if (foundSummoner != null)
+        {
+            <article style="margin-top: 20px; border: 1px solid #444; padding: 15px; border-radius: 8px;">
+                <header><strong>Account Found!</strong></header>
+                <div style="display:flex; align-items:center; gap: 15px; margin: 15px 0;">
+                    <div>
+                        <h4 style="margin:0;">@foundSummoner.SummonerName #@foundSummoner.Tag</h4>
+                    </div>
+                </div>
+                <footer>
+                    <button @onclick="ConfirmLinking" class="primary" style="width: 100%;">Link account</button>
+                </footer>
+            </article>
+        }
+    }
+</div>
+
+@code {
+    private User? user;
+    private SearchModel searchModel = new();
+    private LeagueEntryDTO? foundSummoner;
+    private bool isSearching = false;
+    private string? statusMessage;
+
+    public class SearchModel
+    {
+        public string FullRiotId { get; set; } = "";
+        public string Region { get; set; } = "";
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        user = await LocalStorage.GetItemAsync<User>("user");
+        if (user == null)
+        {
+            Nav.NavigateTo("/login");
+        }
+    }
+
+    private async Task SearchSummoner()
+    {
+        statusMessage = null;
+        foundSummoner = null;
+
+        if (string.IsNullOrWhiteSpace(searchModel.FullRiotId) || !searchModel.FullRiotId.Contains("#"))
+        {
+            statusMessage = "Please use the Name#Tag format!";
+            return;
+        }
+
+        if (string.IsNullOrEmpty(searchModel.Region))
+        {
+            statusMessage = "Please select a region!";
+            return;
+        }
+
+        isSearching = true;
+        StateHasChanged();
+
+        try
+        {
+            var parts = searchModel.FullRiotId.Split('#');
+            string name = parts[0];
+            string tag = parts[1];
+
+            var riotAccount = await RiotService.GetSummonerByNameAndTag(name,tag,searchModel.Region);
+
+            if (riotAccount != null)
+            {
+                foundSummoner = riotAccount;
+                foundSummoner.Region = searchModel.Region;
+                foundSummoner.Tag = tag;
+            }
+            else
+            {
+                statusMessage = "Summoner not found. Check the name and region!";
+            }
+        }
+        catch (Exception ex)
+        {
+            statusMessage = $"Error: {ex.Message}";
+        }
+        finally
+        {
+            isSearching = false;
+            StateHasChanged();
+        }
+    }
+
+    private async Task ConfirmLinking()
+    {
+        if (user == null || foundSummoner == null) return;
+
+        var result = await ApiService.LinkSummonerToUser(user.Id, foundSummoner);
+
+        if (result)
+        {
+            var currentSummoners = user.Summoners?.ToList() ?? new List<string>();
+            if (!currentSummoners.Contains(foundSummoner.Puuid))
+            {
+                currentSummoners.Add(foundSummoner.Puuid);
+                user.Summoners = currentSummoners.ToArray();
+                await LocalStorage.SetItemAsync("user", user);
+            }
+
+            statusMessage = "Successfully linked!";
+            await Task.Delay(1500);
+            Nav.NavigateTo("/ListPlayers");
+        }
+        else
+        {
+            statusMessage = "Failed to link account to database.";
+        }
+    }
+}
