@@ -2,10 +2,10 @@
 
 public enum FriendshipStatus
 {
-    None,
-    Pending,
-    Accepted,
-    Blocked
+    None = 0,
+    Pending = 1,
+    Accepted = 2,
+    Blocked = 3
 }
 
 public class Friend

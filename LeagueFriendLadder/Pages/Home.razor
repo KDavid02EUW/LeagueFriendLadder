@@ -105,11 +105,13 @@ else if (result != null && result2 == null)
         <th>Summoner Name</th>
         <th>Tag</th>
         <th>Rank</th>
+        <th></th>
         </thead>
         <tbody class="single-view">
         <td>@result.GameName</td>
         <td>@result.TagLine</td>
         <td>Unranked</td>
+        <td><button type="button" @onclick="() => HandleFriendRequest(result2)">Add Friend</button></td>
         </tbody>
     </table>
 }
@@ -263,15 +265,16 @@ else if (!isLoading && result == null && result2 == null && hasSearched)
     {
         if (user == null) return;
 
-        var result = await apiService.SendFriendRequest(user.Id, player.Puuid);
+        var response = await Http.PostAsync($"api/user/friend-request?senderId={user.Id}&targetPuuid={player.Puuid}", null);
 
-        if (result.Success)
+        if (response.IsSuccessStatusCode)
         {
             await JS.InvokeVoidAsync("alert", "Request sent!");
         }
         else
         {
-            await JS.InvokeVoidAsync("alert", result.Message);
+            var errorMessage = await response.Content.ReadAsStringAsync();
+            await JS.InvokeVoidAsync("alert", errorMessage);
         }
     }
 }

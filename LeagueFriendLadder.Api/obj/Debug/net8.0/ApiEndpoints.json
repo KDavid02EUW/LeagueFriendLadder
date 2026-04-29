@@ -131,6 +131,54 @@
   },
   {
     "ContainingType": "LeagueFriendLadder.Api.Controllers.UserController",
+    "Method": "GetFriendRequests",
+    "RelativePath": "api/User/{userId}/requests",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "LeagueFriendLadder.Api.Controllers.UserController",
+    "Method": "AcceptFriendRequest",
+    "RelativePath": "api/User/accept-request/{requestId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "requestId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "LeagueFriendLadder.Api.Controllers.UserController",
+    "Method": "DeclineFriendRequest",
+    "RelativePath": "api/User/decline-request/{requestId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "requestId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "LeagueFriendLadder.Api.Controllers.UserController",
     "Method": "SendRequest",
     "RelativePath": "api/User/friend-request",
     "HttpMethod": "POST",

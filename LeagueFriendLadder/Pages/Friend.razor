@@ -1,0 +1,126 @@
+﻿@page "/friends"
+@using LeagueFriendLadder.Models
+@using LeagueFriendLadder.Api.Models
+@using Blazored.LocalStorage
+@inject HttpClient Http
+@inject NavigationManager Nav
+@inject ILocalStorageService LocalStorage
+@inject Services.ApiService ApiService
+@inject RiotService RiotService
+@inject IJSRuntime JS
+
+<div class="container mt-4">
+    <h3>Friend requests</h3>
+
+    @if (isLoading)
+    {
+        <div class="d-flex align-items-center">
+            <strong>Loading...</strong>
+            <progress></progress>
+        </div>
+    }
+    else if (incomingRequests == null || !incomingRequests.Any())
+    {
+        <div class="alert alert-info">No incoming friend requests</div>
+    }
+    else
+    {
+		<table style="width:700px;">
+			<thead>
+			<th>User</th>
+			<th style="text-align:center !important;">Actions</th>
+			</thead>
+            <tbody>
+            @foreach (var request in incomingRequests)
+            {
+                <tr>
+                    <td style="text-align:center !important;">@request.SenderName</td>
+                    <td>
+                        <div style="text-align:center !important;">
+                            <button style="color:dodgerblue !important;border:1px solid dodgerblue !important;" @onclick="() => AcceptRequest(request.Id)">Accept</button>
+                            <button style="color:crimson !important;border:1px solid crimson !important;" @onclick="() => DeclineRequest(request.Id)">Decline</button>
+                            <button style="color:crimson !important;border:1px solid crimson !important;" @onclick="() => BlockRequest(request.Id)">Block</button>
+                        </div>
+				    </td>
+				</tr>
+            }
+			</tbody>
+		</table>
+    }
+</div>
+
+@code {
+    private List<FriendRequestVM>? incomingRequests;
+    private bool isLoading = true;
+    private User? user;
+
+    protected override async Task OnInitializedAsync()
+    {
+        isLoading = true;
+        try
+        {
+            user = await LocalStorage.GetItemAsync<User>("user");
+            if (user == null)
+            {
+                Nav.NavigateTo("/login");
+            }
+            if (user != null)
+            {
+                await LoadRequests();
+            }
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private async Task LoadRequests()
+    {
+        if (user != null)
+        {
+            incomingRequests = await Http.GetFromJsonAsync<List<FriendRequestVM>>($"api/user/{user.Id}/requests");
+        }
+    }
+
+    private async Task AcceptRequest(int requestId)
+    {
+        var response = await Http.PostAsync($"api/user/accept-request/{requestId}", null);
+        if (response.IsSuccessStatusCode)
+        {
+            await LoadRequests();
+        }
+    }
+    private async Task DeclineRequest(int requestId)
+    {
+        var response = await Http.DeleteAsync($"api/user/decline-request/{requestId}");
+        if (response.IsSuccessStatusCode)
+        {
+            await LoadRequests();
+        }
+        else
+        {
+            Console.WriteLine("Error occurred when declining friend request.");
+        }
+    }
+    private async Task BlockRequest(int requestId)
+    {
+        bool confirmed = await JS.InvokeAsync<bool>("confirm", "Are u sure you want to block this user?");
+
+        if (confirmed)
+        {
+            var response = await Http.PostAsync($"api/user/block-user/{requestId}", null);
+            if (response.IsSuccessStatusCode)
+            {
+                await LoadRequests();
+            }
+        }
+    }
+
+    public class FriendRequestVM
+    {
+        public int Id { get; set; }
+        public int SenderId { get; set; }
+        public string SenderName { get; set; } = "";
+    }
+}

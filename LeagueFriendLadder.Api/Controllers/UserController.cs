@@ -147,22 +147,100 @@ namespace LeagueFriendLadder.Api.Controllers
                 .FirstOrDefaultAsync(u => u.Summoners.Contains(targetPuuid));
 
             if (targetUser == null)
-                return NotFound("This player has not registered to our website, so he cannot accept friend requests.");
+                return NotFound("This user has not registered to this website.");
 
             if (senderId == targetUser.Id)
-                return BadRequest("You cannot send a friend request to yourself.");
+                return BadRequest("You cannot send a request to yourself.");
 
-            var existing = await _context.Friends
-                .AnyAsync(f => (f.SenderUserId == senderId && f.ReceiverUserId == targetUser.Id) ||
-                               (f.SenderUserId == targetUser.Id && f.ReceiverUserId == senderId));
+            var existingRelation = await _context.Friends
+                .FirstOrDefaultAsync(f => (f.SenderUserId == senderId && f.ReceiverUserId == targetUser.Id) ||
+                                           (f.SenderUserId == targetUser.Id && f.ReceiverUserId == senderId));
 
-            if (existing) return BadRequest($"There is already a pending request to that user. {targetUser.Username}");
+            if (existingRelation != null)
+            {
+                if (existingRelation.Status == FriendshipStatus.Blocked)
+                {
+                    return BadRequest("Cannot send friend request. This user is blocked or you are blocked for him.");
+                }
 
-            var request = new Friend { SenderUserId = senderId, ReceiverUserId = targetUser.Id };
+                if (existingRelation.Status == FriendshipStatus.Pending)
+                {
+                    return BadRequest("You already have a pending request for this user.");
+                }
+
+                if (existingRelation.Status == FriendshipStatus.Accepted)
+                {
+                    return BadRequest("You are already friends.");
+                }
+            }
+
+            var request = new Friend
+            {
+                SenderUserId = senderId,
+                ReceiverUserId = targetUser.Id,
+                Status = FriendshipStatus.Pending 
+            };
+
             _context.Friends.Add(request);
             await _context.SaveChangesAsync();
 
             return Ok("Friend request sent!");
+        }
+        [HttpGet("{userId}/requests")]
+        public async Task<IActionResult> GetFriendRequests(int userId)
+        {
+            var requests = await _context.Friends
+                .Where(f => f.ReceiverUserId == userId && f.Status == FriendshipStatus.Pending)
+                .Select(f => new {
+                    f.Id,
+                    SenderId = f.SenderUserId,
+                    SenderName = _context.Users
+                        .Where(u => u.Id == f.SenderUserId)
+                        .Select(u => u.Username)
+                        .FirstOrDefault()
+                })
+                .ToListAsync();
+
+            return Ok(requests);
+        }
+
+        [HttpPost("accept-request/{requestId}")]
+        public async Task<IActionResult> AcceptFriendRequest(int requestId)
+        {
+            var friendRequest = await _context.Friends.FindAsync(requestId);
+
+            if (friendRequest == null)
+                return NotFound("Request not found");
+
+            friendRequest.Status = FriendshipStatus.Accepted;
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+        [HttpDelete("decline-request/{requestId}")]
+        public async Task<IActionResult> DeclineFriendRequest(int requestId)
+        {
+            var friendRequest = await _context.Friends.FindAsync(requestId);
+
+            if (friendRequest == null)
+                return NotFound("Request not found.");
+
+            _context.Friends.Remove(friendRequest);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+        [HttpPost("block-user/{requestId}")]
+        public async Task<IActionResult> BlockUser(int requestId)
+        {
+            var friendship = await _context.Friends.FindAsync(requestId);
+
+            if (friendship == null)
+                return NotFound("Connection not found");
+            friendship.Status = FriendshipStatus.Blocked;
+
+            await _context.SaveChangesAsync();
+            return Ok();
         }
     }
 }
