@@ -9,11 +9,14 @@ namespace LeagueFriendLadder.Api.Data
 
         public DbSet<User> Users { get; set; }
         public DbSet<Friend> Friends { get; set; }
+        public DbSet<Summoner> Summoners { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Friend>().ToTable("friends");
             modelBuilder.Entity<Friend>().Property(f => f.Id).HasColumnName("id");
+            modelBuilder.Entity<Summoner>().ToTable("summoners");
+            modelBuilder.Entity<Summoner>().HasKey(s => s.puuid);
 
             modelBuilder.Entity<Friend>()
                 .HasOne(f => f.Sender)

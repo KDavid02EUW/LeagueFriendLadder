@@ -1,58 +1,203 @@
-﻿@using LeagueFriendLadder.Api.Models
+﻿@using System.ComponentModel.DataAnnotations
 @using LeagueFriendLadder.Models
+@using LeagueFriendLadder.Api.Models
 @using Blazored.LocalStorage
 @inject ILocalStorageService LocalStorage
+@inject RiotService riotService
+@inject HttpClient Http
 @inject NavigationManager Nav
 
 @page "/leaderboard"
 
-
 <PageTitle>Leaderboard</PageTitle>
-
 
 @if (user == null)
 {
-    <p><em>Loading leaderboard...</em></p>
+    <p>Loading leaderboard...</p>
+    <progress></progress>
 }
 else
 {
     <h3 style="color:#2000ea">@user.Username's Friend Ladder</h3>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Player</th>
-                <th>Role</th>
-                <th>Rank</th>
-                <th>Winrate</th>
-                <th>Games played</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <!-- Példa output
-                    Ide valami HTTP Get method, ami lekéri az összes puuid-t ami a users.summoners[] tömbben van puuidként.
-                    Ezeket a puuid-ket megkeresi
-                    az adatbázisban, ha nem találja akkor rengeteg api request.
-                    ha megtalálja akkor csak kiírja az adatokat
-                -->
-                <td><a href="KDavid02">KDavid02</a></td>
-                <td style="text-align:center !important;">Adc</td>
-                <td>Master 739 LP</td>
-                <td>52.1%</td>
-                <td>413</td>
-            </tr>
-        </tbody>
-    </table>
+    @if (leaderboard == null)
+    {
+        <p>Loading data...</p>
+        <progress></progress>
+    }
+    else
+    {
+        <table style="width:1200px;" class="table table-dark table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name#Tag</th>
+                    <th @onclick='() => SortTable("Rank")' style="cursor:pointer; user-select:none;">
+                        Rank @GetSortArrow("Rank")
+                    </th>
+                    <th @onclick='() => SortTable("Winrate")' style="cursor:pointer; user-select:none;">
+                        Winrate @GetSortArrow("Winrate")
+                    </th>
+                    <th @onclick='() => SortTable("Wins")' style="cursor:pointer; user-select:none;">
+                        Wins @GetSortArrow("Wins")
+                    </th>
+                    <th @onclick='() => SortTable("Losses")' style="cursor:pointer; user-select:none;">
+                        Losses @GetSortArrow("Losses")
+                    </th>
+                    <th @onclick='() => SortTable("GamesPlayed")' style="cursor:pointer; user-select:none;">
+                        Games played @GetSortArrow("GamesPlayed")
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int i = 1;
+                }
+                @foreach (var entry in leaderboard)
+                {
+                    <tr>
+                        <td>@(i++).</td>
+                        <td style="padding-left:4.5% !important;"><a @onclick="() => riotService.viewProfile(leagueEntryDTO)">@entry.RiotName</a></td>
+                        <td>
+                            @if (entry.Tier != "UNRANKED")
+                            {
+                                <span>@entry.Tier @entry.Rank @entry.LeaguePoints LP</span>
+                            }
+                            else
+                            {
+                                <span class="text-muted">Unranked</span>
+                            }
+                        </td>
+                        <td class="@(entry.Winrate >= 50 ? "text-success" : "text-danger")">
+                            @entry.Winrate%
+                        </td>
+                        <td>@entry.Wins</td>
+                        <td>@entry.Losses</td>
+                        <td>@entry.GamesPlayed</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
 }
+
 @code {
     private User? user;
+    private List<LeaderboardEntryVM>? leaderboard;
+    private string currentSortColumn = "Rank";
+    private bool isAscending = false;
+    LeagueEntryDTO? leagueEntryDTO;
+
     protected override async Task OnInitializedAsync()
     {
         user = await LocalStorage.GetItemAsync<User>("user");
         if (user == null)
         {
             Nav.NavigateTo("/login");
+            return;
         }
+
+        await LoadLeaderboard();
+    }
+
+    private async Task LoadLeaderboard()
+    {
+        try
+        {
+            leaderboard = await Http.GetFromJsonAsync<List<LeaderboardEntryVM>>($"api/user/{user.Id}/leaderboard");
+            if (leaderboard != null)
+            {
+                ApplySorting();
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
+        }
+    }
+
+    private void SortTable(string columnName)
+    {
+        if (currentSortColumn == columnName)
+        {
+            isAscending = !isAscending;
+        }
+        else
+        {
+            currentSortColumn = columnName;
+            isAscending = false;
+        }
+
+        ApplySorting();
+    }
+
+    private void ApplySorting()
+    {
+        if (leaderboard == null) return;
+
+        leaderboard = currentSortColumn switch
+        {
+            "Rank" => isAscending
+                ? leaderboard.OrderBy(e => GetTierValue(e.Tier)).ThenBy(e => GetRankValue(e.Rank)).ThenBy(e => e.LeaguePoints).ToList()
+                : leaderboard.OrderByDescending(e => GetTierValue(e.Tier)).ThenByDescending(e => GetRankValue(e.Rank)).ThenByDescending(e => e.LeaguePoints).ToList(),
+
+            "Winrate" => isAscending ? leaderboard.OrderBy(e => e.Winrate).ToList() : leaderboard.OrderByDescending(e => e.Winrate).ToList(),
+            "Wins" => isAscending ? leaderboard.OrderBy(e => e.Wins).ToList() : leaderboard.OrderByDescending(e => e.Wins).ToList(),
+            "Losses" => isAscending ? leaderboard.OrderBy(e => e.Losses).ToList() : leaderboard.OrderByDescending(e => e.Losses).ToList(),
+            "GamesPlayed" => isAscending ? leaderboard.OrderBy(e => e.GamesPlayed).ToList() : leaderboard.OrderByDescending(e => e.GamesPlayed).ToList(),
+            _ => leaderboard
+        };
+
+        StateHasChanged();
+    }
+
+    private string GetSortArrow(string columnName)
+    {
+        if (currentSortColumn != columnName) return "";
+        return isAscending ? "▲" : "▼";
+    }
+
+    private int GetTierValue(string tier)
+    {
+        return (tier?.ToUpper()) switch
+        {
+            "CHALLENGER" => 9,
+            "GRANDMASTER" => 8,
+            "MASTER" => 7,
+            "DIAMOND" => 6,
+            "EMERALD" => 5,
+            "PLATINUM" => 4,
+            "GOLD" => 3,
+            "SILVER" => 2,
+            "BRONZE" => 1,
+            "IRON" => 0,
+            _ => -1
+        };
+    }
+
+    private int GetRankValue(string rank)
+    {
+        return rank switch
+        {
+            "I" => 4,
+            "II" => 3,
+            "III" => 2,
+            "IV" => 1,
+            _ => 0
+        };
+    }
+
+    public class LeaderboardEntryVM
+    {
+        public string Username { get; set; } = string.Empty;
+        public string RiotName { get; set; } = string.Empty;
+        public string Tier { get; set; } = "UNRANKED";
+        public string Rank { get; set; } = "";
+        public int LeaguePoints { get; set; }
+        public double Winrate { get; set; }
+        public int Wins { get; set; }
+        public int Losses { get; set; }
+        public int GamesPlayed { get; set; }
+        public string Region { get; set; }
     }
 }

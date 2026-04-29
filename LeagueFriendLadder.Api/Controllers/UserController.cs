@@ -2,8 +2,10 @@
 using LeagueFriendLadder.Api.Data;
 using LeagueFriendLadder.Api.Models;
 using LeagueFriendLadder.Models;
+using LeagueFriendLadder.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using static LeagueFriendLadder.Pages.Leaderboard;
 
 namespace LeagueFriendLadder.Api.Controllers
 {
@@ -12,10 +14,11 @@ namespace LeagueFriendLadder.Api.Controllers
     public class UserController : ControllerBase
     {
         private readonly DataContext _context;
-
-        public UserController(DataContext context)
+        private readonly RiotService _riotService;
+        public UserController(DataContext context, RiotService riotService)
         {
             _context = context;
+            _riotService = riotService;
         }
 
         [HttpPost("register")]
@@ -241,6 +244,92 @@ namespace LeagueFriendLadder.Api.Controllers
 
             await _context.SaveChangesAsync();
             return Ok();
+        }
+        [HttpGet("{userId}/leaderboard")]
+        public async Task<IActionResult> GetLeaderboard(int userId)
+        {
+            // 1. Barátok és a saját ID összegyűjtése
+            var friendships = await _context.Friends
+                .Where(f => (f.SenderUserId == userId || f.ReceiverUserId == userId)
+                             && f.Status == FriendshipStatus.Accepted)
+                .ToListAsync();
+
+            var userIds = friendships
+                .Select(f => f.SenderUserId == userId ? f.ReceiverUserId : f.SenderUserId)
+                .ToList();
+            userIds.Add(userId);
+
+            // 2. Lekérjük a felhasználókat az adatbázisból
+            var users = await _context.Users
+                .Where(u => userIds.Contains(u.Id))
+                .ToListAsync();
+
+            var leaderboard = new List<LeaderboardEntryVM>();
+
+            foreach (var user in users)
+            {
+                if (user.Summoners == null || user.Summoners.Length == 0)
+                {
+                    leaderboard.Add(new LeaderboardEntryVM { Username = user.Username });
+                    continue;
+                }
+
+                foreach (var puuid in user.Summoners)
+                {
+                    if (string.IsNullOrEmpty(puuid)) continue;
+
+                    var dbSummoner = await _context.Summoners
+                        .FirstOrDefaultAsync(s => s.puuid == puuid);
+                    string region = dbSummoner?.region ?? "EUW1";
+
+                    var rankInfo = await _riotService.GetSummonerDetailsByPuuidAsync(puuid, region);
+                    var riotAccount = await _riotService.GetRiotIDByPuuid(puuid);
+
+                    if (rankInfo != null)
+                    {
+                        leaderboard.Add(new LeaderboardEntryVM
+                        {
+                            Username = user.Username,
+                            RiotName = riotAccount != null ? $"{riotAccount.GameName}#{riotAccount.TagLine}" : "Unknown",
+                            Tier = rankInfo.Tier,
+                            Rank = rankInfo.Rank,
+                            LeaguePoints = rankInfo.LeaguePoints,
+                            Winrate = rankInfo.Winrate,
+                            Wins = rankInfo.Wins,
+                            Losses = rankInfo.Losses,
+                            GamesPlayed = rankInfo.Wins + rankInfo.Losses
+                        });
+                    }
+                    else
+                    {
+                        leaderboard.Add(new LeaderboardEntryVM
+                        {
+                            Username = user.Username,
+                            RiotName = riotAccount != null ? $"{riotAccount.GameName}#{riotAccount.TagLine}" : "Unknown",
+                            Tier = "UNRANKED"
+                        });
+                    }
+                }
+            }
+            return Ok(leaderboard.OrderByDescending(x => GetTierOrder(x.Tier))
+                                 .ThenByDescending(x => x.LeaguePoints));
+        }
+        private int GetTierOrder(string tier)
+        {
+            return tier.ToUpper() switch
+            {
+                "CHALLENGER" => 9,
+                "GRANDMASTER" => 8,
+                "MASTER" => 7,
+                "DIAMOND" => 6,
+                "EMERALD" => 5,
+                "PLATINUM" => 4,
+                "GOLD" => 3,
+                "SILVER" => 2,
+                "BRONZE" => 1,
+                "IRON" => 0,
+                _ => -1
+            };
         }
     }
 }

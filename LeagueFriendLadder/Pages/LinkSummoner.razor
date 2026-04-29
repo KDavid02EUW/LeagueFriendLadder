@@ -63,17 +63,18 @@
 
         @if (foundSummoner != null)
         {
-            <article style="margin-top: 20px; border: 1px solid #444; padding: 15px; border-radius: 8px;">
-                <header><strong>Account Found!</strong></header>
-                <div style="display:flex; align-items:center; gap: 15px; margin: 15px 0;">
-                    <div>
-                        <h4 style="margin:0;">@foundSummoner.SummonerName #@foundSummoner.Tag</h4>
-                    </div>
-                </div>
-                <footer>
-                    <button @onclick="ConfirmLinking" class="primary" style="width: 100%;">Link account</button>
-                </footer>
-            </article>
+
+            <table style="margin-top:15px;width:700px;margin-left:20%;box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+				<thead>
+					<tr><th colspan="2"><h4>Account found!</h4></th></tr>
+                    <th>Summoner name#Tag</th>
+                    <th>Actions</th>
+                </thead>
+                <tbody>
+                    <td style="text-align:center !important;">@foundSummoner.SummonerName#@foundSummoner.Tag</td>
+                    <td><button @onclick="ConfirmLinking" class="primary" style="width: 100%;">Link account</button></td>
+                </tbody>
+            </table>
         }
     }
 </div>
@@ -154,9 +155,17 @@
     {
         if (user == null || foundSummoner == null) return;
 
-        var result = await ApiService.LinkSummonerToUser(user.Id, foundSummoner);
+        var saveResult = await ApiService.SavePlayerToDb(foundSummoner);
 
-        if (result)
+        if (!saveResult.Success)
+        {
+            statusMessage = "Error saving player to database: " + saveResult.Error;
+            return;
+        }
+
+        var linkResult = await ApiService.LinkSummonerToUser(user.Id, foundSummoner);
+
+        if (linkResult)
         {
             var currentSummoners = user.Summoners?.ToList() ?? new List<string>();
             if (!currentSummoners.Contains(foundSummoner.Puuid))
@@ -166,13 +175,14 @@
                 await LocalStorage.SetItemAsync("user", user);
             }
 
-            statusMessage = "Successfully linked!";
+            statusMessage = "Successfully saved and linked!";
+
             await Task.Delay(1500);
             Nav.NavigateTo("/ListPlayers");
         }
         else
         {
-            statusMessage = "Failed to link account to database.";
+            statusMessage = "Failed to link account to your profile.";
         }
     }
 }

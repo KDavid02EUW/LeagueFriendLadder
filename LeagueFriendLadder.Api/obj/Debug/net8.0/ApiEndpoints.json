@@ -110,6 +110,22 @@
   },
   {
     "ContainingType": "LeagueFriendLadder.Api.Controllers.UserController",
+    "Method": "GetLeaderboard",
+    "RelativePath": "api/User/{userId}/leaderboard",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "LeagueFriendLadder.Api.Controllers.UserController",
     "Method": "LinkSummoner",
     "RelativePath": "api/User/{userId}/link-summoner",
     "HttpMethod": "POST",
@@ -149,6 +165,22 @@
     "ContainingType": "LeagueFriendLadder.Api.Controllers.UserController",
     "Method": "AcceptFriendRequest",
     "RelativePath": "api/User/accept-request/{requestId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "requestId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "LeagueFriendLadder.Api.Controllers.UserController",
+    "Method": "BlockUser",
+    "RelativePath": "api/User/block-user/{requestId}",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
