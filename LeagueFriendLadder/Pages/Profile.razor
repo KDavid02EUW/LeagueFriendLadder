@@ -52,6 +52,7 @@ else
                             string currentChamp = "";
                             bool isWin = false;
                             string kda = "";
+                            string kdaColor = "";
                             int kills = 0;
                             int deaths = 0;
                             int assists = 0;
@@ -154,7 +155,33 @@ else
                                 </td>
                                 <td>
                                     @kills/@deaths/@assists
-                                    <p style="font-style:oblique;color:grey;margin-bottom:0;">@kda KDA</p>
+                                    @{
+                                        kda = RiotService.getKDA(kills, deaths, assists);
+                                        @if (kda != "Perfect")
+                                        {
+                                            @if (double.Parse(kda, CultureInfo.InvariantCulture) > 5)
+                                            {
+                                                kdaColor = "gold";
+                                            }
+                                            else if (double.Parse(kda, CultureInfo.InvariantCulture) > 2 && double.Parse(kda, CultureInfo.InvariantCulture) < 5)
+                                            {
+                                                kdaColor = "blue";
+                                            }
+                                            else if (double.Parse(kda, CultureInfo.InvariantCulture) > 1 && double.Parse(kda, CultureInfo.InvariantCulture) < 2)
+                                            {
+                                                kdaColor = "grey";
+                                            }
+                                            else if (double.Parse(kda, CultureInfo.InvariantCulture) < 1)
+                                            {
+                                                kdaColor = "crimson";
+                                            }
+                                        }
+                                        else
+                                        {
+                                            kdaColor = "gold";
+                                        }
+                                    }
+                                    <p style="font-style:oblique;color:@kdaColor;margin-bottom:0;">@kda KDA</p>
                                 </td>
                                 <td>
                                     <div style="display:flex;gap:4px;align-items:center;width:140px;">
@@ -266,7 +293,33 @@ else
                                                                     </div>
                                                                 </td>
                                                                 <td class="summonerName" title="@p.riotIDGameName#@p.riotIDTagLine" @onclick="() => NavigateToPlayer(p.riotIDGameName, p.riotIDTagLine)"><span style="font-size: 1rem;">@p.riotIDGameName#@p.riotIDTagLine</span></td>
-                                                                <td><span style="font-size: 1rem;">@p.kills/@p.deaths/@p.assists <p style="font-style:oblique;color:grey;margin-bottom:0;">@RiotService.getKDA(p.kills, p.deaths, p.assists) KDA</p></span></td>
+                                                                @{
+                                                                    kda = RiotService.getKDA(p.kills, p.deaths, p.assists);
+                                                                    @if (kda != "Perfect")
+                                                                    {
+                                                                        @if (double.Parse(kda, CultureInfo.InvariantCulture) > 5)
+                                                                        {
+                                                                            kdaColor = "gold";
+                                                                        }
+                                                                        else if (double.Parse(kda, CultureInfo.InvariantCulture) > 2 && double.Parse(kda, CultureInfo.InvariantCulture) < 5)
+                                                                        {
+                                                                            kdaColor = "blue";
+                                                                        }
+                                                                        else if (double.Parse(kda, CultureInfo.InvariantCulture) > 1 && double.Parse(kda, CultureInfo.InvariantCulture) < 2)
+                                                                        {
+                                                                            kdaColor = "grey";
+                                                                        }
+                                                                        else if (double.Parse(kda, CultureInfo.InvariantCulture) < 1)
+                                                                        {
+                                                                            kdaColor = "crimson";
+                                                                        }
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        kdaColor = "gold";
+                                                                    }
+                                                                }
+                                                                <td><span style="font-size: 1rem;">@p.kills/@p.deaths/@p.assists <p style="font-style:oblique;color:@kdaColor;margin-bottom:0;">@RiotService.getKDA(p.kills, p.deaths, p.assists) KDA</p></span></td>
                                                                 <td>
                                                                     <div style="text-align: center;">
                                                                         <span style="font-size: 0.9rem;color: @(p.totalDamageDealtToChampions == blueMaxDamage ? "gold" : "white"); font-weight: @(p.totalDamageDealtToChampions == blueMaxDamage ? "bold" : "normal")">
@@ -379,7 +432,33 @@ else
                                                                     </div>
                                                                 </td>
                                                                 <td class="summonerName" title="@p.riotIDGameName#@p.riotIDTagLine" @onclick="() => NavigateToPlayer(p.riotIDGameName, p.riotIDTagLine)"><span style="font-size: 1rem;">@p.riotIDGameName#@p.riotIDTagLine</span></td>
-                                                                <td><span style="font-size: 1rem;">@p.kills/@p.deaths/@p.assists <p style="font-style:oblique;color:grey;margin-bottom:0;">@RiotService.getKDA(p.kills, p.deaths, p.assists) KDA</p></span></td>
+                                                                @{
+                                                                    kda = RiotService.getKDA(p.kills, p.deaths, p.assists);
+                                                                    @if (kda != "Perfect")
+                                                                    {
+                                                                        @if (double.Parse(kda, CultureInfo.InvariantCulture) > 5)
+                                                                        {
+                                                                            kdaColor = "gold";
+                                                                        }
+                                                                        else if (double.Parse(kda, CultureInfo.InvariantCulture) > 2 && double.Parse(kda, CultureInfo.InvariantCulture) < 5)
+                                                                        {
+                                                                            kdaColor = "blue";
+                                                                        }
+                                                                        else if (double.Parse(kda, CultureInfo.InvariantCulture) > 1 && double.Parse(kda, CultureInfo.InvariantCulture) < 2)
+                                                                        {
+                                                                            kdaColor = "grey";
+                                                                        }
+                                                                        else if (double.Parse(kda, CultureInfo.InvariantCulture) < 1)
+                                                                        {
+                                                                            kdaColor = "crimson";
+                                                                        }
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        kdaColor = "gold";
+                                                                    }
+                                                                }
+                                                                <td><span style="font-size: 1rem;">@p.kills/@p.deaths/@p.assists <p style="font-style:oblique;color:@kdaColor;margin-bottom:0;">@kda KDA</p></span></td>
                                                                 <td>
                                                                     <div style="text-align: center;">
                                                                         <span style="font-size: 0.9rem;color: @(p.totalDamageDealtToChampions == redMaxDamage ? "gold" : "white"); font-weight: @(p.totalDamageDealtToChampions == redMaxDamage ? "bold" : "normal")">
