@@ -162,7 +162,7 @@ else
                                         {
                                             @if (itemId > 0)
                                             {
-                                                <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/item/@(itemId).png"
+                                                <img src="https://ddragon.leagueoflegends.com/cdn/16.9.1/img/item/@(itemId).png"
                                                      width="40" height="40"
                                                      style="border-radius: 4px; border: 1px solid rgba(255,255,255,0.1);" />
                                             }
@@ -208,7 +208,7 @@ else
                                                             <th colspan="75%" style="background-color:rgba(18,23,31,1)"><strong style="color: #5383e8;">Blue Team</strong></th>
                                                             </tr>
                                                             <tr>
-                                                                <th style="width:8%;">Champion</th>
+                                                                <th style="width:4%;">Champion</th>
                                                                 <th style="width:4%">Summoner Name</th>
                                                                 <th style="width:5%">KDA</th>
                                                                 <th style="width:5%">Total Damage Dealt</th>
@@ -223,10 +223,10 @@ else
                                                             double bluePercent = (double)p.totalDamageDealtToChampions / blueMaxDamage * 100;
                                                             <tr>
                                                                 <td>
-                                                                    <div style="display:flex; align-items:center; gap:10px;">
+                                                                    <div style="display:flex; align-items:center;gap:10px;">
 
                                                                         <div class="champ-wrapper">
-                                                                            <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/@(p.championName).png"
+                                                                            <img src="https://ddragon.leagueoflegends.com/cdn/16.9.1/img/champion/@(p.championName).png"
                                                                                  width="50" height="50" style="border-radius: 50%;" />
                                                                             <span class="champlevel">@p.champLevel</span>
                                                                         </div>
@@ -234,12 +234,12 @@ else
                                                                         <div style="display:flex; align-items:center; gap:6px;">
                                                                             @if (p.summoner1ID > 0 && p.summoner1ID < 2200)
                                                                             {
-                                                                                <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/@(GetSummonerSpellName(p.summoner1ID)).png"
+                                                                                <img src="https://ddragon.leagueoflegends.com/cdn/16.9.1/img/spell/@(GetSummonerSpellName(p.summoner1ID)).png"
                                                                                      height="30" width="30" style="border-radius: 50%;" />
                                                                             }
                                                                             @if (p.summoner2ID > 0 && p.summoner2ID < 2200)
                                                                             {
-                                                                                <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/@(GetSummonerSpellName(p.summoner2ID)).png"
+                                                                                <img src="https://ddragon.leagueoflegends.com/cdn/16.9.1/img/spell/@(GetSummonerSpellName(p.summoner2ID)).png"
                                                                                      height="30" width="30" style="border-radius: 50%;" />
                                                                             }
                                                                             else
@@ -269,8 +269,8 @@ else
                                                                 <td><span style="font-size: 1rem;">@p.kills/@p.deaths/@p.assists <p style="font-style:oblique;color:grey;margin-bottom:0;">@RiotService.getKDA(p.kills, p.deaths, p.assists) KDA</p></span></td>
                                                                 <td>
                                                                     <div style="text-align: center;">
-                                                                        <span style="font-size: 0.9rem; font-weight: @(p.totalDamageDealtToChampions == blueMaxDamage ? "bold" : "normal")">
-                                                                            @p.totalDamageDealtToChampions.ToString("N0", spaceFormat)
+                                                                        <span style="font-size: 0.9rem;color: @(p.totalDamageDealtToChampions == blueMaxDamage ? "gold" : "white"); font-weight: @(p.totalDamageDealtToChampions == blueMaxDamage ? "bold" : "normal")">
+																			@p.totalDamageDealtToChampions.ToString("N0", spaceFormat)@(p.totalDamageDealtToChampions == blueMaxDamage ? "⭐" : "")
                                                                         </span>
                                                                         <div class="damage-bar-container">
                                                                             <div class="damage-bar-fill bg-blue-damage"
@@ -289,7 +289,7 @@ else
                                                                         {
                                                                             @if (itemId > 0)
                                                                             {
-                                                                                <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/item/@(itemId).png"
+                                                                                <img src="https://ddragon.leagueoflegends.com/cdn/16.9.1/img/item/@(itemId).png"
                                                                                      width="40" height="40"
                                                                                      style="border-radius: 4px; border: 1px solid rgba(255,255,255,0.1);" />
                                                                             }
@@ -319,7 +319,7 @@ else
                                                         </tr>
 														    
                                                         <tr>
-                                                            <th style="width:8%;">Champion</th>
+                                                            <th style="width:4%;">Champion</th>
                                                             <th style="width:4%">Summoner Name</th>
                                                             <th style="width:5%">KDA</th>
                                                             <th style="width:5%">Total Damage Dealt</th>
@@ -333,12 +333,12 @@ else
                                                         {
                                                             double redPercent = (double)p.totalDamageDealtToChampions / redMaxDamage * 100;
 
-                                                            <tr>
+                                                        <tr>
                                                                 <td>
                                                                     <div style="display:flex; align-items:center; gap:10px;">
 
                                                                         <div class="champ-wrapper">
-                                                                            <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/champion/@(p.championName).png"
+                                                                            <img src="https://ddragon.leagueoflegends.com/cdn/16.9.1/img/champion/@(p.championName).png"
                                                                                  width="50" height="50" style="border-radius: 50%;" />
                                                                             <span class="champlevel">@p.champLevel</span>
                                                                         </div>
@@ -347,12 +347,12 @@ else
 
                                                                             @if (p.summoner1ID > 0 && p.summoner1ID < 2200)
                                                                             {
-                                                                                <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/@(GetSummonerSpellName(p.summoner1ID)).png"
+                                                                                <img src="https://ddragon.leagueoflegends.com/cdn/16.9.1/img/spell/@(GetSummonerSpellName(p.summoner1ID)).png"
                                                                                      height="30" width="30" style="border-radius: 50%;" />
                                                                             }
                                                                             @if (p.summoner2ID > 0 && p.summoner2ID < 2200)
                                                                             {
-                                                                                <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/spell/@(GetSummonerSpellName(p.summoner2ID)).png"
+                                                                                <img src="https://ddragon.leagueoflegends.com/cdn/16.9.1/img/spell/@(GetSummonerSpellName(p.summoner2ID)).png"
                                                                                 height="30" width="30" style="border-radius: 50%;" />
                                                                             }
                                                                             else
@@ -382,8 +382,8 @@ else
                                                                 <td><span style="font-size: 1rem;">@p.kills/@p.deaths/@p.assists <p style="font-style:oblique;color:grey;margin-bottom:0;">@RiotService.getKDA(p.kills, p.deaths, p.assists) KDA</p></span></td>
                                                                 <td>
                                                                     <div style="text-align: center;">
-                                                                        <span style="font-size: 0.9rem; font-weight: @(p.totalDamageDealtToChampions == redMaxDamage ? "bold" : "normal")">
-                                                                            @p.totalDamageDealtToChampions.ToString("N0", spaceFormat)
+                                                                        <span style="font-size: 0.9rem;color: @(p.totalDamageDealtToChampions == redMaxDamage ? "gold" : "white"); font-weight: @(p.totalDamageDealtToChampions == redMaxDamage ? "bold" : "normal")">
+                                                                            @p.totalDamageDealtToChampions.ToString("N0", spaceFormat)@(p.totalDamageDealtToChampions == redMaxDamage ? "⭐" : "")
                                                                         </span>
                                                                         <div class="damage-bar-container">
                                                                             <div class="damage-bar-fill bg-red-damage"
@@ -402,7 +402,7 @@ else
                                                                     {
                                                                         @if (itemId > 0)
                                                                         {
-                                                                            <img src="https://ddragon.leagueoflegends.com/cdn/16.7.1/img/item/@(itemId).png"
+                                                                            <img src="https://ddragon.leagueoflegends.com/cdn/16.9.1/img/item/@(itemId).png"
                                                                                  width="40" height="40"
                                                                                  style="border-radius: 4px; border: 1px solid rgba(255,255,255,0.1);" />
                                                                         }
@@ -430,7 +430,7 @@ else
     </main>
 }
 @if (isRateLimited)
-{ //TODO ITT REFRESH PAGE
+{ 
     <div class="rate-limit-overlay">
         <div class="rate-limit-content">
             <div class="hourglass-anim">⏳</div>

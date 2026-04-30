@@ -15,9 +15,11 @@ public class RiotService
     private readonly PlayerSessionService _session;
     private readonly NavigationManager _nav;
 
-    public RiotService(HttpClient http)
+    public RiotService(HttpClient http,PlayerSessionService session, NavigationManager nav)
     {
         _http = http;
+        _session = session;
+        _nav = nav;
     }
 
     public async Task<RiotAccount?> GetRiotID(string riotId)
