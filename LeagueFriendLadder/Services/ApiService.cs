@@ -54,5 +54,18 @@ namespace LeagueFriendLadder.Services
             var response = await _http.PostAsJsonAsync($"api/User/{userId}/link-summoner", summoner);
             return response.IsSuccessStatusCode;
         }
+        public async Task<bool> IsSummonerAlreadyLinked(string puuid)
+        {
+            try
+            {
+                var response = await _http.GetAsync($"api/user/is-linked/{puuid}");
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadFromJsonAsync<bool>();
+                }
+                return false;
+            }
+            catch { return false; }
+        }
     }
 }

@@ -163,6 +163,27 @@
   },
   {
     "ContainingType": "LeagueFriendLadder.Api.Controllers.UserController",
+    "Method": "UnlinkSummoner",
+    "RelativePath": "api/User/{userId}/unlink/{puuid}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "puuid",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "LeagueFriendLadder.Api.Controllers.UserController",
     "Method": "AcceptFriendRequest",
     "RelativePath": "api/User/accept-request/{requestId}",
     "HttpMethod": "POST",

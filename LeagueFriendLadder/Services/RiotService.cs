@@ -12,14 +12,10 @@ public class RiotService
 
     private readonly HttpClient _http;
     private readonly string apiKey = "RGAPI-15de7229-e9c5-49f8-a1d0-69a63a7bb4ab";
-    private readonly PlayerSessionService _session;
-    private readonly NavigationManager _nav;
 
-    public RiotService(HttpClient http,PlayerSessionService session, NavigationManager nav)
+    public RiotService(HttpClient http)
     {
         _http = http;
-        _session = session;
-        _nav = nav;
     }
 
     public async Task<RiotAccount?> GetRiotID(string riotId)
@@ -187,12 +183,5 @@ public class RiotService
         double kdaValue = (double)(kills + assists) / deaths;
 
         return kdaValue.ToString("F2", System.Globalization.CultureInfo.InvariantCulture);
-    }
-    public void viewProfile(LeagueEntryDTO p)
-    {
-        if (p == null) return;
-
-        _session.SelectedPlayer = p;
-        _nav.NavigateTo($"/profile/{p.SummonerName}/{p.Tag}");
     }
 }

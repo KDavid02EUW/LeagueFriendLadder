@@ -3,9 +3,11 @@
 @using LeagueFriendLadder.Models
 @using LeagueFriendLadder.Api.Models
 @using Blazored.LocalStorage
+@using LeagueFriendLadder.Services
 @inject ILocalStorageService LocalStorage
 @inject HttpClient Http
 @inject RiotService RiotService
+@inject ClientNavigationService Cnav;
 @inject Services.PlayerSessionService Session
 @inject Services.ApiService apiService
 @inject NavigationManager Nav
@@ -90,7 +92,7 @@
             @foreach (var player in filteredPlayers)
             {
                 <tr>
-					<td><a @onclick="() => RiotService.viewProfile(player)">@player.SummonerName</a></td>
+					<td><a @onclick="() => Cnav.viewProfile(player)">@player.SummonerName</a></td>
 					<td >@player.Tag</td>
 					<td>@player.Rank</td>
 					<td>@player.Tier</td>

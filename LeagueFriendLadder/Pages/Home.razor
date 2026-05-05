@@ -7,6 +7,7 @@
 @inject HttpClient Http
 @inject RiotService riotService
 @inject Services.PlayerSessionService Session
+@inject Services.ClientNavigationService cnav
 @inject Services.ApiService apiService
 @inject NavigationManager Nav
 @inject IJSRuntime JS
@@ -84,7 +85,7 @@ else if (result != null && result2 != null)
             <th></th>
         </thead>
         <tbody class="single-view" id="target">
-            <td><a @onclick="() => riotService.viewProfile(result2)">@result.GameName</a></td>
+            <td><a @onclick="() => cnav.viewProfile(result2)">@result.GameName</a></td>
             <td>@result.TagLine</td>
             <td>@result2.QueueType</td>
             <td>@result2.Tier</td>

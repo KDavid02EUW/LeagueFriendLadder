@@ -155,6 +155,15 @@
     {
         if (user == null || foundSummoner == null) return;
 
+        statusMessage = "Checking account availability...";
+        var isTaken = await ApiService.IsSummonerAlreadyLinked(foundSummoner.Puuid);
+
+        if (isTaken)
+        {
+            statusMessage = "This Riot account is already linked to another user!";
+            return;
+        }
+
         var saveResult = await ApiService.SavePlayerToDb(foundSummoner);
 
         if (!saveResult.Success)
@@ -165,7 +174,7 @@
 
         var linkResult = await ApiService.LinkSummonerToUser(user.Id, foundSummoner);
 
-        if (linkResult)
+        if (linkResult && !isTaken)
         {
             var currentSummoners = user.Summoners?.ToList() ?? new List<string>();
             if (!currentSummoners.Contains(foundSummoner.Puuid))
@@ -177,8 +186,6 @@
 
             statusMessage = "Successfully saved and linked!";
 
-            await Task.Delay(1500);
-            Nav.NavigateTo("/ListPlayers");
         }
         else
         {

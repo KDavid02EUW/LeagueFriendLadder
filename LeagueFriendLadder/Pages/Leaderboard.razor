@@ -3,6 +3,7 @@
 @using LeagueFriendLadder.Api.Models
 @using Blazored.LocalStorage
 @inject ILocalStorageService LocalStorage
+@inject Services.ClientNavigationService cnav
 @inject RiotService riotService
 @inject HttpClient Http
 @inject NavigationManager Nav
@@ -57,7 +58,7 @@ else
                 {
                     <tr>
                         <td>@(i++).</td>
-                        <td style="padding-left:4.5% !important;"><a @onclick="() => riotService.viewProfile(leagueEntryDTO)">@entry.RiotName</a></td>
+                        <td style="padding-left:4.5% !important;"><a @onclick="() => cnav.viewProfile(GetLeagueEntryDTO(entry))">@entry.RiotName</a></td>
                         <td>
                             @if (entry.Tier != "UNRANKED")
                             {
@@ -186,11 +187,31 @@ else
             _ => 0
         };
     }
+    private LeagueEntryDTO GetLeagueEntryDTO(LeaderboardEntryVM entryVM)
+    {
+        LeagueEntryDTO leagueEntryDTO = new LeagueEntryDTO();
+        leagueEntryDTO.Tier = entryVM.Tier;
+        leagueEntryDTO.Winrate = entryVM.Winrate;
+        leagueEntryDTO.Region = entryVM.Region;
+        string SummonerName = entryVM.RiotName.Split("#")[0];
+        string Tag= entryVM.RiotName.Split("#")[1];
+        leagueEntryDTO.SummonerName = SummonerName;
+        leagueEntryDTO.Tag = Tag;
+        leagueEntryDTO.LeaguePoints = entryVM.LeaguePoints;
+        leagueEntryDTO.Wins = entryVM.Wins;
+        leagueEntryDTO.Losses = entryVM.Losses;
+        leagueEntryDTO.Puuid = entryVM.puuid;
+        leagueEntryDTO.HotStreak = entryVM.HotStreak;
+        leagueEntryDTO.Rank = entryVM.Rank;
+
+        return leagueEntryDTO;
+    }
 
     public class LeaderboardEntryVM
     {
         public string Username { get; set; } = string.Empty;
         public string RiotName { get; set; } = string.Empty;
+        public string puuid { get; set; } = string.Empty;
         public string Tier { get; set; } = "UNRANKED";
         public string Rank { get; set; } = "";
         public int LeaguePoints { get; set; }
@@ -199,5 +220,6 @@ else
         public int Losses { get; set; }
         public int GamesPlayed { get; set; }
         public string Region { get; set; }
+        public bool HotStreak { get; set; }
     }
 }

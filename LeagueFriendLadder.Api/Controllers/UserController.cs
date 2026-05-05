@@ -248,7 +248,6 @@ namespace LeagueFriendLadder.Api.Controllers
         [HttpGet("{userId}/leaderboard")]
         public async Task<IActionResult> GetLeaderboard(int userId)
         {
-            // 1. Barátok és a saját ID összegyűjtése
             var friendships = await _context.Friends
                 .Where(f => (f.SenderUserId == userId || f.ReceiverUserId == userId)
                              && f.Status == FriendshipStatus.Accepted)
@@ -259,7 +258,6 @@ namespace LeagueFriendLadder.Api.Controllers
                 .ToList();
             userIds.Add(userId);
 
-            // 2. Lekérjük a felhasználókat az adatbázisból
             var users = await _context.Users
                 .Where(u => userIds.Contains(u.Id))
                 .ToListAsync();
@@ -297,7 +295,10 @@ namespace LeagueFriendLadder.Api.Controllers
                             Winrate = rankInfo.Winrate,
                             Wins = rankInfo.Wins,
                             Losses = rankInfo.Losses,
-                            GamesPlayed = rankInfo.Wins + rankInfo.Losses
+                            GamesPlayed = rankInfo.Wins + rankInfo.Losses,
+                            Region = rankInfo.Region,
+                            HotStreak = rankInfo.HotStreak,
+                            puuid = rankInfo.Puuid
                         });
                     }
                     else
@@ -330,6 +331,32 @@ namespace LeagueFriendLadder.Api.Controllers
                 "IRON" => 0,
                 _ => -1
             };
+        }
+        [HttpDelete("{userId}/unlink/{puuid}")]
+        public async Task<IActionResult> UnlinkSummoner(int userId, string puuid)
+        {
+            var user = await _context.Users.FindAsync(userId);
+            if (user == null) return NotFound("User not found");
+
+            if (user.Summoners == null) return Ok();
+
+            var newSummoners = user.Summoners.Where(p => p != puuid).ToArray();
+
+            if (newSummoners.Length == user.Summoners.Length)
+            {
+                return Ok("Summoner was not linked to this user");
+            }
+
+            user.Summoners = newSummoners;
+
+            var result = await _context.SaveChangesAsync();
+
+            if (result > 0)
+            {
+                return Ok();
+            }
+
+            return BadRequest("Failed to save changes to database");
         }
     }
 }

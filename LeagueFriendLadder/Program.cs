@@ -9,6 +9,7 @@ builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddScoped<PlayerSessionService>();
+builder.Services.AddScoped<ClientNavigationService>();
 builder.Services.AddScoped<RiotService>();
 builder.Services.AddScoped<ApiService>();
 builder.Services.AddBlazoredLocalStorage();

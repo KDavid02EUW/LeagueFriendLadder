@@ -1,9 +1,12 @@
 ﻿@page "/admin"
 @using LeagueFriendLadder.Api.Models
 @using Blazored.LocalStorage
+@using LeagueFriendLadder.Models
 @inject ILocalStorageService LocalStorage
 @inject NavigationManager Nav
 @inject HttpClient Http
+@inject RiotService RiotService
+@inject Services.ApiService ApiService
 @inject IJSRuntime JSRuntime
 
 <PageTitle>Admin Panel</PageTitle>
@@ -58,10 +61,13 @@ else
                             <td>@(u.IsAdmin ? "✅" : "❌")</td>
                             <td>@(u.Summoners?.Length ?? 0) summoners</td>
                             <td>
-                                <button class="outline error" @onclick="() => EditUser(u)">Edit</button>
+							<button class="outline error" @onclick="() => EditUser(u)">Edit</button>
+                            @if(u.Username != currentUser.Username)
+							{
                                 <button style="color:crimson !important;border:1px solid crimson !important;" class="outline error" @onclick="() => DeleteUser(u.Id,u.Username)">Delete</button>
-                            </td>
-                        </tr>
+							}
+						</td>
+						</tr>
                     }
                 </tbody>
             </table>
@@ -85,6 +91,42 @@ else
                                 </tbody>
                             </table>
                         </form>
+                        <hr />
+                        <h5>Linked Summoners</h5>
+
+                        @if (isLoadingSummoners)
+                        {
+                            <progress></progress>
+                        }
+                        else if (displaySummoners == null || !displaySummoners.Any())
+                        {
+                            <p>No accounts linked.</p>
+                        }
+                        else
+                        {
+                            <table class="striped">
+                                <thead>
+                                    <tr>
+                                        <th>Summoner</th>
+                                        <th style="width:100px;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var s in displaySummoners)
+                                    {
+                                        <tr>
+                                            <td style="vertical-align: middle;">@s.NameWithTag</td>
+                                            <td>
+                                                <button class="outline error" style="margin:0; padding: 5px;"
+                                                        @onclick="() => UnlinkSummoner(s.Puuid)">
+                                                    Unlink
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
                         <footer>
                             <button class="secondary outline" style="border:1px solid darkgrey !important;color:white !important;" @onclick="CloseEdit">Cancel</button>
                             <button @onclick="SaveEdit">Save</button>
@@ -101,6 +143,8 @@ else
     private List<User>? users;
     private bool isEditing = false;
     private User? editingUser;
+    private List<LinkedSummonerDisplay>? displaySummoners;
+    private bool isLoadingSummoners = false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -143,7 +187,7 @@ else
             }
         }
     }
-    private void EditUser(User user)
+    private async Task EditUser(User user)
     {
 
         editingUser = new User
@@ -154,6 +198,7 @@ else
             Summoners = user.Summoners
         };
         isEditing = true;
+        await LoadLinkedSummonerNames();
     }
 
     private void CloseEdit()
@@ -212,5 +257,54 @@ else
     {
         if (currentSortColumn != columnName) return "";
         return isAscending ? "▲" : "▼";
+    }
+    public class LinkedSummonerDisplay
+    {
+        public string Puuid { get; set; } = "";
+        public string NameWithTag { get; set; } = "";
+    }
+    private async Task LoadLinkedSummonerNames()
+    {
+        if (editingUser?.Summoners == null || !editingUser.Summoners.Any())
+        {
+            displaySummoners = new();
+            return;
+        }
+
+        isLoadingSummoners = true;
+        displaySummoners = new();
+
+        foreach (var puuid in editingUser.Summoners)
+        {
+            var account = await RiotService.GetRiotIDByPuuid(puuid);
+
+            displaySummoners.Add(new LinkedSummonerDisplay
+            {
+                Puuid = puuid,
+                NameWithTag = account != null ? $"{account.GameName}#{account.TagLine}" : "Unknown Account"
+            });
+        }
+        isLoadingSummoners = false;
+        StateHasChanged();
+    }
+    private async Task UnlinkSummoner(string puuid)
+    {
+        bool confirmed = await JSRuntime.InvokeAsync<bool>("confirm", "Unlink this account from the user?");
+        if (!confirmed || editingUser == null) return;
+
+        var response = await Http.DeleteAsync($"api/user/{editingUser.Id}/unlink/{puuid}");
+
+        if (response.IsSuccessStatusCode)
+        {
+            displaySummoners?.RemoveAll(s => s.Puuid == puuid);
+            editingUser.Summoners = editingUser.Summoners.Where(p => p != puuid).ToArray();
+
+            var u = users?.FirstOrDefault(x => x.Id == editingUser.Id);
+            if (u != null) u.Summoners = editingUser.Summoners;
+        }
+        else
+        {
+            await JSRuntime.InvokeVoidAsync("alert", "Failed to unlink!");
+        }
     }
 }
