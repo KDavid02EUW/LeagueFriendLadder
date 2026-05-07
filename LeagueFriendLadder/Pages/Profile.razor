@@ -227,12 +227,12 @@ else
                                                 <table>
                                                     <thead>
                                                         <tr>
-                                                            <th>
+                                                            <th style="text-align:left !important;padding-left:10px !important;">
                                                                 <span>
-																	@date.ToString("yyyy.MM.dd HH:mm") | @(blueWins ? "Victory" : "Defeat") @(TimeSpan.FromMilliseconds(match.gameEndTimeStamp - match.gameStartTimeStamp).ToString(@"mm'm 'ss's'"))
+                                                                    @(blueWins ? "Defeat" : "Victory")
                                                                 </span>
                                                             </th>
-                                                            <th colspan="75%" style="background-color:rgba(18,23,31,1)"><strong style="color: #5383e8;">Blue Team</strong></th>
+                                                            <th colspan="100%" style="background-color:rgba(18,23,31,1)"><strong style="color: #5383e8;">Blue Team</strong></th>
                                                             </tr>
                                                             <tr>
                                                                 <th style="width:4%;">Champion</th>
@@ -250,7 +250,7 @@ else
                                                             double bluePercent = (double)p.totalDamageDealtToChampions / blueMaxDamage * 100;
                                                             <tr>
                                                                 <td>
-                                                                    <div style="display:flex; align-items:center;gap:10px;">
+                                                                    <div style="display:flex; align-items:center; gap:10px;">
 
                                                                         <div class="champ-wrapper">
                                                                             <img src="https://ddragon.leagueoflegends.com/cdn/16.9.1/img/champion/@(p.championName).png"
@@ -259,6 +259,7 @@ else
                                                                         </div>
 
                                                                         <div style="display:flex; align-items:center; gap:6px;">
+
                                                                             @if (p.summoner1ID > 0 && p.summoner1ID < 2200)
                                                                             {
                                                                                 <img src="https://ddragon.leagueoflegends.com/cdn/16.9.1/img/spell/@(GetSummonerSpellName(p.summoner1ID)).png"
@@ -363,14 +364,13 @@ else
 
 													<thead>
                                                         <tr>
-                                                            <th>
+                                                            <th style="text-align:left !important;padding-left:10px !important;">
                                                                 <span>
                                                                     @(blueWins ? "Defeat" : "Victory")
                                                                 </span>
                                                             </th>
 															<th colspan="100%"><strong style="color: #e84057;">Red Team</strong></th>
                                                         </tr>
-														    
                                                         <tr>
                                                             <th style="width:4%;">Champion</th>
                                                             <th style="width:4%">Summoner Name</th>
