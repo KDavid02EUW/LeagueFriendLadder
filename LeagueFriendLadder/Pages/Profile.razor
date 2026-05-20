@@ -159,19 +159,19 @@ else
                                         kda = RiotService.getKDA(kills, deaths, assists);
                                         @if (kda != "Perfect")
                                         {
-                                            @if (double.Parse(kda, CultureInfo.InvariantCulture) > 5)
+                                            @if (double.Parse(kda, CultureInfo.InvariantCulture) >= 5)
                                             {
                                                 kdaColor = "gold";
                                             }
-                                            else if (double.Parse(kda, CultureInfo.InvariantCulture) > 2 && double.Parse(kda, CultureInfo.InvariantCulture) < 5)
+                                            else if (double.Parse(kda, CultureInfo.InvariantCulture) >= 2 && double.Parse(kda, CultureInfo.InvariantCulture) <= 5)
                                             {
-                                                kdaColor = "blue";
+                                                kdaColor = "rgb(40, 100, 255)";
                                             }
-                                            else if (double.Parse(kda, CultureInfo.InvariantCulture) > 1 && double.Parse(kda, CultureInfo.InvariantCulture) < 2)
+                                            else if (double.Parse(kda, CultureInfo.InvariantCulture) >= 1 && double.Parse(kda, CultureInfo.InvariantCulture) <= 2)
                                             {
                                                 kdaColor = "grey";
                                             }
-                                            else if (double.Parse(kda, CultureInfo.InvariantCulture) < 1)
+                                            else if (double.Parse(kda, CultureInfo.InvariantCulture) <= 1)
                                             {
                                                 kdaColor = "crimson";
                                             }
@@ -229,7 +229,7 @@ else
                                                         <tr>
                                                             <th style="text-align:left !important;padding-left:10px !important;">
                                                                 <span>
-                                                                    @(blueWins ? "Defeat" : "Victory")
+                                                                    @(blueWins ? "Victory" : "Defeat")
                                                                 </span>
                                                             </th>
                                                             <th colspan="100%" style="background-color:rgba(18,23,31,1)"><strong style="color: #5383e8;">Blue Team</strong></th>
@@ -298,19 +298,19 @@ else
                                                                     kda = RiotService.getKDA(p.kills, p.deaths, p.assists);
                                                                     @if (kda != "Perfect")
                                                                     {
-                                                                        @if (double.Parse(kda, CultureInfo.InvariantCulture) > 5)
+                                                                        @if (double.Parse(kda, CultureInfo.InvariantCulture) >= 5)
                                                                         {
                                                                             kdaColor = "gold";
                                                                         }
-                                                                        else if (double.Parse(kda, CultureInfo.InvariantCulture) > 2 && double.Parse(kda, CultureInfo.InvariantCulture) < 5)
+                                                                        else if (double.Parse(kda, CultureInfo.InvariantCulture) >= 2 && double.Parse(kda, CultureInfo.InvariantCulture) <= 5)
                                                                         {
-                                                                            kdaColor = "blue";
+                                                                            kdaColor = "rgb(40, 100, 255)";
                                                                         }
-                                                                        else if (double.Parse(kda, CultureInfo.InvariantCulture) > 1 && double.Parse(kda, CultureInfo.InvariantCulture) < 2)
+                                                                        else if (double.Parse(kda, CultureInfo.InvariantCulture) >= 1 && double.Parse(kda, CultureInfo.InvariantCulture) <= 2)
                                                                         {
                                                                             kdaColor = "grey";
                                                                         }
-                                                                        else if (double.Parse(kda, CultureInfo.InvariantCulture) < 1)
+                                                                        else if (double.Parse(kda, CultureInfo.InvariantCulture) <= 1)
                                                                         {
                                                                             kdaColor = "crimson";
                                                                         }
@@ -436,19 +436,19 @@ else
                                                                     kda = RiotService.getKDA(p.kills, p.deaths, p.assists);
                                                                     @if (kda != "Perfect")
                                                                     {
-                                                                        @if (double.Parse(kda, CultureInfo.InvariantCulture) > 5)
+                                                                        @if (double.Parse(kda, CultureInfo.InvariantCulture) >= 5)
                                                                         {
                                                                             kdaColor = "gold";
                                                                         }
-                                                                        else if (double.Parse(kda, CultureInfo.InvariantCulture) > 2 && double.Parse(kda, CultureInfo.InvariantCulture) < 5)
+                                                                        else if (double.Parse(kda, CultureInfo.InvariantCulture) >= 2 && double.Parse(kda, CultureInfo.InvariantCulture) <= 5)
                                                                         {
-                                                                            kdaColor = "blue";
+                                                                            kdaColor = "rgb(40, 100, 255)";
                                                                         }
-                                                                        else if (double.Parse(kda, CultureInfo.InvariantCulture) > 1 && double.Parse(kda, CultureInfo.InvariantCulture) < 2)
+                                                                        else if (double.Parse(kda, CultureInfo.InvariantCulture) >= 1 && double.Parse(kda, CultureInfo.InvariantCulture) <= 2)
                                                                         {
                                                                             kdaColor = "grey";
                                                                         }
-                                                                        else if (double.Parse(kda, CultureInfo.InvariantCulture) < 1)
+                                                                        else if (double.Parse(kda, CultureInfo.InvariantCulture) <= 1)
                                                                         {
                                                                             kdaColor = "crimson";
                                                                         }

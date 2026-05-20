@@ -1,0 +1,16 @@
+﻿<Project>
+  <ItemGroup>
+    <StaticWebAssetEndpoint Include="_content/LeagueFriendLadder.Api/data/augments.b9d6sicqq6.json">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\data\augments.json'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"b9d6sicqq6"},{"Name":"integrity","Value":"sha256-YROFIVWVwsalgIaEtPYKHq0y/MkQDLCRkvkybvHC7tw="},{"Name":"label","Value":"_content/LeagueFriendLadder.Api/data/augments.json"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"408885"},{"Name":"Content-Type","Value":"application/json"},{"Name":"ETag","Value":"\u0022YROFIVWVwsalgIaEtPYKHq0y/MkQDLCRkvkybvHC7tw=\u0022"},{"Name":"Last-Modified","Value":"Thu, 07 May 2026 17:28:11 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/LeagueFriendLadder.Api/data/augments.json">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\data\augments.json'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-YROFIVWVwsalgIaEtPYKHq0y/MkQDLCRkvkybvHC7tw="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"408885"},{"Name":"Content-Type","Value":"application/json"},{"Name":"ETag","Value":"\u0022YROFIVWVwsalgIaEtPYKHq0y/MkQDLCRkvkybvHC7tw=\u0022"},{"Name":"Last-Modified","Value":"Thu, 07 May 2026 17:28:11 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+  </ItemGroup>
+</Project>

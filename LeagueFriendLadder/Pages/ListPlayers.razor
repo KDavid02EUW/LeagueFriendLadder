@@ -17,53 +17,53 @@
 <EditForm Model="LeagueList" OnValidSubmit="findPlayers">
     <div class="form-style-container">
         <div>
-			<DataAnnotationsValidator />
-			<ValidationSummary />
-			<label>Minimum LP:</label>
-			<InputNumber @bind-Value="LeagueList.LeaguePoints"/>
-			<br />
-			<label>Minimum Winrate (%):</label>
-			<InputNumber @bind-Value="LeagueList.Winrate"/>
-			<br />
-			<label>Rank:</label>
-			<InputSelect @bind-Value="LeagueList.Rank">
-				<option value="" hidden>Select a rank</option>
-				<option value="Challenger">CHALLENGER</option>
-				<option value="Grandmaster">GRANDMASTER</option>
-				<option value="Master">MASTER</option>
-				<option value="Diamond">DIAMOND</option>
-				<option value="Emerald">EMERALD</option>
-				<option value="Platinum">PLATINUM</option>
-				<option value="Gold">GOLD</option>
-				<option value="Silver">SILVER</option>
-				<option value="Bronze">BRONZE</option>
-				<option value="Iron">IRON</option>
-			</InputSelect>
-			<br />
-			<label>Region:</label>
-			<InputSelect @bind-Value="LeagueList.Region">
-				<option value="">Select your region</option>
-				<option value="BR1">BR</option>
-				<option value="EUN1">EUNE</option>
-				<option value="EUW1">EUW</option>
-				<option value="JP1">JP</option>
-				<option value="KR">KR</option>
-				<option value="LA1">LAN</option>
-				<option value="LA2">LAS</option>
-				<option value="ME1">ME</option>
-				<option value="NA1">NA</option>
-				<option value="OC1">OCE</option>
-				<option value="RU">RU</option>
-				<option value="SG2">SG</option>
-				<option value="TR1">TR</option>
-				<option value="TW2">TW</option>
-				<option value="VN2">VN</option>
-			</InputSelect>
-			<br />
-			<button type="submit">List Players</button>
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <label>Minimum LP:</label>
+            <InputNumber @bind-Value="LeagueList.LeaguePoints"/>
+            <br />
+            <label>Minimum Winrate (%):</label>
+            <InputNumber @bind-Value="LeagueList.Winrate"/>
+            <br />
+            <label>Rank:</label>
+            <InputSelect @bind-Value="LeagueList.Rank">
+                <option value="" hidden>Select a rank</option>
+                <option value="Challenger">CHALLENGER</option>
+                <option value="Grandmaster">GRANDMASTER</option>
+                <option value="Master">MASTER</option>
+                <option value="Diamond">DIAMOND</option>
+                <option value="Emerald">EMERALD</option>
+                <option value="Platinum">PLATINUM</option>
+                <option value="Gold">GOLD</option>
+                <option value="Silver">SILVER</option>
+                <option value="Bronze">BRONZE</option>
+                <option value="Iron">IRON</option>
+            </InputSelect>
+            <br />
+            <label>Region:</label>
+            <InputSelect @bind-Value="LeagueList.Region">
+                <option value="">Select your region</option>
+                <option value="BR1">BR</option>
+                <option value="EUN1">EUNE</option>
+                <option value="EUW1">EUW</option>
+                <option value="JP1">JP</option>
+                <option value="KR">KR</option>
+                <option value="LA1">LAN</option>
+                <option value="LA2">LAS</option>
+                <option value="ME1">ME</option>
+                <option value="NA1">NA</option>
+                <option value="OC1">OCE</option>
+                <option value="RU">RU</option>
+                <option value="SG2">SG</option>
+                <option value="TR1">TR</option>
+                <option value="TW2">TW</option>
+                <option value="VN2">VN</option>
+            </InputSelect>
+            <br />
+            <button type="submit">List Players</button>
         </div>
     </div>
-    
+
 </EditForm>
 
 @if (isLoading && errorMessage == null)
@@ -75,11 +75,11 @@
 @if (filteredPlayers != null)
 {
     <h3>Matches Found: [@requestCount]</h3>
-	
-	<table>
+
+    <table>
         <thead>
             <th>Name</th>
-        <th style="text-align:start !important;">Tag</th>
+            <th style="text-align:start !important;">Tag</th>
             <th>Rank</th>
             <th>Tier</th>
             <th>LP</th>
@@ -92,23 +92,23 @@
             @foreach (var player in filteredPlayers)
             {
                 <tr>
-					<td><a @onclick="() => Cnav.viewProfile(player)">@player.SummonerName</a></td>
-					<td >@player.Tag</td>
-					<td>@player.Rank</td>
-					<td>@player.Tier</td>
-					<td>@player.LeaguePoints</td>
-					<td>@player.Wins</td>
-					<td>@player.Losses</td>
-					<td>@player.Winrate%</td>
-					<td><button type="button" @onclick="() => HandleSavePlayer(player)">Save Player</button></td>
-					<td><button type="button" @onclick="() => HandleFriendRequest(player)">Add Friend</button></td>
+                    <td><a @onclick="() => Cnav.viewProfile(player)">@player.SummonerName</a></td>
+                    <td >@player.Tag</td>
+                    <td>@player.Rank</td>
+                    <td>@player.Tier</td>
+                    <td>@player.LeaguePoints</td>
+                    <td>@player.Wins</td>
+                    <td>@player.Losses</td>
+                    <td>@player.Winrate%</td>
+                    <td><button type="button" @onclick="() => HandleSavePlayer(player)">Save Player</button></td>
+                    <td><button type="button" @onclick="() => HandleFriendRequest(player)">Add Friend</button></td>
                 </tr>
             }
-            
-        </tbody>
-	</table>
 
-	
+        </tbody>
+    </table>
+
+
 }
 else if (!string.IsNullOrEmpty(errorMessage))
 {
@@ -205,6 +205,14 @@ else if (!string.IsNullOrEmpty(errorMessage))
                         .ToList();
                     foreach (var player in filteredPlayers)
                     {
+                        if(requestCount % 20 == 0)
+                        {
+                            await Task.Delay(2000);
+                        }
+                        else if(requestCount % 99 == 0)
+                        {
+                            await Task.Delay(120000);
+                        }
                         var name = await RiotService.GetRiotIDByPuuid(player.Puuid);
                         requestCount++;
                         if (name != null)

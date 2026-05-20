@@ -1,0 +1,29 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\kassa\\source\\repos\\LeagueFriendLadder\\LeagueFriendLadder.Api\\wwwroot\\data\\augments.json",
+      "PackagePath": "staticwebassets\\data\\augments.json"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.LeagueFriendLadder.Api.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.LeagueFriendLadder.Api.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.LeagueFriendLadder.Api.props",
+      "PackagePath": "build\\LeagueFriendLadder.Api.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.LeagueFriendLadder.Api.props",
+      "PackagePath": "buildMultiTargeting\\LeagueFriendLadder.Api.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.LeagueFriendLadder.Api.props",
+      "PackagePath": "buildTransitive\\LeagueFriendLadder.Api.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
